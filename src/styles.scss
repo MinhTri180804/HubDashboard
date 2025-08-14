@@ -1,1 +1,75 @@
+@use "./assets/styles/base/reset.scss" as *;
+@use "./assets/styles/base/typography.scss" as *;
+
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  // Related with body background
+  --body-background-gradient: linear-gradient(
+    180deg,
+    rgba(50, 70, 80, 0.9) 0%,
+    rgb(13, 16, 27) 100%
+  );
+  --body-background-pattern: url("./assets/image/body-bg-pattern.png");
+  --body-background-pattern-size: 5rem;
+  --body-background-cover: url("./assets/image/body-bg-cover.jpg");
+
+  // Related with logo
+  --logo-background: url("./assets/image/logo.png");
+
+  // Color variable
+  --color-primary: #3cd2a5;
+  --color-primary-rgba: rgb(60, 210, 165);
+  --color-white: #fff;
+}
+
+html {
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-base;
+  font-weight: $font-weight-bold;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 100%;
+  z-index: -5;
+  background: var(--body-background-gradient);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  z-index: -5;
+  background-image: var(--body-background-pattern);
+  background-repeat: repeat;
+  background-size: var(--body-background-pattern-size);
+}
+
+body {
+  background-image: var(--body-background-cover);
+  background-position: center;
+  width: 100dvw;
+  height: 100dvh;
+}
