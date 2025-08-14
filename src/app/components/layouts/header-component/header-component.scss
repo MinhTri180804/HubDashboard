@@ -1,0 +1,122 @@
+:host {
+  // Global header style
+  --header-background-color: rgba(29, 40, 53, 0.95);
+  --header-icon-size: 26px;
+  --header-icon-color: var(--color-white);
+  --header-icon-padding: 8px 16px;
+
+  // Related left header style
+  --header-left-gap: 16px;
+
+  // Related right header style
+  --header-right-gap: 0px;
+
+  // Related with logo style
+  --header-logo-text-color: var(--color-primary);
+  --header-logo-name-color: var(--color-white);
+  --header-logo-name-size: 15px;
+  --header-logo-name-letter-spacing: 2px;
+  --header-logo-name-font-weight: 300;
+}
+
+header {
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  background-color: var(--header-background-color);
+
+  & > .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: var(--header-left-gap);
+
+    & > .toggle-sidebar {
+      padding: 8px 16px;
+      color: var(--header-icon-color);
+      opacity: 0.7;
+      transition: opacity 0.4s ease;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+
+      & > mat-icon {
+        font-size: var(--header-icon-size);
+      }
+    }
+
+    & > .logo {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      align-items: center;
+
+      & > .image {
+        background-image: var(--logo-background);
+        background-size: contain;
+        width: 26px;
+        height: 26px;
+        text-align: center;
+        line-height: 26px;
+        color: var(--header-logo-text-color);
+      }
+
+      & > p.name {
+        text-transform: uppercase;
+        color: var(--header-logo-name-color);
+        font-size: var(--header-logo-name-size);
+        letter-spacing: var(--header-logo-name-letter-spacing);
+        font-weight: var(--header-logo-name-font-weight);
+      }
+    }
+  }
+
+  & > .right {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--header-right-gap);
+    align-items: center;
+
+    // Common style for actions icon
+    & > .search,
+    & > .apps,
+    & > .notifications {
+      color: var(--header-icon-color);
+      padding: var(--header-icon-padding);
+      cursor: pointer;
+
+      & > mat-icon {
+        font-size: var(--header-icon-size);
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    & > .user__account {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 16px;
+      cursor: pointer;
+
+      & > img.avatar {
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        border-radius: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      & > p.email {
+        font-size: 14px;
+        color: var(--color-white);
+        font-weight: 300;
+      }
+    }
+  }
+}
