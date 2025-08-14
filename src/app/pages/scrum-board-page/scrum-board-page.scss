@@ -1,7 +1,11 @@
 :host {
+  // Style variables of header
   --title-size: 28px;
   --title-weight: 600;
   --title-color: var(--color-white);
+
+  // Style variables of scrum information
+  --information-gap: 24px;
 }
 
 .header {
@@ -10,6 +14,7 @@
   align-items: center;
   width: 100%;
   height: fit-content;
+  padding-bottom: 18px;
 
   & > &__content {
     width: 100%;
@@ -30,4 +35,11 @@
     flex-shrink: 0;
     flex-grow: 0;
   }
+}
+
+.scrum__information {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--information-gap);
+  align-items: center;
 }

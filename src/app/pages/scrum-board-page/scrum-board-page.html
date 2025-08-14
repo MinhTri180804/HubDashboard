@@ -11,6 +11,34 @@
   </div>
 </header>
 
-<div class="scrum__information"></div>
+<div class="scrum__information">
+  <app-dropdown-component>
+    <mat-icon icon fontIcon="folder"></mat-icon>
+    <p name>project/hub</p>
+    <ul options>
+      @for(project of projectsMockData; track $index) {
+      <app-dropdown-item-component>
+        <mat-icon icon fontIcon="folder"> </mat-icon>
+        <p name>{{ project.name }}</p>
+      </app-dropdown-item-component>
+      }
+    </ul>
+  </app-dropdown-component>
+
+  <app-dropdown-component>
+    <mat-icon icon fontIcon="polyline"></mat-icon>
+    <p name>1,392 pull request</p>
+  </app-dropdown-component>
+
+  <app-dropdown-component>
+    <mat-icon icon fontIcon="groups"></mat-icon>
+    <p name>52 participant</p>
+  </app-dropdown-component>
+
+  <app-dropdown-component>
+    <mat-icon icon fontIcon="access_time"></mat-icon>
+    <p name>14 day(s)</p>
+  </app-dropdown-component>
+</div>
 
 <section class="scrum__content"></section>

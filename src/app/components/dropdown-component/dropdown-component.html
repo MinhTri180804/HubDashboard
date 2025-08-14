@@ -1,0 +1,18 @@
+<div class="dropdown" (click)="toggleOpen()">
+  <div class="dropdown__trigger">
+    <div class="dropdown__content">
+      <ng-content select="[icon]"></ng-content>
+      <ng-content select="[name]"></ng-content>
+    </div>
+
+    @if(hasChild()) {
+    <div class="dropdown__icon--show">
+      <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+    </div>
+    }
+  </div>
+
+  @if(hasChild() && isOpen()) {
+  <ng-content select="[options]"> </ng-content>
+  }
+</div>
