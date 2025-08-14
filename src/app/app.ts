@@ -1,9 +1,9 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/layouts/header-component/header-component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { LayoutService } from './services/layout-service';
 import { SidenavGroupComponent } from './components/sidenav-group-component/sidenav-group-component';
+import { LayoutService } from './services/layout-service';
 import { SidenavInfo } from './types/sidebar';
 
 @Component({

@@ -1,0 +1,33 @@
+:host {
+  --title-size: 28px;
+  --title-weight: 600;
+  --title-color: var(--color-white);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+
+  & > &__content {
+    width: 100%;
+    flex-grow: 1;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    & > h1.header__content-title {
+      font-size: var(--title-size);
+      font-weight: var(--title-weight);
+      color: var(--title-color);
+    }
+  }
+
+  & > &__actions {
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+}

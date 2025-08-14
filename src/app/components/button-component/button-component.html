@@ -1,0 +1,11 @@
+<button
+  [class]="buttonClasses"
+  (click)="handleClick($event)"
+  [disabled]="isDisabled()"
+  [type]="type()"
+>
+  @if(!!icon()) {
+  <mat-icon [fontIcon]="icon()!"></mat-icon>
+  }
+  <ng-content></ng-content>
+</button>
