@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { LayoutService } from './services/layout-service';
 import { SidenavGroupComponent } from './components/sidenav-group-component/sidenav-group-component';
 import { SidenavInfo } from './types/sidebar';
+import { BreadcrumbComponent } from './components/breadcrumb-component/breadcrumb-component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { SidenavInfo } from './types/sidebar';
     HeaderComponent,
     MatSidenavModule,
     SidenavGroupComponent,
+    BreadcrumbComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
