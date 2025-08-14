@@ -1,0 +1,52 @@
+:host {
+  --transition-color-duration: 0.4s;
+  --gap-container: 12px;
+  --width-container: 100%;
+  --padding-container: 6px;
+
+  // Style variables related with icon
+  --icon-size: 24px;
+  --icon-color-default: rgba(255, 255, 255, 0.5);
+  --icon-color-active: var(--color-primary);
+  --icon-color-hover: var(--color-white);
+
+  // Style variables related with name
+  --name-size: 14px;
+  --name-color-default: rgba(255, 255, 255, 0.5);
+  --name-color-active: rgba(255, 255, 255, 0.5);
+  --name-color-hover: var(--color-primary);
+  --name-letter-spacing: 0.046875rem;
+  --name-weight: 300;
+}
+
+.sidenav__item {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  height: fit-content;
+  transition: color var(--transition-color-duration) ease;
+  padding: var(--padding-container);
+  color: var(--icon-color-default);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-white);
+  }
+
+  & > &-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    & > mat-icon {
+      font-size: var(--icon-size);
+    }
+  }
+
+  & > &-name {
+    font-size: var(--name-size);
+    text-transform: capitalize;
+    letter-spacing: var(--name-letter-spacing);
+    font-weight: var(--name-weight);
+  }
+}

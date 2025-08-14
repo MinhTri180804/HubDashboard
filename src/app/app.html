@@ -9,7 +9,18 @@
 
 <app-header-component></app-header-component>
 <main class="main">
-  <router-outlet></router-outlet>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" [opened]="layoutService.isOpen()">
+      @for(group of sidenavData; track $index) {
+      <app-sidenav-group-component
+        [sidenav-group-data]="group"
+      ></app-sidenav-group-component>
+      }
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </main>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

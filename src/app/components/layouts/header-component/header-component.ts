@@ -1,3 +1,4 @@
+import { LayoutService } from './../../../services/layout-service';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -7,4 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  constructor(private layoutService: LayoutService) {}
+  handleToggle() {
+    this.layoutService.onToggle();
+  }
+}
