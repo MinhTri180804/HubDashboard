@@ -3,13 +3,114 @@
   --border: 1px;
   --border-color: rgba(255, 255, 255, 0.25);
   --background-color: transparent;
-  --position: relative;
 
   // Style variables of header
   --header-background-color: rgba(255, 255, 255, 0.1);
   --header-padding: 8px 16px;
+  --header-text-size: 14px;
+  --header-letter-spacing: 1.2px;
+  --header-text-color: rgba(255, 255, 255, 0.8);
+  --header-text-weight: 300;
 
   // Style variables of custom border
-  --custom-border-size: 10px;
+  --custom-border-width: 10px;
   --custom-border-color: var(--color-white);
+  --custom-border-size: 2px;
+
+  // Style variables of icon actions
+  --actions-icon-size: 20px;
+  --actions-icon-color: rgba(255, 255, 255, 0.8);
+
+  // Style variables of body content
+  --body-background-color: transparent;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: var(--border) solid var(--border-color);
+  background-color: var(--background-color);
+
+  & > header.card__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--header-padding);
+    background-color: var(--header-background-color);
+    font-size: var(--header-text-size);
+    color: var(--header-text-color);
+    border-bottom: var(--border) solid var(--border-color);
+
+    ::ng-deep [card-header-title] {
+      font-weight: var(--header-text-weight);
+      letter-spacing: var(--header-letter-spacing);
+    }
+
+    // Using for use case don't have actions
+    &.single {
+      justify-content: flex-start;
+    }
+
+    // Style of content project title
+    // [card-header-title] {
+    // }
+
+    // Style of actions
+    .card__header-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+
+      ::ng-deep [action] {
+        font-size: var(--actions-icon-size);
+        width: var(--actions-icon-size);
+        height: var(--actions-icon-size);
+        color: var(--actions-icon-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: var(--color-white);
+        }
+      }
+    }
+  }
+
+  ::ng-deep [card-body] {
+    height: 200px;
+    background-color: var(--body-background-color);
+  }
+
+  .custom--border {
+    & > div {
+      position: absolute;
+      width: var(--custom-border-width);
+      height: var(--custom-border-width);
+      border-color: var(--custom-border-color);
+      border-style: solid;
+
+      &.top {
+        top: 0;
+        border-top-width: var(--custom-border-size);
+      }
+
+      &.left {
+        left: 0;
+        border-left-width: var(--custom-border-size);
+      }
+
+      &.right {
+        right: 0;
+        border-right-width: var(--custom-border-size);
+      }
+
+      &.bottom {
+        bottom: 0;
+        border-bottom-width: var(--custom-border-size);
+      }
+    }
+  }
 }

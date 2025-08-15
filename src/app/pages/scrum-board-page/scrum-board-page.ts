@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../components/button-component/button-compon
 import { MatIconModule } from '@angular/material/icon';
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
+import { CardComponent } from "../../components/card-component/card-component";
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -13,7 +14,8 @@ import { DropdownItemComponent } from '../../components/dropdown-item-component/
     MatIconModule,
     DropdownComponent,
     DropdownItemComponent,
-  ],
+    CardComponent
+],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
 })

@@ -42,4 +42,15 @@
   justify-content: flex-start;
   gap: var(--information-gap);
   align-items: center;
+  padding-bottom: 24px;
+}
+
+.scrum__content {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+
+  & > app-card-component {
+    grid-column: span 4;
+  }
 }
