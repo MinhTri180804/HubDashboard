@@ -12,7 +12,7 @@
     }
   </div>
 
-  @if(hasChild() && isOpen()) {
-  <ng-content select="[options]"> </ng-content>
-  }
+  <div class="options__wrapper" [class.open]="isOpen()">
+    <ng-content select="[options]"> </ng-content>
+  </div>
 </div>

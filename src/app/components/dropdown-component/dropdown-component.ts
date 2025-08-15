@@ -18,14 +18,25 @@ export class DropdownComponent implements AfterContentInit {
   private renderer2 = inject(Renderer2);
   private hostElement = inject<ElementRef<HTMLDivElement>>(ElementRef);
   protected hasChild = signal(false);
-  isOpen = signal(true);
+  isOpen = signal(false);
 
   ngAfterContentInit(): void {
-    const dropdownOptions =
-      this.hostElement.nativeElement.querySelector('[options]');
-    console.log(dropdownOptions);
+    const dropdownOptions = this.hostElement.nativeElement.querySelector(
+      '.options__wrapper > [options]'
+    );
+
     if (dropdownOptions) {
+      this.renderer2.setStyle(
+        this.hostElement.nativeElement,
+        'cursor',
+        'pointer'
+      );
       this.hasChild.set(true);
+    } else {
+      this.renderer2.removeChild(
+        this.hostElement,
+        this.hostElement.nativeElement.querySelector('.options__wrapper')
+      );
     }
   }
 
