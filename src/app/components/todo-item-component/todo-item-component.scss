@@ -73,9 +73,11 @@
   border-bottom: var(--border) solid var(--border-color);
   background-color: var(--background-color-default);
   transition: background-color var(--transition-duration) ease;
+  cursor: grab;
 
   &:hover {
     background-color: var(--background-color-hover);
+    cursor: grabbing;
   }
 
   &-icon {
@@ -95,6 +97,7 @@
       font-size: var(--name-todo-size);
       color: var(--name-todo-color);
       font-weight: var(--name-todo-weight);
+      cursor: pointer;
     }
 
     .short-information {

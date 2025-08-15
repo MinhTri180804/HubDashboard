@@ -31,11 +31,6 @@
   height: fit-content;
   border: var(--border) solid var(--border-color);
   background-color: var(--background-color);
-  cursor: grab;
-
-  &:hover {
-    cursor: grabbing;
-  }
 
   & > header.card__header {
     width: 100%;
