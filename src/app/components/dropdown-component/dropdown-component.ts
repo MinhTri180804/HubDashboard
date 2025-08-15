@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   Component,
+  contentChild,
   ElementRef,
   inject,
   Renderer2,
@@ -15,34 +16,46 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './dropdown-component.scss',
 })
 export class DropdownComponent implements AfterContentInit {
+  private readonly _CLASS_OPEN = 'open';
   private renderer2 = inject(Renderer2);
   private hostElement = inject<ElementRef<HTMLDivElement>>(ElementRef);
   protected hasChild = signal(false);
-  isOpen = signal(false);
+  private optionsChild = contentChild('options', { read: ElementRef });
+  isOpen = signal<boolean>(false);
 
   ngAfterContentInit(): void {
-    const dropdownOptions = this.hostElement.nativeElement.querySelector(
-      '.options__wrapper > [options]'
-    );
-
-    if (dropdownOptions) {
+    if (this.optionsChild()?.nativeElement) {
       this.renderer2.setStyle(
         this.hostElement.nativeElement,
         'cursor',
         'pointer'
       );
       this.hasChild.set(true);
-    } else {
-      this.renderer2.removeChild(
-        this.hostElement,
-        this.hostElement.nativeElement.querySelector('.options__wrapper')
-      );
     }
   }
 
   toggleOpen() {
-    if (this.hasChild()) {
-      this.isOpen.update((previous) => !previous);
+    if (this.hasChild() && this.optionsChild()?.nativeElement) {
+      this.isOpen.update((prev) => !prev);
+      if (this.isOpen()) {
+        this.show();
+      } else {
+        this.close();
+      }
     }
+  }
+
+  show() {
+    this.renderer2.addClass(
+      this.optionsChild()!.nativeElement,
+      this._CLASS_OPEN
+    );
+  }
+
+  close() {
+    this.renderer2.removeClass(
+      this.optionsChild()!.nativeElement,
+      this._CLASS_OPEN
+    );
   }
 }

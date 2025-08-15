@@ -1,0 +1,15 @@
+:host {
+  // Style variables commons
+  --border: 1px;
+  --border-color: rgba(255, 255, 255, 0.25);
+  --background-color: transparent;
+  --position: relative;
+
+  // Style variables of header
+  --header-background-color: rgba(255, 255, 255, 0.1);
+  --header-padding: 8px 16px;
+
+  // Style variables of custom border
+  --custom-border-size: 10px;
+  --custom-border-color: var(--color-white);
+}

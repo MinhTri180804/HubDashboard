@@ -72,12 +72,9 @@
     }
   }
 
-  & > .options__wrapper {
-    visibility: hidden;
-    opacity: 0;
+  ::ng-deep [options] {
     transition: all var(--options-wrapper-transition-duration) ease;
     position: absolute;
-    top: var(--options-wrapper-init-top);
     left: 0;
     padding: 6px 0;
     width: max-content;
@@ -85,16 +82,14 @@
     border: 1px solid var(--options-border-color);
     border-radius: var(--options-border-radius);
     z-index: var(--options-z-index);
+    visibility: hidden;
+    opacity: 0;
+    top: var(--options-wrapper-init-top);
 
     &.open {
       visibility: var(--options-wrapper-open-visibility);
       opacity: var(--options-wrapper-open-opacity);
       top: var(--options-wrapper-open-top);
-    }
-
-    ::ng-deep [options] {
-      width: 100%;
-      height: 100%;
     }
   }
 }

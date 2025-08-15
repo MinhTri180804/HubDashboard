@@ -15,7 +15,7 @@
   <app-dropdown-component>
     <mat-icon icon fontIcon="folder"></mat-icon>
     <p name>project/hub</p>
-    <ul options>
+    <ul options #options>
       @for(project of projectsMockData; track $index) {
       <app-dropdown-item-component>
         <mat-icon icon fontIcon="folder"> </mat-icon>

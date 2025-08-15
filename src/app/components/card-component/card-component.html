@@ -1,0 +1,14 @@
+<div class="card">
+  <ng-content select="[card-header]">
+    <ng-content select="[card-header-title]"></ng-content>
+    <ng-content select="[card-header-actions]"></ng-content>
+  </ng-content>
+  <ng-content select="[card-body]"></ng-content>
+
+  <div class="custom--border">
+    <div class="top"></div>
+    <div class="right"></div>
+    <div class="bottom"></div>
+    <div class="left"></div>
+  </div>
+</div>
