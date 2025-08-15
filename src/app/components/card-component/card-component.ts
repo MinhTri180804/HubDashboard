@@ -1,11 +1,31 @@
-import { Component } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  contentChild,
+  ElementRef,
+  inject,
+  Renderer2,
+} from '@angular/core';
 
 @Component({
   selector: 'app-card-component',
   imports: [],
   templateUrl: './card-component.html',
-  styleUrl: './card-component.scss'
+  styleUrl: './card-component.scss',
 })
-export class CardComponent {
+export class CardComponent implements AfterContentInit {
+  hostElement = inject<ElementRef<HTMLDivElement>>(ElementRef);
+  renderer2 = inject(Renderer2);
 
+  ngAfterContentInit(): void {
+    const headerElement = this.hostElement.nativeElement.querySelector(
+      'header.card__header'
+    );
+
+    const headerTitle = headerElement?.querySelector('[card-header-title]');
+
+    if (!headerTitle) {
+      this.renderer2.removeChild(this.hostElement, headerElement, true);
+    }
+  }
 }

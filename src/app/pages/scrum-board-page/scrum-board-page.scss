@@ -50,7 +50,7 @@
   grid-template-columns: repeat(12, 1fr);
   gap: 20px;
 
-  & > app-card-component {
+  & > app-card-todo-component {
     grid-column: span 4;
   }
 }

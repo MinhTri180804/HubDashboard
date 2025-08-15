@@ -63,13 +63,13 @@
       justify-content: flex-end;
       align-items: center;
       gap: 16px;
+      cursor: pointer;
 
       ::ng-deep [action] {
         font-size: var(--actions-icon-size);
         width: var(--actions-icon-size);
         height: var(--actions-icon-size);
         color: var(--actions-icon-color);
-        cursor: pointer;
         transition: all 0.3s ease;
 
         &:hover {
