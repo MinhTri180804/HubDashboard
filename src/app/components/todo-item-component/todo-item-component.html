@@ -1,0 +1,58 @@
+<div class="todo__item">
+  <div class="todo__item-icon">
+    <mat-icon fontIcon="help_outline"></mat-icon>
+  </div>
+  <div class="todo__item-content">
+    <div class="name">Enable open search</div>
+    <div class="short-information">#29949 opened yesterday by Terry</div>
+
+    <ul class="tags__list">
+      <li class="tag__item">docs</li>
+      <li class="tag__item">features</li>
+    </ul>
+
+    <hr />
+
+    <div class="sub__todo">
+      <div class="sub__todo-heading">
+        <div class="title" (click)="handleToggle()">
+          <div class="value">Task (2/3)</div>
+          <div class="action">
+            <mat-icon fontIcon="add_circle"></mat-icon>
+          </div>
+        </div>
+        <div class="process">
+          <mat-progress-bar value="50"></mat-progress-bar>
+          <div class="value">50%</div>
+        </div>
+      </div>
+
+      <ul class="sub__todo-list" [class.open]="isOpenSubTodo()">
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+        <li class="sub__todo-item">
+          <mat-checkbox>create ui for autocomplete</mat-checkbox>
+          <p></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

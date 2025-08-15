@@ -1,0 +1,34 @@
+<app-card-todo-component cardTitle="To Do" cdkDropList #todoList="cdkDropList">
+  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+  <mat-icon action-icon fontIcon="delete"></mat-icon>
+
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+</app-card-todo-component>
+
+<app-card-todo-component
+  cardTitle="In Process"
+  cdkDropList
+  #todoList="cdkDropList"
+>
+  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+  <mat-icon action-icon fontIcon="delete"></mat-icon>
+
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+  <app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component
+  ><app-todo-item-component cdkDrag todo></app-todo-item-component>
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+</app-card-todo-component>
+
+<app-card-todo-component cardTitle="Done" cdkDropList #todoList="cdkDropList">
+  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+  <mat-icon action-icon fontIcon="delete"></mat-icon>
+
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+  <app-todo-item-component cdkDrag todo></app-todo-item-component>
+</app-card-todo-component>

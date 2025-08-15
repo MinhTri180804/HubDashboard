@@ -1,0 +1,267 @@
+@use "@angular/material" as mat;
+
+:host {
+  --gap: 16px;
+  --border: 1px;
+  --border-color: rgba(255, 255, 255, 0.25);
+  --background-color-default: transparent;
+  --background-color-hover: rgba(0, 0, 0, 0.25);
+  --transition-duration: 0.3s;
+
+  // Style variables of todo
+  --name-todo-color: rgba(255, 255, 255, 0.8);
+  --name-todo-size: 15px;
+  --name-todo-weight: 500;
+
+  --short-information-size: 13px;
+  --short-information-color: rgba(255, 255, 255, 0.5);
+  --short-information-weight: 400;
+
+  // Style variables of icon
+  --icon-size: 20px;
+  --icon-color: rgba(255, 255, 255, 0.7);
+
+  // Style variables of tag
+  --tag-padding: 4px 7px;
+  --tag-border: 1px;
+  --tag-border-color: var(--color-primary);
+  --tag-border-radius: 4px;
+  --tag-name-size: 10.5px;
+  --tag-name-weight: 600;
+  --tag-name-color: var(--color-primary);
+
+  // Style variables of hr line
+  --hr-border-size: 1px;
+  --hr-border-color: rgba(255, 255, 255, 0.25);
+
+  // Style variables custom process bar material
+  --mat-progress-bar-track-height: 6px;
+  --mat-progress-bar-active-indicator-height: 6px;
+
+  // Style variables of sub todo content
+  --sub-title-color: rgba(255, 255, 255, 0.8);
+  --sub-title-size: 14px;
+  --sub-title-letter-spacing: 1.5px;
+  --sub-title-weight: 500;
+  --sub-title-icon-size: 20px;
+  --sub-title-icon-color: rgba(255, 255, 255, 0.8);
+
+  --process-bar-width: 100px;
+  --process-bar-color: var(--color-primary);
+  --process-bar-background-color: rgba(255, 255, 255, 0.1);
+  --process-bar-border-radius: 4px;
+  --process-bar-height: 6px;
+  --process-bar-value-size: 12px;
+  --process-bar-value-color: rgba(255, 255, 255, 0.8);
+  --process-bar-value-weight: 300;
+
+  --sub-name-color: rgba(255, 255, 255, 0.8);
+  --sub-name-size: 14px;
+  --sub-name-letter-spacing: 1.5px;
+  --sub-name-weight: 500;
+
+  --checkbox-sub-border-width: 1px;
+  --checkbox-sub-border-color: rgba(255, 255, 255, 0.25);
+}
+
+.todo__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--gap);
+  padding: 8px 16px;
+  border-bottom: var(--border) solid var(--border-color);
+  background-color: var(--background-color-default);
+  transition: background-color var(--transition-duration) ease;
+
+  &:hover {
+    background-color: var(--background-color-hover);
+  }
+
+  &-icon {
+    mat-icon {
+      width: var(--icon-size);
+      height: var(--icon-size);
+      font-size: var(--icon-size);
+      color: var(--icon-color);
+      flex-grow: 0;
+    }
+  }
+
+  &-content {
+    width: 100%;
+
+    & > .name {
+      font-size: var(--name-todo-size);
+      color: var(--name-todo-color);
+      font-weight: var(--name-todo-weight);
+    }
+
+    .short-information {
+      font-size: var(--short-information-size);
+      color: var(--short-information-color);
+      font-weight: var(--short-information-weight);
+      padding: 10px 0;
+    }
+
+    & > .tags__list {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+
+      & > .tag__item {
+        padding: var(--tag-padding);
+        border-radius: var(--tag-border-radius);
+        border: var(--tag-border) solid var(--tag-border-color);
+        font-size: var(--tag-name-size);
+        color: var(--tag-name-color);
+        font-weight: var(--tag-name-weight);
+      }
+    }
+
+    & > hr {
+      margin: 16px 0;
+      border: var(--hr-border-size) solid var(--hr-border-color);
+    }
+
+    // Sub todo styling
+
+    & > .sub__todo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      & > .sub__todo-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+
+        & > .title {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          gap: 8px;
+
+          & > .value {
+            font-size: var(--sub-title-size);
+            color: var(--sub-title-color);
+            letter-spacing: var(--sub-title-letter-spacing);
+            font-weight: var(--sub-title-weight);
+          }
+
+          & > .action {
+            width: var(--sub-title-icon-size);
+            height: var(--sub-title-icon-size);
+            cursor: pointer;
+            mat-icon {
+              width: var(--sub-title-icon-size);
+              height: var(--sub-title-icon-size);
+              font-size: var(--sub-title-icon-size);
+              color: var(--sub-title-icon-color);
+            }
+          }
+        }
+
+        & > .process {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 8px;
+          width: fit-content;
+
+          & > .value {
+            font-size: var(--process-bar-value-size);
+            color: var(--process-bar-value-color);
+            font-weight: var(--process-bar-value-weight);
+          }
+        }
+      }
+
+      & > ul.sub__todo-list {
+        visibility: hidden;
+        height: 0;
+        transition: height 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        &.open {
+          visibility: visible;
+          height: max-content;
+        }
+
+        & > li.sub__todo-item {
+          margin-left: -10px;
+          display: flex;
+          justify-content: flex-start;
+          gap: 6px;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+// Custom process bar material component
+::ng-deep .mat-mdc-checkbox.mat-accent {
+  .mdc-form-field.mat-internal-form-field {
+    color: var(--sub-name-color);
+  }
+
+  .mdc-checkbox__background {
+    border: var(--checkbox-sub-border-width) solid
+      var(--checkbox-sub-border-color);
+  }
+
+  .mdc-checkbox:hover
+    > .mdc-checkbox__native-control:not(:checked)
+    ~ .mdc-checkbox__background,
+  .mdc-checkbox:hover
+    > .mdc-checkbox__native-control:not(:indeterminate)
+    ~ .mdc-checkbox__background {
+    border-color: var(--checkbox-sub-border-color) !important;
+  }
+
+  .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
+  .mdc-checkbox__native-control:enabled:indeterminate
+    ~ .mdc-checkbox__background {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .mdc-label {
+    font-size: 12.25px;
+  }
+}
+
+// Custom process bar material component
+::ng-deep .mat-mdc-progress-bar {
+  width: var(--process-bar-width);
+
+  .mdc-linear-progress__buffer {
+    background-color: var(--process-bar-background-color) !important;
+  }
+
+  .mdc-linear-progress__bar-inner {
+    border-color: var(--color-primary) !important;
+  }
+
+  .mdc-linear-progress__bar {
+    background-color: var(--color-primary) !important;
+  }
+
+  .mdc-linear-progress__buffer-bar {
+    background-color: var(--process-bar-background-color) !important;
+  }
+
+  .mdc-linear-progress__bar,
+  .mdc-linear-progress__buffer {
+    height: var(--process-bar-height) !important;
+  }
+
+  border-radius: var(--process-bar-border-radius);
+  overflow: hidden;
+}

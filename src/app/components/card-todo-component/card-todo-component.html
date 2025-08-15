@@ -2,5 +2,7 @@
   <h3 card-header-title>{{ cardTitle() }} [5]</h3>
   <ng-content select="[action-icon]" action> </ng-content>
 
-  <div card-body></div>
+  <div card-body>
+    <ng-content select="[todo]"> </ng-content>
+  </div>
 </app-card-component>

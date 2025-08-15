@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../components/breadcrumb-component/breadcrumb-component';
 import { ButtonComponent } from '../../components/button-component/button-component';
-import { MatIconModule } from '@angular/material/icon';
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
-import { CardTodoComponent } from '../../components/card-todo-component/card-todo-component';
+import { TodoManagerComponent } from "../../components/todo-manager-component/todo-manager-component";
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -14,8 +14,8 @@ import { CardTodoComponent } from '../../components/card-todo-component/card-tod
     MatIconModule,
     DropdownComponent,
     DropdownItemComponent,
-    CardTodoComponent,
-  ],
+    TodoManagerComponent
+],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
 })
