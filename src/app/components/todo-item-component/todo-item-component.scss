@@ -7,6 +7,7 @@
   --background-color-default: transparent;
   --background-color-hover: rgba(0, 0, 0, 0.25);
   --transition-duration: 0.3s;
+  --padding: 16px;
 
   // Style variables of todo
   --name-todo-color: rgba(255, 255, 255, 0.8);
@@ -69,15 +70,11 @@
   justify-content: space-between;
   align-items: start;
   gap: var(--gap);
-  padding: 8px 16px;
+  padding: var(--padding);
   border-bottom: var(--border) solid var(--border-color);
   background-color: var(--background-color-default);
   transition: background-color var(--transition-duration) ease;
   cursor: grab;
-
-  &:last-child {
-    border-bottom: none;
-  }
 
   &:hover {
     background-color: var(--background-color-hover);
@@ -188,14 +185,15 @@
       }
 
       & > ul.sub__todo-list {
+        display: none;
         visibility: hidden;
         height: 0;
         transition: height 0.3s ease;
-        display: flex;
         flex-direction: column;
         overflow: hidden;
 
         &.open {
+          display: flex;
           visibility: visible;
           height: max-content;
         }

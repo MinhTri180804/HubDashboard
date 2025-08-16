@@ -21,6 +21,13 @@
   opacity: 0;
 }
 
+// Remove border bottom for last todo item
+::ng-deep app-todo-item-component:last-child {
+  .todo__item {
+    border-bottom: none;
+  }
+}
+
 // animation when drop and drag
 // .cdk-drag-animating {
 //   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
