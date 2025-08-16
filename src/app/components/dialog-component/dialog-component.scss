@@ -39,10 +39,24 @@
   position: fixed;
   inset: 0;
   z-index: var(--provider-z-index);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+
+    & > .dialog__container {
+      top: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
   & > .dialog__container {
     position: absolute;
-    top: var(--container-position-top);
+    top: -10%;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--container-background-color);
@@ -50,6 +64,9 @@
     border-radius: var(--container-border-radius);
     min-width: var(--container-min-width);
     z-index: var(--container-z-index);
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s, top 0.5s ease;
 
     > .dialog__container-header {
       padding: var(--header-padding);

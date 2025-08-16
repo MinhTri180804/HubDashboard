@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, model, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -7,4 +7,10 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './dialog-component.html',
   styleUrl: './dialog-component.scss',
 })
-export class DialogComponent {}
+export class DialogComponent {
+  isOpen = model<boolean>(false);
+
+  onCloseDialog() {
+    this.isOpen.set(false);
+  }
+}

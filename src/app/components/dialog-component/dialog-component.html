@@ -1,4 +1,4 @@
-<div class="provider">
+<div class="provider" [class.open]="isOpen()">
   <div class="dialog__container">
     <div class="dialog__container-header">
       <ng-content select="[dialog-title]"></ng-content>

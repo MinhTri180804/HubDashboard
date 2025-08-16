@@ -4,8 +4,8 @@ import { BreadcrumbComponent } from '../../components/breadcrumb-component/bread
 import { ButtonComponent } from '../../components/button-component/button-component';
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
-import { TodoManagerComponent } from "../../components/todo-manager-component/todo-manager-component";
-import { DialogComponent } from "../../components/dialog-component/dialog-component";
+import { TodoManagerComponent } from '../../components/todo-manager-component/todo-manager-component';
+import { DialogComponent } from '../../components/dialog-component/dialog-component';
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -16,8 +16,8 @@ import { DialogComponent } from "../../components/dialog-component/dialog-compon
     DropdownComponent,
     DropdownItemComponent,
     TodoManagerComponent,
-    DialogComponent
-],
+    DialogComponent,
+  ],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
 })
