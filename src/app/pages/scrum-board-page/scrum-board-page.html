@@ -54,39 +54,27 @@
   [isOpen]="isOpenDialogAddTodo()"
 >
   <h3 dialog-title>Add Task</h3>
-  <div dialog-content>
-    <form class="form__container">
-      <div class="form__field">
-        <label class="form__field-label" for="title">Title</label>
-        <input
-          placeholder="e.g Feature development"
-          class="form__field-input"
-          type="text"
-          name="title"
-          id="title"
-        />
-      </div>
-      <div class="form__field">
-        <label class="form__field-label" for="status">Status</label>
-        <select name="status" id="status" class="form__field-input">
-          @for(status of statusMockData; track $index) {
-          <option value="{{ status.value }}">{{ status.name }}</option>
-          }
-        </select>
-      </div>
-      <div class="form__field">
-        <label class="form__field-label" for="tags">Tags</label>
-        <input class="form__field-input" type="text" name="title" id="tags" />
-      </div>
-    </form>
-  </div>
+  <app-form-create-todo-component
+    #formAddTodo
+    dialog-content
+    (onCreateTodo)="formCreateTodoSubmit()"
+  ></app-form-create-todo-component>
   <div dialog-footer>
     <div class="actions__container">
-      <app-button-component buttonVariant="outline">
+      <app-button-component
+        buttonVariant="outline"
+        class="actions__cancel"
+        buttonSize="medium"
+      >
         Cancel
       </app-button-component>
 
-      <app-button-component buttonVariant="outline">
+      <app-button-component
+        buttonVariant="outline"
+        class="actions__create"
+        buttonSize="medium"
+        (clicked)="onCreateTodo()"
+      >
         Create
       </app-button-component>
     </div>
