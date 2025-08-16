@@ -5,6 +5,7 @@ import { ButtonComponent } from '../../components/button-component/button-compon
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
 import { TodoManagerComponent } from "../../components/todo-manager-component/todo-manager-component";
+import { DialogComponent } from "../../components/dialog-component/dialog-component";
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -14,7 +15,8 @@ import { TodoManagerComponent } from "../../components/todo-manager-component/to
     MatIconModule,
     DropdownComponent,
     DropdownItemComponent,
-    TodoManagerComponent
+    TodoManagerComponent,
+    DialogComponent
 ],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
