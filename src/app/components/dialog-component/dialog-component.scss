@@ -20,7 +20,7 @@
   --header-title-color: var(--color-white);
   --header-title-weight: 600;
 
-  --header-icon-size: 20px;
+  --header-icon-size: 24px;
   --header-icon-color-default: #989ca0;
   --header-icon-color-hover: var(--color-white);
   --header-icon-transition-duration: 0.3s;
@@ -80,16 +80,18 @@
         font-weight: var(--header-title-weight);
       }
 
-      > mat-icon {
+      > div {
+        cursor: pointer;
         width: var(--header-icon-size);
         height: var(--header-icon-size);
-        font-size: var(--header-icon-size);
-        color: var(--header-icon-color-default);
-        cursor: pointer;
-        transition: color var(--header-icon-transition-duration) ease;
+        > mat-icon {
+          font-size: var(--header-icon-size);
+          color: var(--header-icon-color-default);
+          transition: color var(--header-icon-transition-duration) ease;
 
-        &:hover {
-          color: var(--header-icon-color-hover);
+          &:hover {
+            color: var(--header-icon-color-hover);
+          }
         }
       }
     }

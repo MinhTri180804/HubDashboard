@@ -1,4 +1,13 @@
-import { Component, input, model, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  model,
+  Renderer2,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -8,9 +17,15 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './dialog-component.scss',
 })
 export class DialogComponent {
+  private providerElement = viewChild('provider', {
+    read: ElementRef,
+  });
+  private renderer2 = inject(Renderer2);
+
   isOpen = model<boolean>(false);
 
   onCloseDialog() {
+    this.renderer2.removeClass(this.providerElement()?.nativeElement, 'open');
     this.isOpen.set(false);
   }
 }

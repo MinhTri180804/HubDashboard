@@ -24,6 +24,21 @@ import { DialogComponent } from '../../components/dialog-component/dialog-compon
 export class ScrumBoardPage {
   isOpenDialogAddTodo = signal<boolean>(false);
 
+  statusMockData = [
+    {
+      name: 'To Do',
+      value: 'todo',
+    },
+    {
+      name: 'In Progress',
+      value: 'in-progress',
+    },
+    {
+      name: 'Done',
+      value: 'done',
+    },
+  ];
+
   projectsMockData = [
     {
       name: 'project/mobile-app-dev',

@@ -75,6 +75,10 @@
   transition: background-color var(--transition-duration) ease;
   cursor: grab;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   &:hover {
     background-color: var(--background-color-hover);
     cursor: grabbing;

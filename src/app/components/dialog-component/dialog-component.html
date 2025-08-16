@@ -1,8 +1,10 @@
-<div class="provider" [class.open]="isOpen()">
+<div class="provider" #provider [class.open]="isOpen()">
   <div class="dialog__container">
     <div class="dialog__container-header">
       <ng-content select="[dialog-title]"></ng-content>
-      <mat-icon fontIcon="close"> </mat-icon>
+      <div (click)="onCloseDialog()">
+        <mat-icon fontIcon="close"> </mat-icon>
+      </div>
     </div>
     <div class="dialog__container-body">
       <ng-content select="[dialog-content]"></ng-content>
