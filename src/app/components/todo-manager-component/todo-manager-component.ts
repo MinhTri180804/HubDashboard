@@ -38,9 +38,7 @@ export class TodoManagerComponent {
     this.todoService.getTodoByState(StateTodoEnum.DONE)
   );
 
-  constructor() {
-    console.log(this.todoPending());
-  }
+  constructor() {}
 
   handleDrop(event: CdkDragDrop<TodoInfo[]>) {
     if (event.previousContainer === event.container) {
