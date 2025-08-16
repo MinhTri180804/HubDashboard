@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../components/breadcrumb-component/breadcrumb-component';
 import { ButtonComponent } from '../../components/button-component/button-component';
@@ -22,6 +22,8 @@ import { DialogComponent } from '../../components/dialog-component/dialog-compon
   styleUrl: './scrum-board-page.scss',
 })
 export class ScrumBoardPage {
+  isOpenDialogAddTodo = signal<boolean>(false);
+
   projectsMockData = [
     {
       name: 'project/mobile-app-dev',
@@ -36,4 +38,16 @@ export class ScrumBoardPage {
       name: 'project/ruby-version',
     },
   ];
+
+  openDialogAddTodo() {
+    this.isOpenDialogAddTodo.set(true);
+  }
+
+  closeDialogAddTodo() {
+    this.isOpenDialogAddTodo.set(false);
+  }
+
+  changeDialogAddTodo(value: boolean) {
+    this.isOpenDialogAddTodo.set(value);
+  }
 }

@@ -4,7 +4,11 @@
     <h1 class="header__content-title">Scrum Board</h1>
   </div>
   <div class="header__actions">
-    <app-button-component buttonSize="small" buttonVariant="outline">
+    <app-button-component
+      buttonSize="small"
+      buttonVariant="outline"
+      (clicked)="openDialogAddTodo()"
+    >
       <mat-icon fontIcon="add_circle"></mat-icon>
       Add Task
     </app-button-component>
@@ -45,6 +49,11 @@
   <app-todo-manager-component></app-todo-manager-component>
 </section>
 
-<app-dialog-component>
+<app-dialog-component
+  (isOpenChange)="changeDialogAddTodo($event)"
+  [isOpen]="isOpenDialogAddTodo()"
+>
   <h3 dialog-title>Add Task</h3>
+  <div dialog-content></div>
+  <div dialog-footer></div>
 </app-dialog-component>

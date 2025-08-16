@@ -27,7 +27,7 @@ export class ButtonComponent {
   clicked = output<MouseEvent>();
 
   handleClick(event: MouseEvent) {
-    if (!this.isDisabled) {
+    if (!this.isDisabled()) {
       this.clicked.emit(event);
     }
   }
