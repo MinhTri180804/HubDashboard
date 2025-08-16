@@ -1,19 +1,17 @@
-import { StateTodoEnum } from '../enums/stateTodoEnum';
+import { TodoStateConstantsValues } from '../constants/todoStateConstants';
+import { UpdatedAtCreatedAt } from './commons/commons';
 import { EmployeeInfo } from './employee';
+import { SubTodoInfo } from './subTodo';
 import { TagInfo } from './tag';
 
-export type TodoInfo = {
+export type TodoInfo = UpdatedAtCreatedAt & {
   id: string;
   name: string;
-  by: EmployeeInfo;
-  deadline: Date;
-  state: StateTodoEnum;
+  deadline: number;
+  state: TodoStateConstantsValues;
   tags: TagInfo[];
   doneAt: Date | null;
-  createdAt: Date;
-  subTodo: {
-    id: string;
-    name: string;
-    isDone: boolean;
-  }[];
+  subTodos: SubTodoInfo[];
+  assignedTo: EmployeeInfo;
+  createdBy: EmployeeInfo;
 };

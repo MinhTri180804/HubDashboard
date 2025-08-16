@@ -5,7 +5,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, signal, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { CardTodoComponent } from '../card-todo-component/card-todo-component';
 import { TodoItemComponent } from '../todo-item-component/todo-item-component';
@@ -28,15 +28,19 @@ import { TodoInfo } from '../../types/todo';
 export class TodoManagerComponent {
   todoService = inject(TodoService);
 
-  todoPending = computed(() =>
-    this.todoService.getTodoByState(StateTodoEnum.TODO)
-  );
-  todoInProcess = computed(() =>
-    this.todoService.getTodoByState(StateTodoEnum.IN_PROCESS)
-  );
-  todoDone = computed(() =>
-    this.todoService.getTodoByState(StateTodoEnum.DONE)
-  );
+  todoPending = signal<TodoInfo[]>([]);
+  todoInProcess = signal<TodoInfo[]>([]);
+  todoDone = signal<TodoInfo[]>([]);
+
+  // todoPending = computed(() =>
+  //   this.todoService.getTodoByState(StateTodoEnum.TODO)
+  // );
+  // todoInProcess = computed(() =>
+  //   this.todoService.getTodoByState(StateTodoEnum.IN_PROCESS)
+  // );
+  // todoDone = computed(() =>
+  //   this.todoService.getTodoByState(StateTodoEnum.DONE)
+  // );
 
   constructor() {}
 

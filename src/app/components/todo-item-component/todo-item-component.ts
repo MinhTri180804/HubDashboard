@@ -1,17 +1,9 @@
-import {
-  AfterViewInit,
-  Component,
-  input,
-  computed,
-  signal,
-  AfterViewChecked,
-} from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { TodoInfo } from '../../types/todo';
-import { inject } from '@angular/core';
 import { TodoService } from '../../services/todo-service';
+import { TodoInfo } from '../../types/todo';
 
 @Component({
   selector: 'app-todo-item-component',
@@ -22,15 +14,15 @@ import { TodoService } from '../../services/todo-service';
 export class TodoItemComponent {
   todoService = inject(TodoService);
   todoData = input.required<TodoInfo>();
-  hasSubTodo = computed(() => this.todoData()?.subTodo?.length > 0);
+  hasSubTodo = computed(() => this.todoData()?.subTodos?.length > 0);
 
   completedSubTodo = computed(() =>
-    this.todoData().subTodo.filter((todo) => todo.isDone)
+    this.todoData().subTodos.filter((todo) => todo.isDone)
   );
 
   progressSubTodo = computed(() => {
     const completed = this.completedSubTodo().length;
-    const total = this.todoData().subTodo.length;
+    const total = this.todoData().subTodos.length;
     return ((completed / total) * 100).toFixed(0);
   });
 
@@ -42,12 +34,11 @@ export class TodoItemComponent {
   }
 
   handleToggleSubTodo(event: MatCheckboxChange) {
-    this.todoService.updateSubTodo(
-      this.todoData().id,
-      event.source.value,
-      event.checked
-    );
-
-    console.log(this.todoData());
+    // this.todoService.updateSubTodo(
+    //   this.todoData().id,
+    //   event.source.value,
+    //   event.checked
+    // );
+    // console.log(this.todoData());
   }
 }

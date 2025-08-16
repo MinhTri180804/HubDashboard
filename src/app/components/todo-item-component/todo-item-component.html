@@ -5,7 +5,8 @@
   <div class="todo__item-content">
     <div class="name">{{ todoData().name }}</div>
     <div class="short-information">
-      #{{ todoData().id }} created yesterday by {{ todoData().by.name }}
+      #{{ todoData().id }} created yesterday by
+      {{ todoData().createdBy.fullName }}
     </div>
 
     <ul class="tags__list">
@@ -23,7 +24,9 @@
       <div class="sub__todo-heading">
         <div class="title" (click)="handleToggle()">
           <div class="value">
-            Task {{ completedSubTodo().length }}/{{ todoData().subTodo.length }}
+            Task {{ completedSubTodo().length }}/{{
+              todoData().subTodos.length
+            }}
           </div>
           <div class="action">
             <mat-icon fontIcon="add_circle"></mat-icon>
@@ -36,11 +39,11 @@
       </div>
 
       <ul class="sub__todo-list" [class.open]="isOpenSubTodo()">
-        @for(subTodo of todoData().subTodo; track $index) {
+        @for(subTodo of todoData().subTodos; track $index) {
         <li class="sub__todo-item">
           <mat-checkbox
             (change)="handleToggleSubTodo($event)"
-            [value]="subTodo.id"
+            [value]="subTodo._id"
             [checked]="subTodo.isDone"
             >{{ subTodo.name }}</mat-checkbox
           >
