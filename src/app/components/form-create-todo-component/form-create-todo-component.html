@@ -1,0 +1,37 @@
+<form class="form__container" [formGroup]="addTodoForm" (ngSubmit)="onSubmit()">
+  <div class="form__field">
+    <label class="form__field-label" for="title">Title</label>
+    <input
+      placeholder="e.g Feature development"
+      class="form__field-input"
+      type="text"
+      name="title"
+      id="title"
+      formControlName="title"
+    />
+  </div>
+  <div class="form__field">
+    <label class="form__field-label" for="status">Status</label>
+    <!-- TODO: custom select element -->
+    <select
+      name="status"
+      id="status"
+      class="form__field-input"
+      formControlName="status"
+    >
+      @for(status of statusMockData; track $index) {
+      <option value="{{ status.value }}">{{ status.name }}</option>
+      }
+    </select>
+  </div>
+  <div class="form__field">
+    <label class="form__field-label" for="tags">Tags</label>
+    <input
+      class="form__field-input"
+      type="text"
+      name="title"
+      id="tags"
+      formControlName="tags"
+    />
+  </div>
+</form>
