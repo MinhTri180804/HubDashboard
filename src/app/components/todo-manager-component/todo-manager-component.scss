@@ -1,4 +1,4 @@
-:host {
+:host > div {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 20px;
@@ -21,6 +21,7 @@
   opacity: 0;
 }
 
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
+// animation when drop and drag
+// .cdk-drag-animating {
+//   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+// }

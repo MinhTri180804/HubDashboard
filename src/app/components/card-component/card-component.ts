@@ -1,9 +1,14 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   AfterContentInit,
   Component,
   contentChild,
   ElementRef,
+  EventEmitter,
   inject,
+  Input,
+  input,
+  Output,
   Renderer2,
 } from '@angular/core';
 
@@ -14,6 +19,8 @@ import {
   styleUrl: './card-component.scss',
 })
 export class CardComponent implements AfterContentInit {
+  dropListId = input<string>('');
+
   hostElement = inject<ElementRef<HTMLDivElement>>(ElementRef);
   renderer2 = inject(Renderer2);
 

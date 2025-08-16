@@ -1,34 +1,61 @@
-<app-card-todo-component cardTitle="To Do" cdkDropList #todoList="cdkDropList">
-  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-  <mat-icon action-icon fontIcon="delete"></mat-icon>
+<div cdkDropListGroup>
+  <app-card-todo-component
+    cardTitle="To Do"
+    cdkDropList
+    [cdkDropListData]="todoPending()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-in-process', 'todo-done']"
+    id="todo-pending"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-</app-card-todo-component>
+    @for(todo of todoPending(); track $index) {
+    <app-todo-item-component
+      todo
+      cdkDrag
+      [todoData]="todo"
+    ></app-todo-item-component>
+    }
+  </app-card-todo-component>
 
-<app-card-todo-component
-  cardTitle="In Process"
-  cdkDropList
-  #todoList="cdkDropList"
->
-  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-  <mat-icon action-icon fontIcon="delete"></mat-icon>
+  <app-card-todo-component
+    cardTitle="In Process"
+    cdkDropList
+    [cdkDropListData]="todoInProcess()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-pending', 'todo-done']"
+    id="todo-in-process"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-  <app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component
-  ><app-todo-item-component cdkDrag todo></app-todo-item-component>
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-</app-card-todo-component>
+    @for(todo of todoInProcess(); track $index) {
+    <app-todo-item-component
+      todo
+      cdkDrag
+      [todoData]="todo"
+    ></app-todo-item-component>
+    }
+  </app-card-todo-component>
 
-<app-card-todo-component cardTitle="Done" cdkDropList #todoList="cdkDropList">
-  <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-  <mat-icon action-icon fontIcon="delete"></mat-icon>
+  <app-card-todo-component
+    cardTitle="Done"
+    cdkDropList
+    [cdkDropListData]="todoDone()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-pending', 'todo-in-process']"
+    id="todo-done"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-  <app-todo-item-component cdkDrag todo></app-todo-item-component>
-</app-card-todo-component>
+    @for(todo of todoDone(); track $index) {
+    <app-todo-item-component
+      todo
+      cdkDrag
+      [todoData]="todo"
+    ></app-todo-item-component>
+    }
+  </app-card-todo-component>
+</div>
