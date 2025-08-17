@@ -10,6 +10,8 @@ import { TodoStateConstantsValues } from '../constants/todoStateConstants';
 @Injectable()
 export class TodoService {
   private readonly _urlApi = 'localhost:5001/api/todos';
+  private readonly _urlApiSubTodo = 'localhost:5001/api/subtodos';
+
   private _todos = signal<TodoInfo[]>([]);
 
   readonly todos = computed(() => this._todos());
@@ -60,6 +62,23 @@ export class TodoService {
       .pipe(tap(() => this._updateStateTodo(todoId, state)));
   }
 
+  public updateStateSubTodo(
+    todoId: string,
+    subTodoId: string,
+    checked: boolean
+  ) {
+    return this._httpClient
+      .put(`${this._urlApiSubTodo}/${subTodoId}/toggle-status`, {
+        isDone: checked,
+      })
+      .pipe(tap(() => this._toggleIsDoneSubTodo(todoId, subTodoId, checked)));
+  }
+
+  public deleteTodo(todoId: string) {
+    return this._httpClient
+      .delete(`${this._urlApi}/${todoId}`)
+      .pipe(tap(() => this._deleteTodo(todoId)));
+  }
   // Local State Getters
 
   // Private
@@ -77,6 +96,38 @@ export class TodoService {
           };
         }
 
+        return todo;
+      });
+    });
+  }
+
+  private _deleteTodo(todoId: string) {
+    this._todos.update((prev) => {
+      return prev.filter((todo) => todo._id !== todoId);
+    });
+  }
+
+  private _toggleIsDoneSubTodo(
+    todoId: string,
+    subTodoId: string,
+    checked: boolean
+  ) {
+    this._todos.update((prev) => {
+      return prev.map((todo) => {
+        if (todo._id === todoId) {
+          return {
+            ...todo,
+            subTodos: todo.subTodos.map((subTodo) => {
+              if (subTodo._id === subTodoId) {
+                return {
+                  ...subTodo,
+                  isDone: !subTodo.isDone,
+                };
+              }
+              return subTodo;
+            }),
+          };
+        }
         return todo;
       });
     });

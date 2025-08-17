@@ -1,6 +1,6 @@
 <div cdkDropListGroup>
   <app-card-todo-component
-    cardTitle="To Do"
+    [cardTitle]="`To Do [${this.todoService.todosPending().length}]`"
     cdkDropList
     [cdkDropListData]="todoService.todosPending()"
     (cdkDropListDropped)="handleDrop($event)"
@@ -8,9 +8,8 @@
     id="todo-pending"
   >
     <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-    @for(todo of todoService.todosPending(); track $index) {
+    @for(todo of todoService.todosPending(); track todo._id) {
     <app-todo-item-component
       todo
       cdkDrag
@@ -20,7 +19,7 @@
   </app-card-todo-component>
 
   <app-card-todo-component
-    cardTitle="In Process"
+    [cardTitle]="`In Progress [${this.todoService.todosInprogress().length}]`"
     cdkDropList
     [cdkDropListData]="todoService.todosInprogress()"
     (cdkDropListDropped)="handleDrop($event)"
@@ -28,9 +27,8 @@
     id="todo-in-process"
   >
     <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-    @for(todo of todoService.todosInprogress(); track $index) {
+    @for(todo of todoService.todosInprogress(); track todo._id) {
     <app-todo-item-component
       todo
       cdkDrag
@@ -40,7 +38,7 @@
   </app-card-todo-component>
 
   <app-card-todo-component
-    cardTitle="Done"
+    [cardTitle]="`Done [${this.todoService.todosDone().length}]`"
     cdkDropList
     [cdkDropListData]="todoService.todosDone()"
     (cdkDropListDropped)="handleDrop($event)"
@@ -48,9 +46,8 @@
     id="todo-done"
   >
     <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
-    <mat-icon action-icon fontIcon="delete"></mat-icon>
 
-    @for(todo of todoService.todosDone(); track $index) {
+    @for(todo of todoService.todosDone(); track todo._id) {
     <app-todo-item-component
       todo
       cdkDrag

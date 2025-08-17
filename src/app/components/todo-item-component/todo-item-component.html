@@ -1,11 +1,17 @@
 <div class="todo__item" [attr.todoId]="todoData()._id">
   <div class="todo__item-icon">
-    <mat-icon fontIcon="help_outline"></mat-icon>
+    @if(todoData().state === 'completed') {
+    <mat-icon fontIcon="check_circle" class="done"></mat-icon>
+    } @else if (hasBugTag()) {
+    <mat-icon fontIcon="bug_report" class="bug"></mat-icon>
+    } @else {
+    <mat-icon fontIcon="help_outline" class="normal"></mat-icon>
+    }
   </div>
   <div class="todo__item-content">
     <div class="name">{{ todoData().name }}</div>
     <div class="short-information">
-      #{{ todoData()._id }} created yesterday by
+      Created {{ this.todoData().createdAt | todoCreatedPipe }} by
       {{ todoData().createdBy.fullName }}
     </div>
 
@@ -51,12 +57,31 @@
             (change)="handleToggleSubTodo($event)"
             [value]="subTodo._id"
             [checked]="subTodo.isDone"
-            >{{ subTodo.name }}</mat-checkbox
           >
+            {{ subTodo.name }}
+          </mat-checkbox>
         </li>
         }
       </ul>
     </div>
-    }
+
+    @if(this.todoData().assignedTo) {
+    <div class="assigned__to">
+      <div class="title">Assigned to</div>
+      <div class="content">
+        <img
+          [src]="this.todoData().assignedTo.avatar"
+          width="24"
+          height="24"
+          alt=""
+          class="avatar"
+        />
+        <p class="name">{{ this.todoData().assignedTo.fullName }}</p>
+      </div>
+    </div>
+    } }
+  </div>
+  <div class="todo__item-icon delete" (click)="handleDelete()">
+    <mat-icon fontIcon="delete"></mat-icon>
   </div>
 </div>

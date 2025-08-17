@@ -89,6 +89,14 @@
       color: var(--icon-color);
       flex-grow: 0;
     }
+
+    .done {
+      color: var(--color-primary);
+    }
+
+    .bug {
+      color: red;
+    }
   }
 
   &-content {
@@ -206,6 +214,44 @@
           align-items: center;
         }
       }
+    }
+
+    & > .assigned__to {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .title {
+        font-size: 14px;
+        color: var(--name-todo-color);
+      }
+      .content {
+        display: flex;
+        justify-content: flex-start;
+        gap: 8px;
+        align-items: center;
+
+        & > img {
+          width: 24px;
+          height: 24px;
+          object-fit: cover;
+          border-radius: 100%;
+        }
+
+        & > p.name {
+          font-size: 12px;
+          color: var(--name-todo-color);
+        }
+      }
+    }
+  }
+
+  .delete {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-white);
     }
   }
 }

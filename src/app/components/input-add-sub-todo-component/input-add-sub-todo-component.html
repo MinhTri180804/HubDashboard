@@ -1,0 +1,19 @@
+<div class="input__add__sub__todo">
+  <form (submit)="onSubmitAddSubTodo($event)">
+    <input
+      [value]="this.valueInput()"
+      (change)="onChangeInput($event)"
+      type="text"
+      required
+    />
+  </form>
+
+  <ul class="sub__todo-list">
+    @for(subTodo of subTodos(); track $index) {
+    <li class="sub__todo-item">
+      <div class="sub__todo-name">{{ subTodo }}</div>
+      <mat-icon fontIcon="close"></mat-icon>
+    </li>
+    }
+  </ul>
+</div>
