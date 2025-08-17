@@ -1,0 +1,28 @@
+<div
+  class="multi__select-tag"
+  (click)="onToggleShowOptions()"
+  [class.open]="isOpen()"
+>
+  <ul class="option__selected-list">
+    @for(tag of selectedTags(); track tag._id) {
+    <li class="option__selected">
+      <div class="value">{{ tag.name }}</div>
+      <div (click)="onRemoveSelectedTag($event, tag._id)">
+        <mat-icon fontIcon="close"></mat-icon>
+      </div>
+    </li>
+    }
+  </ul>
+  <ul class="options">
+    @for(tagOption of tagsService.tags(); track tagOption._id) {
+    <li
+      class="option__item"
+      [class.active]="selectedTags().includes(tagOption)"
+      (click)="onToggleSelectTag($event, tagOption)"
+    >
+      <div class="value">{{ tagOption.name }}</div>
+      <div class="color-tag" [style.background-color]="tagOption.color"></div>
+    </li>
+    }
+  </ul>
+</div>
