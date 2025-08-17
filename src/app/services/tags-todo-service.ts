@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, signal } from '@angular/core';
 import { ResponseSuccess } from '../types/commons/commons';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { TagInfo } from '../types/tag';
 
 @Injectable()
@@ -13,8 +13,12 @@ export class TagsTodoService {
   constructor(private _httpClient: HttpClient) {}
 
   //   Fetch Methods
-  public getAllTags(): Observable<ResponseSuccess<TagInfo[]>> {
-    return this._httpClient.get<ResponseSuccess<TagInfo[]>>(this._urlApi);
+  public fetchAllTags(): Observable<ResponseSuccess<TagInfo[]>> {
+    return this._httpClient.get<ResponseSuccess<TagInfo[]>>(this._urlApi).pipe(
+      tap((response) => {
+        this._tags.set(response);
+      })
+    );
   }
 
   // Local State Getters

@@ -6,7 +6,7 @@
   <app-form-create-todo-component
     #formAddTodo
     dialog-content
-    (onCreateTodo)="formSubmit()"
+    (onCreateTodo)="formSubmit($event)"
   ></app-form-create-todo-component>
   <div dialog-footer>
     <div class="actions__container">

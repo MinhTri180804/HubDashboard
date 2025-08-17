@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ResponseSuccess } from '../types/commons/commons';
 import { EmployeeInfo } from '../types/employee';
 
@@ -15,7 +15,13 @@ export class EmployeesService {
 
   // Fetch Methods
   public fetchAllEmployees(): Observable<ResponseSuccess<EmployeeInfo[]>> {
-    return this._httpClient.get<ResponseSuccess<EmployeeInfo[]>>(this._urlApi);
+    return this._httpClient
+      .get<ResponseSuccess<EmployeeInfo[]>>(this._urlApi)
+      .pipe(
+        tap((response) => {
+          this._employees.set(response);
+        })
+      );
   }
 
   // Local State Getters

@@ -7,7 +7,7 @@
       type="text"
       name="title"
       id="title"
-      formControlName="title"
+      formControlName="name"
     />
   </div>
   <div class="form__field">
@@ -17,21 +17,26 @@
       name="status"
       id="status"
       class="form__field-input"
-      formControlName="status"
+      formControlName="state"
     >
-      @for(status of statusMockData; track $index) {
-      <option value="{{ status.value }}">{{ status.name }}</option>
+      @for(status of status; track $index) {
+      <option value="{{ status.value }}">
+        {{ status.name }}
+      </option>
       }
     </select>
   </div>
   <div class="form__field">
     <label class="form__field-label" for="tags">Tags</label>
-    <input
+    <app-multi-select-tag-component
+      formControlName="tagIds"
+    ></app-multi-select-tag-component>
+    <!-- <input
       class="form__field-input"
       type="text"
       name="title"
       id="tags"
       formControlName="tags"
-    />
+    /> -->
   </div>
 </form>

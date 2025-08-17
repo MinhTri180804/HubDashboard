@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressBar } from '@angular/material/progress-bar';
@@ -11,10 +18,15 @@ import { TodoInfo } from '../../types/todo';
   templateUrl: './todo-item-component.html',
   styleUrl: './todo-item-component.scss',
 })
-export class TodoItemComponent {
+export class TodoItemComponent implements OnInit {
   todoService = inject(TodoService);
   todoData = input.required<TodoInfo>();
   hasSubTodo = computed(() => this.todoData()?.subTodos?.length > 0);
+
+  ngOnInit(): void {
+    console.log(this.todoData());
+    console.log(this.todoData().subTodos);
+  }
 
   completedSubTodo = computed(() =>
     this.todoData().subTodos.filter((todo) => todo.isDone)

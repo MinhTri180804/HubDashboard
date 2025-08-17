@@ -47,28 +47,3 @@
   align-items: center;
   padding-bottom: 24px;
 }
-
-app-dialog-component {
-  ::ng-deep .dialog__container {
-    width: var(--dialog-width);
-  }
-
-  .actions__container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-
-    ::ng-deep app-button-component.actions__cancel {
-      button {
-        border-color: #798e98;
-        color: #798e98;
-
-        &:hover {
-          background-color: #798e98;
-          color: var(--color-white);
-        }
-      }
-    }
-  }
-}

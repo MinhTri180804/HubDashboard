@@ -5,12 +5,12 @@ import { SubTodoInfo } from './subTodo';
 import { TagInfo } from './tag';
 
 export type TodoInfo = UpdatedAtCreatedAt & {
-  id: string;
+  _id: string;
   name: string;
   deadline: number;
   state: TodoStateConstantsValues;
-  tags: TagInfo[];
-  doneAt: Date | null;
+  tagIds: TagInfo[];
+  doneAt: number;
   subTodos: SubTodoInfo[];
   assignedTo: EmployeeInfo;
   createdBy: EmployeeInfo;

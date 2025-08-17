@@ -49,34 +49,4 @@
   <app-todo-manager-component></app-todo-manager-component>
 </section>
 
-<app-dialog-component
-  (isOpenChange)="changeDialogAddTodo($event)"
-  [isOpen]="isOpenDialogAddTodo()"
->
-  <h3 dialog-title>Add Task</h3>
-  <app-form-create-todo-component
-    #formAddTodo
-    dialog-content
-    (onCreateTodo)="formCreateTodoSubmit()"
-  ></app-form-create-todo-component>
-  <div dialog-footer>
-    <div class="actions__container">
-      <app-button-component
-        buttonVariant="outline"
-        class="actions__cancel"
-        buttonSize="medium"
-      >
-        Cancel
-      </app-button-component>
-
-      <app-button-component
-        buttonVariant="outline"
-        class="actions__create"
-        buttonSize="medium"
-        (clicked)="onCreateTodo()"
-      >
-        Create
-      </app-button-component>
-    </div>
-  </div>
-</app-dialog-component>
+<app-dialog-create-todo-component></app-dialog-create-todo-component>

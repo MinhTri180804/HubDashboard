@@ -1,11 +1,16 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../components/breadcrumb-component/breadcrumb-component';
 import { ButtonComponent } from '../../components/button-component/button-component';
+import { DialogCreateTodoComponent } from '../../components/dialog-create-todo-component/dialog-create-todo-component';
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
+import { FormCreateTodoComponent } from '../../components/form-create-todo-component/form-create-todo-component';
 import { TodoManagerComponent } from '../../components/todo-manager-component/todo-manager-component';
-import { DialogComponent } from '../../components/dialog-component/dialog-component';
+import { DialogCreateTodoService } from '../../services/dialog-create-todo-service';
+import { TodoService } from '../../services/todo-service';
+import { EmployeesService } from '../../services/employees-service';
+import { TagsTodoService } from '../../services/tags-todo-service';
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -16,28 +21,19 @@ import { DialogComponent } from '../../components/dialog-component/dialog-compon
     DropdownComponent,
     DropdownItemComponent,
     TodoManagerComponent,
-    DialogComponent,
+    DialogCreateTodoComponent,
   ],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
+  providers: [
+    DialogCreateTodoService,
+    TodoService,
+    EmployeesService,
+    TagsTodoService,
+  ],
 })
-export class ScrumBoardPage {
-  isOpenDialogAddTodo = signal<boolean>(false);
-
-  statusMockData = [
-    {
-      name: 'To Do',
-      value: 'todo',
-    },
-    {
-      name: 'In Progress',
-      value: 'in-progress',
-    },
-    {
-      name: 'Done',
-      value: 'done',
-    },
-  ];
+export class ScrumBoardPage implements OnInit {
+  formCreateTodo = viewChild<FormCreateTodoComponent>('formAddTodo');
 
   projectsMockData = [
     {
@@ -54,15 +50,11 @@ export class ScrumBoardPage {
     },
   ];
 
+  constructor(private dialogCreateTodoService: DialogCreateTodoService) {}
+
+  ngOnInit(): void {}
+
   openDialogAddTodo() {
-    this.isOpenDialogAddTodo.set(true);
-  }
-
-  closeDialogAddTodo() {
-    this.isOpenDialogAddTodo.set(false);
-  }
-
-  changeDialogAddTodo(value: boolean) {
-    this.isOpenDialogAddTodo.set(value);
+    this.dialogCreateTodoService.open();
   }
 }

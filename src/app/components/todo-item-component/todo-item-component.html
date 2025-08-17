@@ -1,17 +1,23 @@
-<div class="todo__item" [attr.todoId]="todoData().id">
+<div class="todo__item" [attr.todoId]="todoData()._id">
   <div class="todo__item-icon">
     <mat-icon fontIcon="help_outline"></mat-icon>
   </div>
   <div class="todo__item-content">
     <div class="name">{{ todoData().name }}</div>
     <div class="short-information">
-      #{{ todoData().id }} created yesterday by
+      #{{ todoData()._id }} created yesterday by
       {{ todoData().createdBy.fullName }}
     </div>
 
     <ul class="tags__list">
-      @for(tag of todoData().tags; track $index) {
-      <li class="tag__item">{{ tag.name }}</li>
+      @for(tag of todoData().tagIds; track $index) {
+      <li
+        class="tag__item"
+        [style.border-color]="tag.color"
+        [style.color]="tag.color"
+      >
+        {{ tag.name }}
+      </li>
       } @empty {
       <li class="tag__item">No tags</li>
       }
