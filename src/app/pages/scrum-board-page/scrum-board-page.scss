@@ -33,11 +33,6 @@
       color: var(--title-color);
     }
   }
-
-  & > &__actions {
-    flex-shrink: 0;
-    flex-grow: 0;
-  }
 }
 
 .scrum__information {
