@@ -1,14 +1,6 @@
+import { Component, forwardRef, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  Component,
-  ElementRef,
-  forwardRef,
-  output,
-  signal,
-  viewChild,
-} from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { SubTodoInfo } from '../../types/subTodo';
 
 export type SubTodoFormData = string;
 
@@ -59,5 +51,12 @@ export class InputAddSubTodoComponent implements ControlValueAccessor {
   onChangeInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.valueInput.set(input.value);
+  }
+
+  onRemoveSubTodo(index: number) {
+    this._onTouched();
+    const newSubTodo = this.subTodos().filter((_, idx) => idx !== index);
+    this.subTodos.set(newSubTodo);
+    this._onChange(this.subTodos());
   }
 }
