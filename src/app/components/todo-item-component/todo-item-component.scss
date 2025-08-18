@@ -293,24 +293,24 @@
   width: var(--process-bar-width) !important;
 
   .mdc-linear-progress__buffer {
-    background-color: var(--process-bar-background-color) !important;
+    background-color: var(--process-bar-background-color);
   }
 
   .mdc-linear-progress__bar-inner {
-    border-color: var(--color-primary) !important;
+    border-color: var(--color-primary);
   }
 
   .mdc-linear-progress__bar {
-    background-color: var(--color-primary) !important;
+    background-color: var(--color-primary);
   }
 
   .mdc-linear-progress__buffer-bar {
-    background-color: var(--process-bar-background-color) !important;
+    background-color: var(--process-bar-background-color);
   }
 
   .mdc-linear-progress__bar,
   .mdc-linear-progress__buffer {
-    height: var(--process-bar-height) !important;
+    height: var(--process-bar-height);
   }
 
   border-radius: var(--process-bar-border-radius);

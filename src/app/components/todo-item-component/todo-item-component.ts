@@ -12,10 +12,17 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { TodoService } from '../../services/todo-service';
 import { TodoInfo } from '../../types/todo';
 import { TodoCreatedPipePipe } from '../../pipes/todo-created-pipe-pipe';
+import { PercentColor } from '../../directives/percent-color';
 
 @Component({
   selector: 'app-todo-item-component',
-  imports: [MatIcon, MatProgressBar, MatCheckbox, TodoCreatedPipePipe],
+  imports: [
+    MatIcon,
+    MatProgressBar,
+    MatCheckbox,
+    TodoCreatedPipePipe,
+    PercentColor,
+  ],
   templateUrl: './todo-item-component.html',
   styleUrl: './todo-item-component.scss',
 })
@@ -34,10 +41,7 @@ export class TodoItemComponent implements OnInit {
     }).format(new Date(this.todoData().createdAt));
   });
 
-  ngOnInit(): void {
-    console.log(this.todoData());
-    console.log(this.todoData().subTodos);
-  }
+  ngOnInit(): void {}
 
   completedSubTodo = computed(() =>
     this.todoData().subTodos.filter((todo) => todo.isDone)
@@ -46,7 +50,7 @@ export class TodoItemComponent implements OnInit {
   progressSubTodo = computed(() => {
     const completed = this.completedSubTodo().length;
     const total = this.todoData().subTodos.length;
-    return ((completed / total) * 100).toFixed(0);
+    return Math.floor((completed / total) * 100);
   });
 
   isOpenSubTodo = signal<boolean>(false);

@@ -8,6 +8,7 @@ import { CreateTodoRequestBody } from '../types/request/todo';
 import { TodoStateConstantsValues } from '../constants/todoStateConstants';
 
 @Injectable()
+// TODO: đặt tên chưa đúng cho service này
 export class TodoService {
   private readonly _urlApi = 'localhost:5001/api/todos';
   private readonly _urlApiSubTodo = 'localhost:5001/api/subtodos';

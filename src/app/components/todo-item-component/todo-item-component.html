@@ -45,7 +45,11 @@
           </div>
         </div>
         <div class="process">
-          <mat-progress-bar [value]="progressSubTodo()"></mat-progress-bar>
+          <mat-progress-bar
+            appPercentColor
+            [percent]="progressSubTodo() === 0 ? 5 : progressSubTodo()"
+            [value]="progressSubTodo() === 0 ? 5 : progressSubTodo()"
+          ></mat-progress-bar>
           <div class="value">{{ progressSubTodo() }}%</div>
         </div>
       </div>
