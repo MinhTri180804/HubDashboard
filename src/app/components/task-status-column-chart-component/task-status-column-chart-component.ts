@@ -5,10 +5,12 @@ import {
   Component,
   computed,
   DoCheck,
+  OnDestroy,
   OnInit,
   signal,
   viewChild,
 } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ChartComponent, ChartType } from 'ng-apexcharts';
 import {
   TaskAnalyticsReportsData,
@@ -88,7 +90,10 @@ type SeriesData = {
   styleUrl: './task-status-column-chart-component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskStatusColumnChartComponent implements OnInit, DoCheck {
+export class TaskStatusColumnChartComponent
+  implements OnInit, DoCheck, OnDestroy
+{
+  private destroy$ = new Subject<void>();
   currentPage = signal<number>(1);
   totalPage = signal<number>(0);
   hasNextPage = signal<boolean>(false);
@@ -100,17 +105,19 @@ export class TaskStatusColumnChartComponent implements OnInit, DoCheck {
   constructor(private _taskAnalyticsService: TaskAnalyticsService) {}
 
   ngOnInit(): void {
-    this._taskAnalyticsService.fetchReport(this.currentPage()).subscribe({
-      next: (response) => {
-        this.isLoading.set(false);
-        this._updatePagination(response);
-      },
-
-      error: (error) => {
-        console.log('Error: ', error);
-        this.isLoading.set(false);
-      },
-    });
+    this._taskAnalyticsService
+      .fetchReport(this.currentPage())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.isLoading.set(false);
+          this._updatePagination(response);
+        },
+        error: (error) => {
+          console.log('Error: ', error);
+          this.isLoading.set(false);
+        },
+      });
   }
 
   ngDoCheck(): void {
@@ -119,17 +126,23 @@ export class TaskStatusColumnChartComponent implements OnInit, DoCheck {
 
   onNextPage() {
     this.currentPage.update((prev) => prev + 1);
-    this._taskAnalyticsService.fetchReport(this.currentPage()).subscribe({
-      next: (response) => this._updatePagination(response),
-    });
+    this._taskAnalyticsService
+      .fetchReport(this.currentPage())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => this._updatePagination(response),
+      });
   }
 
   onPreviousPage() {
     if (this.currentPage() >= 1) {
       this.currentPage.update((prev) => prev - 1);
-      this._taskAnalyticsService.fetchReport(this.currentPage()).subscribe({
-        next: (response) => this._updatePagination(response),
-      });
+      this._taskAnalyticsService
+        .fetchReport(this.currentPage())
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (response) => this._updatePagination(response),
+        });
     }
   }
 
@@ -179,5 +192,10 @@ export class TaskStatusColumnChartComponent implements OnInit, DoCheck {
         categories: data || [],
       },
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
