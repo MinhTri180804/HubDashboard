@@ -5,33 +5,50 @@
   </div>
 </header>
 
-<div class="analytics__information">
-  <app-card-component>
-    <h3 card-header-title>Số lượng task đã tạo</h3>
+<div class="content">
+  <div class="analytics__information">
+    <app-card-component>
+      <h3 card-header-title>Số lượng task đã tạo</h3>
 
-    <div card-body>
-      <div class="value">120</div>
-    </div>
-  </app-card-component>
-  <app-card-component>
-    <h3 card-header-title>Số lượng task đang thực hiện</h3>
+      <div card-body>
+        <div class="value">120</div>
+      </div>
+    </app-card-component>
+    <app-card-component>
+      <h3 card-header-title>Số lượng task đang thực hiện</h3>
 
-    <div card-body>
-      <div class="value">120</div>
-    </div>
-  </app-card-component>
-  <app-card-component>
-    <h3 card-header-title>Số lượng task đã hoàn thành</h3>
+      <div card-body>
+        <div class="value">120</div>
+      </div>
+    </app-card-component>
+    <app-card-component>
+      <h3 card-header-title>Số lượng task đã hoàn thành</h3>
 
-    <div card-body>
-      <div class="value">120</div>
-    </div>
-  </app-card-component>
-  <app-card-component>
-    <h3 card-header-title>Số lượng task chưa hoàn thành</h3>
+      <div card-body>
+        <div class="value">120</div>
+      </div>
+    </app-card-component>
+    <app-card-component>
+      <h3 card-header-title>Số lượng task chưa hoàn thành</h3>
 
-    <div card-body>
-      <div class="value">120</div>
-    </div>
-  </app-card-component>
+      <div card-body>
+        <div class="value">120</div>
+      </div>
+    </app-card-component>
+  </div>
+
+  <div class="analytics__charts">
+    <app-card-component>
+      <div card-body>
+        <app-task-status-column-chart-component></app-task-status-column-chart-component>
+      </div>
+    </app-card-component>
+
+    <app-card-component>
+      <div card-body>
+        <app-task-status-gauge-component [min]="0" [max]="100" [value]="75">
+        </app-task-status-gauge-component>
+      </div>
+    </app-card-component>
+  </div>
 </div>

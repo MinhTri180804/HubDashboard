@@ -156,12 +156,14 @@
           justify-content: start;
           align-items: center;
           gap: 8px;
+          width: 100%;
 
           & > .value {
             font-size: var(--sub-title-size);
             color: var(--sub-title-color);
             letter-spacing: var(--sub-title-letter-spacing);
             font-weight: var(--sub-title-weight);
+            min-width: 80px;
           }
 
           & > .action {
@@ -188,6 +190,8 @@
             font-size: var(--process-bar-value-size);
             color: var(--process-bar-value-color);
             font-weight: var(--process-bar-value-weight);
+            min-width: 30px;
+            text-align: right;
           }
         }
       }

@@ -1,0 +1,84 @@
+:host {
+  --legend-gap: 16px;
+  --legend-item-gap: 8px;
+  --legend-item-color-size: 16px;
+  --legend-item-color-border-width: 1px;
+  --legend-item-color-border-color: rgba(255, 255, 255, 0.7);
+  --legend-item-name-size: 14px;
+  --legend-item-name-color: var(--color-white);
+  --legend-item-name-weight: 400;
+}
+
+.gauge-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0 20px;
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+  }
+
+  text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+  }
+
+  polygon {
+    transition: transform 0.5s ease-in-out;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  circle {
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+  }
+
+  & > .legend__list {
+    display: flex;
+    justify-content: center;
+    gap: var(--legend-gap);
+    align-items: center;
+    width: 100%;
+
+    & > .legend__list-item {
+      display: flex;
+      justify-content: center;
+      gap: var(--legend-item-gap);
+      align-items: center;
+      width: 100%;
+
+      & > .color {
+        width: var(--legend-item-color-size);
+        height: var(--legend-item-color-size);
+        border: var(--legend-item-color-border-width) solid
+          var(--legend-item-color-border-color);
+        flex-shrink: 0;
+      }
+
+      & > .name {
+        font-size: var(--legend-item-name-size);
+        font-weight: var(--legend-item-name-weight);
+        color: var(--legend-item-name-color);
+        flex-grow: 1;
+        text-wrap-mode: nowrap;
+      }
+    }
+  }
+}

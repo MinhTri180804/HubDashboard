@@ -34,26 +34,65 @@
   }
 }
 
-.analytics__information {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+.content {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  width: 100%;
 
-  & > app-card-component {
-    grid-column: span 3;
+  & > .analytics__information {
     width: 100%;
-    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
 
-    ::ng-deep [card-body] {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    & > app-card-component {
+      grid-column: span 3;
+      width: 100%;
+      height: 100%;
+
+      [card-header-title] {
+        width: 100%;
+        text-align: center;
+      }
+
+      ::ng-deep [card-body] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .value {
+        color: var(--card-value-text-color);
+        font-size: var(--card-value-text-size);
+        font-weight: var(--card-value-text-weight);
+      }
     }
+  }
 
-    .value {
-      color: var(--card-value-text-color);
-      font-size: var(--card-value-text-size);
-      font-weight: var(--card-value-text-weight);
+  & > .analytics__charts {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+
+    & > app-card-component {
+      grid-column: span 6;
+
+      ::ng-deep .card {
+        height: 100%;
+      }
+
+      [card-body] {
+        padding: 16px;
+
+        app-task-status-gauge-component {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
   }
 }
