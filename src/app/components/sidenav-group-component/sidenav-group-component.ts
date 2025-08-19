@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { SidenavItemComponent } from '../sidenav-item-component/sidenav-item-component';
 import { SidenavInfo } from '../../types/sidebar';
+import { SidenavItemComponent } from '../sidenav-item-component/sidenav-item-component';
 
 @Component({
   selector: 'app-sidenav-group-component',

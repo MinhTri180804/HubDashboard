@@ -25,33 +25,14 @@ export class App {
       groupTitle: 'Navigation',
       items: [
         {
-          icon: 'dashboard_outline',
-          name: 'dashboard',
+          icon: 'developer_board',
+          name: 'Board scrum',
+          link: 'board-scrum',
         },
         {
-          icon: 'analytics_outline',
-          name: 'analytics',
-        },
-        {
-          icon: 'email',
-          name: 'email',
-        },
-      ],
-    },
-    {
-      groupTitle: 'Navigation',
-      items: [
-        {
-          icon: 'dashboard_outline',
-          name: 'dashboard',
-        },
-        {
-          icon: 'analytics_outline',
-          name: 'analytics',
-        },
-        {
-          icon: 'email',
-          name: 'email',
+          icon: 'bar_chart',
+          name: 'Analytics',
+          link: 'analytics',
         },
       ],
     },

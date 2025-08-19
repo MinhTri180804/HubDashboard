@@ -6,4 +6,5 @@ export type SidenavInfo = {
 export type SidenavItemInfo = {
   icon: string;
   name: string;
+  link: string;
 };

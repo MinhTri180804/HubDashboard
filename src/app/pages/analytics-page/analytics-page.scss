@@ -43,6 +43,11 @@
     & > app-card-component {
       grid-column: span 6;
 
+      ::ng-deep h3 {
+        width: 100%;
+        text-align: center;
+      }
+
       ::ng-deep .card {
         height: 100%;
       }
