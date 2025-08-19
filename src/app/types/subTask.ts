@@ -1,6 +1,6 @@
 import { UpdatedAtCreatedAt } from './commons/commons';
 
-export type SubTodoInfo = UpdatedAtCreatedAt & {
+export type SubTaskInfo = UpdatedAtCreatedAt & {
   _id: string;
   todoId: string;
   name: string;

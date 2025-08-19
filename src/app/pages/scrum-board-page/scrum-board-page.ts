@@ -6,9 +6,9 @@ import { DialogCreateTodoComponent } from '../../components/dialog-create-todo-c
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
 import { FormCreateTodoComponent } from '../../components/form-create-todo-component/form-create-todo-component';
-import { TodoManagerComponent } from '../../components/todo-manager-component/todo-manager-component';
+import { TodoManagerComponent } from '../../components/task-manager-component/task-manager-component';
 import { DialogCreateTodoService } from '../../services/dialog-create-todo-service';
-import { TodoService } from '../../services/todo-service';
+import { TaskService } from '../../services/task-service';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
 
@@ -27,14 +27,12 @@ import { TagsTodoService } from '../../services/tags-todo-service';
   styleUrl: './scrum-board-page.scss',
   providers: [
     DialogCreateTodoService,
-    TodoService,
+    TaskService,
     EmployeesService,
     TagsTodoService,
   ],
 })
 export class ScrumBoardPage implements OnInit {
-  formCreateTodo = viewChild<FormCreateTodoComponent>('formAddTodo');
-
   projectsMockData = [
     {
       name: 'project/mobile-app-dev',

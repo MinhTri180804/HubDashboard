@@ -1,6 +1,6 @@
-<div class="todo__item" [attr.todoId]="todoData()._id">
+<div class="todo__item" [attr.todoId]="taskData()._id">
   <div class="todo__item-icon">
-    @if(todoData().state === 'completed') {
+    @if(taskData().state === 'completed') {
     <mat-icon fontIcon="check_circle" class="done"></mat-icon>
     } @else if (hasBugTag()) {
     <mat-icon fontIcon="bug_report" class="bug"></mat-icon>
@@ -9,14 +9,14 @@
     }
   </div>
   <div class="todo__item-content">
-    <div class="name">{{ todoData().name }}</div>
+    <div class="name">{{ taskData().name }}</div>
     <div class="short-information">
-      Created {{ this.todoData().createdAt | todoCreatedPipe }} by
-      {{ todoData().createdBy.fullName }}
+      Created {{ this.taskData().createdAt | todoCreatedPipe }} by
+      {{ taskData().createdBy.fullName }}
     </div>
 
     <ul class="tags__list">
-      @for(tag of todoData().tagIds; track $index) {
+      @for(tag of taskData().tagIds; track $index) {
       <li
         class="tag__item"
         [style.border-color]="tag.color"
@@ -29,7 +29,7 @@
       }
     </ul>
 
-    @if(hasSubTodo()) {
+    @if(hasSubTask()) {
     <hr />
 
     <div class="sub__todo">
@@ -37,7 +37,7 @@
         <div class="title" (click)="handleToggle()">
           <div class="value">
             Task {{ completedSubTodo().length }}/{{
-              todoData().subTodos.length
+              taskData().subTasks.length
             }}
           </div>
           <div class="action">
@@ -55,10 +55,10 @@
       </div>
 
       <ul class="sub__todo-list" [class.open]="isOpenSubTodo()">
-        @for(subTodo of todoData().subTodos; track $index) {
+        @for(subTodo of taskData().subTasks; track $index) {
         <li class="sub__todo-item">
           <mat-checkbox
-            (change)="handleToggleSubTodo($event)"
+            (change)="handleToggleSubTask($event)"
             [value]="subTodo._id"
             [checked]="subTodo.isDone"
           >
@@ -69,18 +69,18 @@
       </ul>
     </div>
 
-    @if(this.todoData().assignedTo) {
+    @if(this.taskData().assignedTo) {
     <div class="assigned__to">
       <div class="title">Assigned to</div>
       <div class="content">
         <img
-          [src]="this.todoData().assignedTo.avatar"
+          [src]="this.taskData().assignedTo.avatar"
           width="24"
           height="24"
           alt=""
           class="avatar"
         />
-        <p class="name">{{ this.todoData().assignedTo.fullName }}</p>
+        <p class="name">{{ this.taskData().assignedTo.fullName }}</p>
       </div>
     </div>
     } }

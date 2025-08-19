@@ -1,0 +1,61 @@
+<div cdkDropListGroup>
+  <app-card-task-component
+    [cardTitle]="`To Do`"
+    [cardTitleQuantity]="taskService.tasksPending().length"
+    cdkDropList
+    [cdkDropListData]="taskService.tasksPending()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-in-process', 'todo-in-done']"
+    id="todo-pending"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+
+    @for(task of taskService.tasksPending(); track task._id) {
+    <app-task-item-component
+      task
+      cdkDrag
+      [taskData]="task"
+    ></app-task-item-component>
+    }
+  </app-card-task-component>
+
+  <app-card-task-component
+    [cardTitle]="`In Progress`"
+    [cardTitleQuantity]="taskService.tasksInprogress().length"
+    cdkDropList
+    [cdkDropListData]="taskService.tasksInprogress()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-pending', 'todo-done']"
+    id="todo-in-process"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+
+    @for(task of taskService.tasksInprogress(); track task._id) {
+    <app-task-item-component
+      task
+      cdkDrag
+      [taskData]="task"
+    ></app-task-item-component>
+    }
+  </app-card-task-component>
+
+  <app-card-task-component
+    [cardTitle]="`Done`"
+    [cardTitleQuantity]="taskService.tasksDone().length"
+    cdkDropList
+    [cdkDropListData]="taskService.tasksDone()"
+    (cdkDropListDropped)="handleDrop($event)"
+    [cdkDropListConnectedTo]="['todo-pending', 'todo-in-process']"
+    id="todo-done"
+  >
+    <mat-icon action-icon fontIcon="restart_alt"></mat-icon>
+
+    @for(task of taskService.tasksDone(); track task._id) {
+    <app-task-item-component
+      task
+      cdkDrag
+      [taskData]="task"
+    ></app-task-item-component>
+    }
+  </app-card-task-component>
+</div>

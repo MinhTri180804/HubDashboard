@@ -1,17 +1,17 @@
-import { TodoStateConstantsValues } from '../constants/todoStateConstants';
+import { TaskStateConstantsValues } from '../constants/todoStateConstants';
 import { UpdatedAtCreatedAt } from './commons/commons';
 import { EmployeeInfo } from './employee';
-import { SubTodoInfo } from './subTodo';
+import { SubTaskInfo } from './subTask';
 import { TagInfo } from './tag';
 
-export type TodoInfo = UpdatedAtCreatedAt & {
+export type TaskInfo = UpdatedAtCreatedAt & {
   _id: string;
   name: string;
   deadline: number;
-  state: TodoStateConstantsValues;
+  state: TaskStateConstantsValues;
   tagIds: TagInfo[];
   doneAt: number;
-  subTodos: SubTodoInfo[];
+  subTasks: SubTaskInfo[];
   assignedTo: EmployeeInfo;
   createdBy: EmployeeInfo;
 };

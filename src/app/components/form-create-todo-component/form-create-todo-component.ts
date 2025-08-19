@@ -12,11 +12,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import {
-  TodoStateConstants,
-  TodoStateConstantsValues,
+  TaskStateConstants,
+  TaskStateConstantsValues,
 } from '../../constants/todoStateConstants';
 import { TagsTodoService } from '../../services/tags-todo-service';
-import { TodoService } from '../../services/todo-service';
+import { TaskService } from '../../services/task-service';
 import { TagInfo } from '../../types/tag';
 import { MultiSelectTagComponent } from '../multi-select-tag-component/multi-select-tag-component';
 import { EmployeeInfo } from '../../types/employee';
@@ -25,7 +25,7 @@ import { InputAddSubTodoComponent } from '../input-add-sub-todo-component/input-
 
 interface CreateTodoForm {
   name: FormControl<string>;
-  state: FormControl<TodoStateConstantsValues>;
+  state: FormControl<TaskStateConstantsValues>;
   tagIds: FormControl<TagInfo[]>;
   assignedTo: FormControl<string | null>;
   createdBy: FormControl<string | null>;
@@ -35,7 +35,7 @@ interface CreateTodoForm {
 
 export type CreateTodoFormData = {
   name: string;
-  state: TodoStateConstantsValues;
+  state: TaskStateConstantsValues;
   tagIds: string[];
   assignedTo: string;
   createdBy: string;
@@ -49,7 +49,7 @@ export type CreateTodoFormData = {
 
 type StatusTodo = {
   name: string;
-  value: TodoStateConstantsValues;
+  value: TaskStateConstantsValues;
 }[];
 
 @Component({
@@ -69,7 +69,7 @@ type StatusTodo = {
 })
 export class FormCreateTodoComponent {
   tagsService = inject(TagsTodoService);
-  todosService = inject(TodoService);
+  todosService = inject(TaskService);
   employeesService = inject(EmployeesService);
 
   today = new Date();
@@ -105,15 +105,15 @@ export class FormCreateTodoComponent {
   status: StatusTodo = [
     {
       name: 'To do',
-      value: TodoStateConstants.TODO,
+      value: TaskStateConstants.TODO,
     },
     {
       name: 'In progress',
-      value: TodoStateConstants.IN_PROGRESS,
+      value: TaskStateConstants.IN_PROGRESS,
     },
     {
       name: 'Done',
-      value: TodoStateConstants.COMPLETED,
+      value: TaskStateConstants.COMPLETED,
     },
   ];
 
@@ -125,7 +125,7 @@ export class FormCreateTodoComponent {
 
     this.onCreateTodo.emit({
       name: this.addTodoForm.value.name || '',
-      state: this.addTodoForm.value.state || TodoStateConstants.TODO,
+      state: this.addTodoForm.value.state || TaskStateConstants.TODO,
       tagIds: this.addTodoForm.value.tagIds!.map((tag) => tag._id),
       assignedTo: this.addTodoForm.value.assignedTo as string,
       createdBy: this.addTodoForm.value.createdBy as string,

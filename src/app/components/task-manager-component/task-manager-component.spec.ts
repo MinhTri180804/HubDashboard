@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodoManagerComponent } from './todo-manager-component';
+import { TodoManagerComponent } from './task-manager-component';
 
 describe('TodoManagerComponent', () => {
   let component: TodoManagerComponent;
@@ -8,9 +8,8 @@ describe('TodoManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoManagerComponent]
-    })
-    .compileComponents();
+      imports: [TodoManagerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TodoManagerComponent);
     component = fixture.componentInstance;

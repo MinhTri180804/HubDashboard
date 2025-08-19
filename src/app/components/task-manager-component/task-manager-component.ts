@@ -8,37 +8,37 @@ import {
 import { Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { StateTodoEnum } from '../../enums/stateTodoEnum';
-import { TodoService } from '../../services/todo-service';
-import { TodoInfo } from '../../types/todo';
-import { CardTodoComponent } from '../card-todo-component/card-todo-component';
-import { TodoItemComponent } from '../todo-item-component/todo-item-component';
+import { TaskService } from '../../services/task-service';
+import { TaskInfo } from '../../types/task';
+import { CardTaskComponent } from '../card-task-component/card-task-component';
+import { TaskItemComponent } from '../task-item-component/task-item-component';
 import {
-  TodoStateConstants,
-  TodoStateConstantsValues,
+  TaskStateConstants,
+  TaskStateConstantsValues,
 } from '../../constants/todoStateConstants';
 
 @Component({
-  selector: 'app-todo-manager-component',
+  selector: 'app-task-manager-component',
   imports: [
-    CardTodoComponent,
+    CardTaskComponent,
     MatIcon,
-    TodoItemComponent,
+    TaskItemComponent,
     CdkDrag,
     CdkDropList,
   ],
-  templateUrl: './todo-manager-component.html',
-  styleUrl: './todo-manager-component.scss',
+  templateUrl: './task-manager-component.html',
+  styleUrl: './task-manager-component.scss',
 })
 export class TodoManagerComponent implements OnInit {
-  todoService = inject(TodoService);
+  taskService = inject(TaskService);
 
   constructor() {}
 
   ngOnInit(): void {
-    this.todoService.fetchAllTodos().subscribe();
+    this.taskService.fetchAllTasks().subscribe();
   }
 
-  handleDrop(event: CdkDragDrop<TodoInfo[]>) {
+  handleDrop(event: CdkDragDrop<TaskInfo[]>) {
     if (event.previousContainer === event.container) {
       // Reorder within the same list
       moveItemInArray(
@@ -48,9 +48,9 @@ export class TodoManagerComponent implements OnInit {
       );
     } else {
       setTimeout(() => {
-        this.todoService
+        this.taskService
           .updateState({
-            todoId: event.container.data[event.currentIndex]._id,
+            taskId: event.container.data[event.currentIndex]._id,
             state: this.getStateFromContainerId(event.container.id),
           })
           .subscribe();
@@ -68,14 +68,14 @@ export class TodoManagerComponent implements OnInit {
 
   private getStateFromContainerId(
     containerId: string
-  ): TodoStateConstantsValues {
+  ): TaskStateConstantsValues {
     switch (containerId) {
       case 'todo-pending':
-        return TodoStateConstants.TODO;
+        return TaskStateConstants.TODO;
       case 'todo-in-process':
-        return TodoStateConstants.IN_PROGRESS;
+        return TaskStateConstants.IN_PROGRESS;
       case 'todo-done':
-        return TodoStateConstants.COMPLETED;
+        return TaskStateConstants.COMPLETED;
       default:
         throw new Error(`Unknown container ID: ${containerId}`);
     }

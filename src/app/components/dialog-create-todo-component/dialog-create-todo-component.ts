@@ -1,7 +1,7 @@
 import { Component, computed, effect, OnInit, viewChild } from '@angular/core';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
-import { TodoService } from '../../services/todo-service';
+import { TaskService } from '../../services/task-service';
 import { ButtonComponent } from '../button-component/button-component';
 import { DialogComponent } from '../dialog-component/dialog-component';
 import {
@@ -24,7 +24,7 @@ export class DialogCreateTodoComponent implements OnInit {
     private _dialogCreateTodoService: DialogCreateTodoService,
     private _employeesService: EmployeesService,
     private _tagsTodoService: TagsTodoService,
-    private _todosService: TodoService
+    private _todosService: TaskService
   ) {
     effect(() => {
       if (this.isOpen()) {
@@ -41,7 +41,7 @@ export class DialogCreateTodoComponent implements OnInit {
   }
 
   formSubmit(formData: CreateTodoFormData) {
-    this._todosService.createTodo(formData).subscribe({
+    this._todosService.createTask(formData).subscribe({
       next: () => {
         this._dialogCreateTodoService.close();
       },
