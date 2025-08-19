@@ -1,4 +1,10 @@
-import { Component, input, output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  input,
+  OnInit,
+  output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 export type ButtonVariant =
@@ -16,7 +22,7 @@ export type ButtonSize = 'small' | 'medium' | 'large';
   templateUrl: './button-component.html',
   styleUrl: './button-component.scss',
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
   buttonVariant = input<ButtonVariant>('primary');
   buttonSize = input<ButtonSize>('medium');
   icon = input<string>();
@@ -25,6 +31,10 @@ export class ButtonComponent {
   type = input<'submit' | 'button' | 'reset'>('button');
 
   clicked = output<MouseEvent>();
+
+  ngOnInit(): void {
+    console.log(this.isDisabled());
+  }
 
   handleClick(event: MouseEvent) {
     if (!this.isDisabled()) {

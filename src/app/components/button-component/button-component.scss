@@ -49,6 +49,10 @@
 }
 
 button {
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed !important;
+  }
   // Global style
   &.button__common {
     width: 100%;
@@ -149,11 +153,6 @@ button {
     }
 
     // Style of state
-
-    &:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
 
     &.icon__position--right {
       & > mat-icon {

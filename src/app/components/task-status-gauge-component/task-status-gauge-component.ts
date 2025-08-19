@@ -1,4 +1,15 @@
-import { Component, input, Input } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  TaskAnalyticsPerformanceData,
+  TaskAnalyticsService,
+} from '../../services/task-analytics-service';
 
 type Segment = { color: string; portion: number };
 
@@ -9,8 +20,15 @@ type Segment = { color: string; portion: number };
   templateUrl: './task-status-gauge-component.html',
   styleUrl: './task-status-gauge-component.scss',
 })
-export class TaskStatusGaugeComponent {
-  min = input<number>(0);
-  max = input<number>(100);
-  value = input<number>(0);
+export class TaskStatusGaugeComponent implements OnInit {
+  data = signal<TaskAnalyticsPerformanceData | null>(null);
+  percentRotation = computed(() => this.data()?.percentRotation);
+
+  constructor(private _taskAnalyticsService: TaskAnalyticsService) {}
+
+  ngOnInit(): void {
+    this._taskAnalyticsService.fetchPerformance().subscribe((response) => {
+      this.data.set(response);
+    });
+  }
 }

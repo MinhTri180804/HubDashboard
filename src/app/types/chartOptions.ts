@@ -22,4 +22,5 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   stroke: ApexStroke;
   legend: ApexLegend;
+  title?: ApexTitleSubtitle;
 };

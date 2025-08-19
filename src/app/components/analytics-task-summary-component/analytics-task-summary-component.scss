@@ -1,0 +1,38 @@
+:host {
+  --container-gap: 24px;
+  --container-cols: 12;
+  --card-col: span 3;
+  --card-value-text-size: 24px;
+  --card-value-text-color: var(--color-white);
+  --card-value-text-weight: 600;
+}
+
+.analytics__task-summary {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(var(--container-cols), 1fr);
+  gap: var(--container-gap);
+
+  & > app-card-component {
+    grid-column: var(--card-col);
+    width: 100%;
+    height: 100%;
+
+    [card-header-title] {
+      width: 100%;
+      text-align: center;
+    }
+
+    ::ng-deep [card-body] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .value {
+      color: var(--card-value-text-color);
+      font-size: var(--card-value-text-size);
+      font-weight: var(--card-value-text-weight);
+    }
+  }
+}

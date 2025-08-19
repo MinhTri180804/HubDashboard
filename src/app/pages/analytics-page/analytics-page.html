@@ -6,36 +6,7 @@
 </header>
 
 <div class="content">
-  <div class="analytics__information">
-    <app-card-component>
-      <h3 card-header-title>Số lượng task đã tạo</h3>
-
-      <div card-body>
-        <div class="value">120</div>
-      </div>
-    </app-card-component>
-    <app-card-component>
-      <h3 card-header-title>Số lượng task đang thực hiện</h3>
-
-      <div card-body>
-        <div class="value">120</div>
-      </div>
-    </app-card-component>
-    <app-card-component>
-      <h3 card-header-title>Số lượng task đã hoàn thành</h3>
-
-      <div card-body>
-        <div class="value">120</div>
-      </div>
-    </app-card-component>
-    <app-card-component>
-      <h3 card-header-title>Số lượng task chưa hoàn thành</h3>
-
-      <div card-body>
-        <div class="value">120</div>
-      </div>
-    </app-card-component>
-  </div>
+  <app-analytics-task-summary-component></app-analytics-task-summary-component>
 
   <div class="analytics__charts">
     <app-card-component>
@@ -46,9 +17,13 @@
 
     <app-card-component>
       <div card-body>
-        <app-task-status-gauge-component [min]="0" [max]="100" [value]="75">
-        </app-task-status-gauge-component>
+        <app-task-status-gauge-component> </app-task-status-gauge-component>
       </div>
     </app-card-component>
+    <!-- <app-card-component>
+      <div card-body>
+        <app-task-movement-created-component></app-task-movement-created-component>
+      </div>
+    </app-card-component> -->
   </div>
 </div>
