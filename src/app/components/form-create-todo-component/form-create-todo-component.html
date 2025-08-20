@@ -42,7 +42,7 @@
       class="form__field-input"
       formControlName="assignedTo"
     >
-      @for(employee of employeesService.employees(); track employee._id) {
+      @for(employee of employeesData(); track employee._id) {
       <option [value]="employee._id">
         {{ employee.fullName }}
       </option>
@@ -58,7 +58,7 @@
       class="form__field-input"
       formControlName="createdBy"
     >
-      @for(employee of employeesService.employees(); track employee._id) {
+      @for(employee of employeesData(); track employee._id) {
       <option [value]="employee._id">
         {{ employee.fullName }}
       </option>

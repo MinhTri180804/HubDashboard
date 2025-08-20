@@ -5,7 +5,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { Subject, takeUntil } from 'rxjs';
 import {
@@ -30,14 +30,23 @@ import { TaskItemComponent } from '../task-item-component/task-item-component';
   styleUrl: './task-manager-component.scss',
 })
 export class TodoManagerComponent implements OnInit, OnDestroy {
-  taskService = inject(TaskService);
   private destroy$ = new Subject<void>();
+  private _taskService = inject(TaskService);
+
+  taskData = this._taskService.tasks.value;
+  taskDataPending = computed(() =>
+    this.taskData().filter((task) => task.state === 'pending')
+  );
+  taskDataInProgress = computed(() =>
+    this.taskData().filter((task) => task.state === 'in-progress')
+  );
+  taskDataDone = computed(() =>
+    this.taskData().filter((task) => task.state === 'completed')
+  );
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.taskService.fetchAllTasks().subscribe();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -54,7 +63,7 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
       );
     } else {
       setTimeout(() => {
-        this.taskService
+        this._taskService
 
           .updateState({
             taskId: event.container.data[event.currentIndex]._id,

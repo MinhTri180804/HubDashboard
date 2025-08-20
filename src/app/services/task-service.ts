@@ -6,35 +6,27 @@ import { ResponseSuccess } from '../types/commons/commons';
 import { CreateTaskResponse } from '../types/response/task';
 import { CreateTaskRequestBody } from '../types/request/task';
 import { TaskStateConstantsValues } from '../constants/todoStateConstants';
+import { rxResource } from '@angular/core/rxjs-interop';
+
+type GetAllTasksParams = {};
+
+const TASKS_DEFAULT_VALUE = [] as TaskInfo[];
 
 @Injectable()
 export class TaskService {
   private readonly _urlApi = 'localhost:5001/api/todos';
   private readonly _urlApiSubTask = 'localhost:5001/api/subtodos';
 
-  private _tasks = signal<TaskInfo[]>([]);
-
-  readonly tasks = computed(() => this._tasks());
-  readonly tasksPending = computed(() =>
-    this._tasks().filter((task) => task.state === 'pending')
-  );
-  readonly tasksDone = computed(() =>
-    this._tasks().filter((task) => task.state === 'completed')
-  );
-  readonly tasksInprogress = computed(() =>
-    this._tasks().filter((task) => task.state === 'in-progress')
-  );
+  tasks = rxResource<ResponseSuccess<TaskInfo[]>, GetAllTasksParams>({
+    params: () => ({}),
+    stream: () => this._getAllTasks(),
+    defaultValue: TASKS_DEFAULT_VALUE,
+  });
 
   constructor(private _httpClient: HttpClient) {}
 
-  // Fetch Methods
-
-  public fetchAllTasks(): Observable<ResponseSuccess<TaskInfo[]>> {
-    return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(this._urlApi).pipe(
-      tap((response) => {
-        this._tasks.set(response);
-      })
-    );
+  private _getAllTasks(): Observable<ResponseSuccess<TaskInfo[]>> {
+    return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(this._urlApi);
   }
 
   public createTask(
@@ -83,11 +75,11 @@ export class TaskService {
 
   // Private
   private _addTask(data: TaskInfo) {
-    this._tasks.update((prev) => [...prev, data]);
+    this.tasks.update((prev) => [...prev, data]);
   }
 
   private _updateStateTask(taskId: string, state: TaskStateConstantsValues) {
-    this._tasks.update((prev) => {
+    this.tasks.update((prev) => {
       return prev.map((task) => {
         if (task._id === taskId) {
           return {
@@ -102,7 +94,7 @@ export class TaskService {
   }
 
   private _deleteTask(taskId: string) {
-    this._tasks.update((prev) => {
+    this.tasks.update((prev) => {
       return prev.filter((todo) => todo._id !== taskId);
     });
   }
@@ -112,7 +104,7 @@ export class TaskService {
     subTaskId: string,
     checked: boolean
   ) {
-    this._tasks.update((prev) => {
+    this.tasks.update((prev) => {
       return prev.map((task) => {
         if (task._id === taskId) {
           return {

@@ -3,26 +3,30 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ResponseSuccess } from '../types/commons/commons';
 import { EmployeeInfo } from '../types/employee';
+import { rxResource } from '@angular/core/rxjs-interop';
+
+type GetAllEmployeesParams = {};
+
+const EMPLOYEES_DEFAULT_VALUE = [] as EmployeeInfo[];
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeesService {
   private readonly _urlApi = 'localhost:5001/api/employees';
-  private _employees = signal<EmployeeInfo[]>([]);
-  readonly employees = computed(() => this._employees());
+
+  employees = rxResource<
+    ResponseSuccess<EmployeeInfo[]>,
+    GetAllEmployeesParams
+  >({
+    params: () => ({}),
+    stream: () => this._getAllEmployees(),
+    defaultValue: EMPLOYEES_DEFAULT_VALUE,
+  });
+
   constructor(private _httpClient: HttpClient) {}
 
-  // Fetch Methods
-  public fetchAllEmployees(): Observable<ResponseSuccess<EmployeeInfo[]>> {
-    return this._httpClient
-      .get<ResponseSuccess<EmployeeInfo[]>>(this._urlApi)
-      .pipe(
-        tap((response) => {
-          this._employees.set(response);
-        })
-      );
+  private _getAllEmployees(): Observable<ResponseSuccess<EmployeeInfo[]>> {
+    return this._httpClient.get<ResponseSuccess<EmployeeInfo[]>>(this._urlApi);
   }
-
-  // Local State Getters
 }

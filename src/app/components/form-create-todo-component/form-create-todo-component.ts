@@ -72,6 +72,8 @@ export class FormCreateTodoComponent {
   todosService = inject(TaskService);
   employeesService = inject(EmployeesService);
 
+  employeesData = this.employeesService.employees.value;
+
   today = new Date();
   onCreateTodo = output<CreateTodoFormData>();
   addTodoForm = new FormGroup<CreateTodoForm>({
