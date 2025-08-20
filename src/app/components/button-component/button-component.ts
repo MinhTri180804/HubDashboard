@@ -32,9 +32,7 @@ export class ButtonComponent implements OnInit {
 
   clicked = output<MouseEvent>();
 
-  ngOnInit(): void {
-    console.log(this.isDisabled());
-  }
+  ngOnInit(): void {}
 
   handleClick(event: MouseEvent) {
     if (!this.isDisabled()) {

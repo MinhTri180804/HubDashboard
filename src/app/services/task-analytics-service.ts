@@ -136,8 +136,6 @@ export class TaskAnalyticsService {
       }
     }
 
-    console.log(maxIndex);
-
     const keyOfStatisticMaxPercent = Object.keys(data.statistics)[
       maxIndex
     ] as keyof AnalyticsTaskPerformanceResponse['statistics'];

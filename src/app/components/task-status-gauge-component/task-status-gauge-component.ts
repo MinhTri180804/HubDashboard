@@ -49,8 +49,6 @@ export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.data.set(response);
           this.isLoading.set(false);
-
-          console.log(this.statisticData());
         },
         error: (error) => {
           console.error('[ERROR] Error fetch performance analytics: ', error);

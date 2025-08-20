@@ -18,7 +18,7 @@ import {
 } from '../../services/task-analytics-service';
 import { ChartOptions } from '../../types/chartOptions';
 import { ButtonComponent } from '../button-component/button-component';
-import { CardComponent } from "../card-component/card-component";
+import { CardComponent } from '../card-component/card-component';
 
 const chartOptionsDefault: ChartOptions = {
   series: [],
@@ -91,9 +91,7 @@ type SeriesData = {
   styleUrl: './task-status-column-chart-component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskStatusColumnChartComponent
-  implements OnInit, DoCheck, OnDestroy
-{
+export class TaskStatusColumnChartComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   currentPage = signal<number>(1);
   totalPage = signal<number>(0);
@@ -119,10 +117,6 @@ export class TaskStatusColumnChartComponent
           this.isLoading.set(false);
         },
       });
-  }
-
-  ngDoCheck(): void {
-    console.log('DO CHECK');
   }
 
   onNextPage() {
@@ -157,9 +151,6 @@ export class TaskStatusColumnChartComponent
     this.totalPage.set(totalItem);
     this.hasNextPage.set(hasNextPage);
     this.hasPreviousPage.set(hasPreviousPage);
-
-    console.log('HasPreviousPage: ', this.hasPreviousPage());
-    console.log('HasNextPage: ', this.hasNextPage());
   }
 
   private _updateSeries(data: TaskAnalyticsReportsData['seriesData']) {
