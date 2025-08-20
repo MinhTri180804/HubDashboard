@@ -7,14 +7,14 @@
           (clicked)="onPreviousPage()"
           buttonSize="small"
           icon="chevron_left"
-          [isDisabled]="!hasPreviousPage()"
+          [isDisabled]="!data()?.pagination?.hasPreviousPage"
         >
         </app-button-component>
         <app-button-component
           (clicked)="onNextPage()"
           buttonSize="small"
           icon="chevron_right"
-          [isDisabled]="!hasNextPage()"
+          [isDisabled]="!data()?.pagination?.hasNextPage"
         >
         </app-button-component>
       </div>
@@ -35,6 +35,7 @@
       ></apx-chart>
 
       } @else {
+      <!-- TODO: Implement loading skeleton -->
       <div class="loading">loading...</div>
       }
     </div>

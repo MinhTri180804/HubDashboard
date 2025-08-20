@@ -1,6 +1,8 @@
 import {
+  AfterViewChecked,
   Component,
   computed,
+  inject,
   input,
   Input,
   OnDestroy,
@@ -23,9 +25,12 @@ type Segment = { color: string; portion: number };
   templateUrl: './task-status-gauge-component.html',
   styleUrl: './task-status-gauge-component.scss',
 })
-export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
-  isLoading = signal<boolean>(true);
-  data = signal<TaskAnalyticsPerformanceData | null>(null);
+export class TaskStatusGaugeComponent {
+  private _taskAnalyticsService = inject(TaskAnalyticsService);
+
+  data = this._taskAnalyticsService.performance.value;
+  isLoading = this._taskAnalyticsService.performance.isLoading;
+
   statisticData = computed(() => {
     if (!this.data()) {
       return [];
@@ -35,30 +40,8 @@ export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
       value,
     }));
   });
-  private destroy$ = new Subject<void>();
 
   percentRotation = computed(() => this.data()?.percentRotation);
 
-  constructor(private _taskAnalyticsService: TaskAnalyticsService) {}
-
-  ngOnInit(): void {
-    this._taskAnalyticsService
-      .fetchPerformance()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.data.set(response);
-          this.isLoading.set(false);
-        },
-        error: (error) => {
-          console.error('[ERROR] Error fetch performance analytics: ', error);
-          this.isLoading.set(false);
-        },
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  constructor() {}
 }

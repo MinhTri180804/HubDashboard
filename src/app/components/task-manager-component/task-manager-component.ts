@@ -7,16 +7,15 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { StateTodoEnum } from '../../enums/stateTodoEnum';
-import { TaskService } from '../../services/task-service';
-import { TaskInfo } from '../../types/task';
-import { CardTaskComponent } from '../card-task-component/card-task-component';
-import { TaskItemComponent } from '../task-item-component/task-item-component';
+import { Subject, takeUntil } from 'rxjs';
 import {
   TaskStateConstants,
   TaskStateConstantsValues,
 } from '../../constants/todoStateConstants';
-import { Subject, takeUntil } from 'rxjs';
+import { TaskService } from '../../services/task-service';
+import { TaskInfo } from '../../types/task';
+import { CardTaskComponent } from '../card-task-component/card-task-component';
+import { TaskItemComponent } from '../task-item-component/task-item-component';
 
 @Component({
   selector: 'app-task-manager-component',
