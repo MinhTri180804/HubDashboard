@@ -129,8 +129,8 @@ export class TaskAnalyticsService {
 
     for (let i = 1; i < statisticsData.length; i++) {
       if (
-        Number(statisticsData[maxIndex].percentage) <
-        Number(statisticsData[i].percentage)
+        Number(statisticsData[maxIndex].data.percentage) <
+        Number(statisticsData[i].data.percentage)
       ) {
         maxIndex = i;
       }
@@ -150,7 +150,7 @@ export class TaskAnalyticsService {
 
     const PERCENT_OF_STATISTIC =
       (RANGE / 100) *
-      Number(data.statistics[keyOfStatisticMaxPercent].percentage);
+      Number(data.statistics[keyOfStatisticMaxPercent].data.percentage);
 
     let result;
 

@@ -18,6 +18,7 @@ import {
 } from '../../services/task-analytics-service';
 import { ChartOptions } from '../../types/chartOptions';
 import { ButtonComponent } from '../button-component/button-component';
+import { CardComponent } from "../card-component/card-component";
 
 const chartOptionsDefault: ChartOptions = {
   series: [],
@@ -85,7 +86,7 @@ type SeriesData = {
 
 @Component({
   selector: 'app-task-status-column-chart-component',
-  imports: [ChartComponent, ButtonComponent],
+  imports: [ChartComponent, ButtonComponent, CardComponent],
   templateUrl: './task-status-column-chart-component.html',
   styleUrl: './task-status-column-chart-component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

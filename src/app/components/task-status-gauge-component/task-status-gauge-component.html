@@ -1,44 +1,49 @@
-<div class="gauge-container">
-  <svg width="400" height="260">
-    <!-- Red segment (120 degrees) -->
-    <path
-      d="M-140,0A140,140,0,0,1,-70,-121.244A140,140,0,0,1,-70,-121.244L-52.5,-90.933A105,105,0,0,0,-105,0Z"
-      fill="#FF5252"
-      transform="translate(200, 170)"
-    ></path>
+<app-card-component>
+  <h3 card-header-title>Thống kê hiệu năng thực hiện task</h3>
+  <div card-body>
+    <div class="gauge-container">
+      <svg width="400" height="260">
+        <!-- Red segment (120 degrees) -->
+        <path
+          d="M-140,0A140,140,0,0,1,-70,-121.244A140,140,0,0,1,-70,-121.244L-52.5,-90.933A105,105,0,0,0,-105,0Z"
+          fill="#FF5252"
+          transform="translate(200, 170)"
+        ></path>
 
-    <!-- Yellow segment (120 degrees) -->
-    <path
-      d="M-70,-121.244A140,140,0,0,1,70,-121.244L52.5,-90.933A105,105,0,0,0,-52.5,-90.933Z"
-      fill="#FFD600"
-      transform="translate(200, 170)"
-    ></path>
+        <!-- Yellow segment (120 degrees) -->
+        <path
+          d="M-70,-121.244A140,140,0,0,1,70,-121.244L52.5,-90.933A105,105,0,0,0,-52.5,-90.933Z"
+          fill="#FFD600"
+          transform="translate(200, 170)"
+        ></path>
 
-    <!-- Green segment (120 degrees) -->
-    <path
-      d="M70,-121.244A140,140,0,0,1,140,0L105,0A105,105,0,0,0,52.5,-90.933Z"
-      fill="#4CAF50"
-      transform="translate(200, 170)"
-    ></path>
+        <!-- Green segment (120 degrees) -->
+        <path
+          d="M70,-121.244A140,140,0,0,1,140,0L105,0A105,105,0,0,0,52.5,-90.933Z"
+          fill="#4CAF50"
+          transform="translate(200, 170)"
+        ></path>
 
-    <g
-      [attr.transform]="'translate(200,170) rotate(' + percentRotation() + ')'"
-    >
-      <path
-        d="M-101.85,-6.236513824657896e-15L-4.286263797015736e-16,7L7,4.286263797015736e-16L4.286263797015736e-16,-7L-101.85,-6.236513824657896e-15"
-        stroke="white"
-        stroke-width="2"
-        fill="white"
-      ></path>
+        <g
+          [attr.transform]="
+            'translate(200,170) rotate(' + percentRotation() + ')'
+          "
+        >
+          <path
+            d="M-101.85,-6.236513824657896e-15L-4.286263797015736e-16,7L7,4.286263797015736e-16L4.286263797015736e-16,-7L-101.85,-6.236513824657896e-15"
+            stroke="white"
+            stroke-width="2"
+            fill="white"
+          ></path>
 
-      <path
-        d="M-14,-1.7145055188062944e-15A14,14,0,1,1,14,1.7145055188062944e-15A14,14,0,1,1,-14,-1.7145055188062944e-15Z"
-        fill="white"
-        class="bar"
-      ></path>
-    </g>
-    <!-- Value display -->
-    <!-- <text
+          <path
+            d="M-14,-1.7145055188062944e-15A14,14,0,1,1,14,1.7145055188062944e-15A14,14,0,1,1,-14,-1.7145055188062944e-15Z"
+            fill="white"
+            class="bar"
+          ></path>
+        </g>
+        <!-- Value display -->
+        <!-- <text
       x="200"
       y="220"
       text-anchor="middle"
@@ -48,20 +53,46 @@
     >
       {{ value() }}
     </text> -->
-  </svg>
+      </svg>
 
-  <ul class="legend__list">
-    <li class="legend__list-item">
-      <div class="color" style="background-color: #ff5252"></div>
-      <p class="name">Trễ deadline</p>
-    </li>
-    <li class="legend__list-item">
-      <div class="color" style="background-color: #ffd600"></div>
-      <p class="name">Đúng deadline</p>
-    </li>
-    <li class="legend__list-item">
-      <div class="color" style="background-color: #4caf50"></div>
-      <p class="name">Sớm hơn deadline</p>
-    </li>
-  </ul>
-</div>
+      <ul class="legend__list">
+        <li class="legend__list-item">
+          <div class="color" style="background-color: #ff5252"></div>
+          <p class="name">Trễ deadline</p>
+        </li>
+        <li class="legend__list-item">
+          <div class="color" style="background-color: #ffd600"></div>
+          <p class="name">Đúng deadline</p>
+        </li>
+        <li class="legend__list-item">
+          <div class="color" style="background-color: #4caf50"></div>
+          <p class="name">Sớm hơn deadline</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="gauge__task-status--list">
+      @if(!isLoading()) {
+
+      <app-card-component class="full">
+        <h5 card-header-title>Hoàn thành</h5>
+        <div card-body class="total-value">
+          {{ data()!.totalCompleted }} Task
+        </div>
+      </app-card-component>
+
+      @for(item of statisticData(); track $index) {
+      <app-card-component class="col">
+        <h5 card-header-title>{{ item.value.name }}</h5>
+
+        <div card-body>
+          <div>{{ item.value.data.count }} Task</div>
+          <div>{{ item.value.data.percentage }}%</div>
+        </div>
+      </app-card-component>
+      } } @else {
+      <div>loading...</div>
+      }
+    </div>
+  </div>
+</app-card-component>

@@ -12,18 +12,29 @@ import {
   TaskAnalyticsService,
 } from '../../services/task-analytics-service';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+import { CardComponent } from '../card-component/card-component';
 
 type Segment = { color: string; portion: number };
 
 @Component({
   selector: 'app-task-status-gauge-component',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './task-status-gauge-component.html',
   styleUrl: './task-status-gauge-component.scss',
 })
 export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
+  isLoading = signal<boolean>(true);
   data = signal<TaskAnalyticsPerformanceData | null>(null);
+  statisticData = computed(() => {
+    if (!this.data()) {
+      return [];
+    }
+    return Object.entries(this.data()!.statistics).map(([name, value]) => ({
+      name,
+      value,
+    }));
+  });
   private destroy$ = new Subject<void>();
 
   percentRotation = computed(() => this.data()?.percentRotation);
@@ -34,8 +45,17 @@ export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
     this._taskAnalyticsService
       .fetchPerformance()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((response) => {
-        this.data.set(response);
+      .subscribe({
+        next: (response) => {
+          this.data.set(response);
+          this.isLoading.set(false);
+
+          console.log(this.statisticData());
+        },
+        error: (error) => {
+          console.error('[ERROR] Error fetch performance analytics: ', error);
+          this.isLoading.set(false);
+        },
       });
   }
 

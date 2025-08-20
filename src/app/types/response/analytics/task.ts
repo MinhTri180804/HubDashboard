@@ -30,8 +30,11 @@ export type AnalyticsTaskSummaryResponse = {
 };
 
 type TaskCompletedPerformance = {
-  count: number;
-  percentage: string;
+  name: string;
+  data: {
+    count: number;
+    percentage: string;
+  };
 };
 
 export type AnalyticsTaskPerformanceResponse = {
