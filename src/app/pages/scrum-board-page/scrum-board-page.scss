@@ -11,33 +11,47 @@
   --dialog-width: 498px;
 }
 
-.header {
+.container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: fit-content;
-  padding-bottom: 18px;
+  height: 100%;
+  flex-direction: column;
+  gap: 24px;
 
-  & > &__content {
-    flex-grow: 1;
-    gap: 20px;
+  .header {
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
 
-    & > h1.header__content-title {
-      font-size: var(--title-size);
-      font-weight: var(--title-weight);
-      color: var(--title-color);
+    &__content {
+      flex-grow: 1;
+      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+
+      h1.header__content-title {
+        font-size: var(--title-size);
+        font-weight: var(--title-weight);
+        color: var(--title-color);
+      }
     }
+    flex-grow: 0;
+    flex-shrink: 0;
   }
-}
 
-.scrum__information {
-  display: flex;
-  justify-content: flex-start;
-  gap: var(--information-gap);
-  align-items: center;
-  padding-bottom: 24px;
+  .scrum__information {
+    display: flex;
+    justify-content: flex-start;
+    gap: var(--information-gap);
+    align-items: center;
+    flex-grow: 0;
+  }
+
+  .scrum__content {
+    height: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+  }
 }

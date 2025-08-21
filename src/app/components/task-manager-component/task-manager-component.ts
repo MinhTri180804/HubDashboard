@@ -1,48 +1,32 @@
 import {
-  CdkDrag,
   CdkDragDrop,
-  CdkDropList,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import {
   TaskStateConstants,
   TaskStateConstantsValues,
 } from '../../constants/todoStateConstants';
 import { TaskService } from '../../services/task-service';
+import { TaskStateService } from '../../services/task-state-service';
 import { TaskInfo } from '../../types/task';
 import { CardTaskComponent } from '../card-task-component/card-task-component';
-import { TaskItemComponent } from '../task-item-component/task-item-component';
 
 @Component({
   selector: 'app-task-manager-component',
-  imports: [
-    CardTaskComponent,
-    MatIcon,
-    TaskItemComponent,
-    CdkDrag,
-    CdkDropList,
-  ],
+  imports: [CardTaskComponent],
   templateUrl: './task-manager-component.html',
   styleUrl: './task-manager-component.scss',
 })
 export class TodoManagerComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private _taskService = inject(TaskService);
+  private _taskStateService = inject(TaskStateService);
 
-  taskData = this._taskService.tasks.value;
-  taskDataPending = computed(() =>
-    this.taskData().filter((task) => task.state === 'pending')
-  );
-  taskDataInProgress = computed(() =>
-    this.taskData().filter((task) => task.state === 'in-progress')
-  );
-  taskDataDone = computed(() =>
-    this.taskData().filter((task) => task.state === 'completed')
-  );
+  isLoading = this._taskStateService.taskState.isLoading;
+  taskStateData = this._taskStateService.taskState.value;
 
   constructor() {}
 
@@ -54,6 +38,7 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
   }
 
   handleDrop(event: CdkDragDrop<TaskInfo[]>) {
+    console.log('Root event: ', event);
     if (event.previousContainer === event.container) {
       // Reorder within the same list
       moveItemInArray(
@@ -67,7 +52,7 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
 
           .updateState({
             taskId: event.container.data[event.currentIndex]._id,
-            state: this.getStateFromContainerId(event.container.id),
+            state: event.container.id,
           })
           .pipe(takeUntil(this.destroy$))
           .subscribe();
@@ -80,21 +65,6 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-    }
-  }
-
-  private getStateFromContainerId(
-    containerId: string
-  ): TaskStateConstantsValues {
-    switch (containerId) {
-      case 'todo-pending':
-        return TaskStateConstants.TODO;
-      case 'todo-in-process':
-        return TaskStateConstants.IN_PROGRESS;
-      case 'todo-done':
-        return TaskStateConstants.COMPLETED;
-      default:
-        throw new Error(`Unknown container ID: ${containerId}`);
     }
   }
 }

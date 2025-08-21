@@ -10,6 +10,7 @@ import { DialogCreateTodoService } from '../../services/dialog-create-todo-servi
 import { TaskService } from '../../services/task-service';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
+import { TaskStateService } from '../../services/task-state-service';
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -29,6 +30,7 @@ import { TagsTodoService } from '../../services/tags-todo-service';
     TaskService,
     EmployeesService,
     TagsTodoService,
+    TaskStateService,
   ],
 })
 export class ScrumBoardPage implements OnInit {

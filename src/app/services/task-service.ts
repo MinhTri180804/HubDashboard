@@ -10,6 +10,10 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 type GetAllTasksParams = {};
 
+type GetTasksByTaskStateIdParams = {
+  stateId: string;
+};
+
 const TASKS_DEFAULT_VALUE = [] as TaskInfo[];
 
 @Injectable()
@@ -29,6 +33,11 @@ export class TaskService {
     return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(this._urlApi);
   }
 
+  public getTasksByStateId(params: GetTasksByTaskStateIdParams) {
+    const urlApi = `${this._urlApi}/state/${params.stateId}`;
+    return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(urlApi);
+  }
+
   public createTask(
     data: CreateTaskRequestBody
   ): Observable<ResponseSuccess<CreateTaskResponse>> {
@@ -44,14 +53,12 @@ export class TaskService {
     taskId: string;
     state: TaskStateConstantsValues;
   }) {
-    return this._httpClient
-      .put<ResponseSuccess<CreateTaskResponse>>(
-        `${this._urlApi}/${taskId}/status`,
-        {
-          state,
-        }
-      )
-      .pipe(tap(() => this._updateStateTask(taskId, state)));
+    return this._httpClient.put<ResponseSuccess<CreateTaskResponse>>(
+      `${this._urlApi}/${taskId}/status`,
+      {
+        state,
+      }
+    );
   }
 
   public updateStateSubTodo(

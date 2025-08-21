@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { computed, Injectable } from '@angular/core';
 import { ResponseSuccess } from '../types/commons/commons';
 import { TaskStateInfo } from '../types/taskState';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -12,13 +12,16 @@ const TASK_STATE_DEFAULT_VALUE = [] as TaskStateInfo[];
   providedIn: 'root',
 })
 export class TaskStateService {
-  private _urlApi = 'http://localhost:5001/api/states';
+  private _urlApi = 'localhost:5001/api/states';
   constructor(private _httpClient: HttpClient) {}
 
   taskState = rxResource<ResponseSuccess<TaskStateInfo[]>, GetAllParams>({
     params: () => ({}),
     stream: () => this._getAll(),
     defaultValue: TASK_STATE_DEFAULT_VALUE,
+  });
+  taskStateIds = computed(() => {
+    return this.taskState.value().map((item) => item._id);
   });
 
   private _getAll() {

@@ -19,8 +19,8 @@
       class="form__field-input"
       formControlName="state"
     >
-      @for(status of status; track $index) {
-      <option value="{{ status.value }}">
+      @for(status of taskStateData(); track $index) {
+      <option value="{{ status._id }}">
         {{ status.name }}
       </option>
       }

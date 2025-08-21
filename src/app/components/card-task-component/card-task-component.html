@@ -1,9 +1,27 @@
-<app-card-component>
-  <h3 card-header-title>{{ cardTitle() }}</h3>
-  <ng-content select="[action-icon]" action> </ng-content>
+<!-- [cdkDropListData]="taskDataInProgress()"
+  (cdkDropListDropped)="handleDrop($event)"
+  id="todo-in-process"
+  [cdkDropListConnectedTo]="['todo-pending', 'todo-done']" -->
 
-  <div card-body>
-    <ng-content select="[task]"> </ng-content>
-    <ng-content select="[empty]"></ng-content>
+<app-card-component cdkDropList>
+  <h3 card-header-title>{{ taskState().name }}</h3>
+  <mat-icon action fontIcon="restart_alt"></mat-icon>
+
+  <div
+    cdkDropList
+    card-body
+    [cdkDropListData]="data()"
+    (cdkDropListDropped)="onDropListDropped($event)"
+    [id]="taskState()._id"
+    class="drop__list"
+    [cdkDropListConnectedTo]="dropListConnectTo()"
+  >
+    @if(!isLoading()) { @for(task of data(); track task._id) {
+    <div class="drop__item" task cdkDrag>
+      <app-task-item-component [taskData]="task"></app-task-item-component>
+    </div>
+    }@empty {
+    <!-- Implement empty component in here -->
+    } }
   </div>
 </app-card-component>
