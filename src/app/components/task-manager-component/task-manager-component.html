@@ -1,5 +1,5 @@
 <div class="group__manager__task" cdkDropListGroup>
-  @for(taskState of taskStateData(); track $index) {
+  @for(taskState of taskStateData(); track taskState._id) {
 
   <app-card-task-component
     [taskState]="taskState"

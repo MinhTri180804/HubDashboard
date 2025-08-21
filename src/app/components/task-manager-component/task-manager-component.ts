@@ -3,7 +3,15 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import {
   TaskStateConstants,
@@ -20,7 +28,9 @@ import { CardTaskComponent } from '../card-task-component/card-task-component';
   templateUrl: './task-manager-component.html',
   styleUrl: './task-manager-component.scss',
 })
-export class TodoManagerComponent implements OnInit, OnDestroy {
+export class TodoManagerComponent
+  implements OnInit, OnDestroy, AfterViewChecked
+{
   private destroy$ = new Subject<void>();
   private _taskService = inject(TaskService);
   private _taskStateService = inject(TaskStateService);
@@ -38,7 +48,6 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
   }
 
   handleDrop(event: CdkDragDrop<TaskInfo[]>) {
-    console.log('Root event: ', event);
     if (event.previousContainer === event.container) {
       // Reorder within the same list
       moveItemInArray(
@@ -67,4 +76,6 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  ngAfterViewChecked(): void {}
 }

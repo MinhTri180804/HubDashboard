@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, ResourceRef, signal } from '@angular/core';
 import { TaskInfo } from '../types/task';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
@@ -21,21 +21,16 @@ export class TaskService {
   private readonly _urlApi = 'localhost:5001/api/todos';
   private readonly _urlApiSubTask = 'localhost:5001/api/subtodos';
 
-  tasks = rxResource<ResponseSuccess<TaskInfo[]>, GetAllTasksParams>({
+  constructor(private _httpClient: HttpClient) {}
+
+  tasksData = rxResource<ResponseSuccess<TaskInfo[]>, GetAllTasksParams>({
     params: () => ({}),
     stream: () => this._getAllTasks(),
     defaultValue: TASKS_DEFAULT_VALUE,
   });
 
-  constructor(private _httpClient: HttpClient) {}
-
-  private _getAllTasks(): Observable<ResponseSuccess<TaskInfo[]>> {
+  private _getAllTasks() {
     return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(this._urlApi);
-  }
-
-  public getTasksByStateId(params: GetTasksByTaskStateIdParams) {
-    const urlApi = `${this._urlApi}/state/${params.stateId}`;
-    return this._httpClient.get<ResponseSuccess<TaskInfo[]>>(urlApi);
   }
 
   public createTask(
@@ -43,7 +38,7 @@ export class TaskService {
   ): Observable<ResponseSuccess<CreateTaskResponse>> {
     return this._httpClient
       .post<ResponseSuccess<CreateTaskResponse>>(this._urlApi, data)
-      .pipe(tap((response) => this._addTask(response)));
+      .pipe(tap((response) => this._createTask(response)));
   }
 
   public updateState({
@@ -53,12 +48,14 @@ export class TaskService {
     taskId: string;
     state: TaskStateConstantsValues;
   }) {
-    return this._httpClient.put<ResponseSuccess<CreateTaskResponse>>(
-      `${this._urlApi}/${taskId}/status`,
-      {
-        state,
-      }
-    );
+    return this._httpClient
+      .put<ResponseSuccess<CreateTaskResponse>>(
+        `${this._urlApi}/${taskId}/status`,
+        {
+          state,
+        }
+      )
+      .pipe(tap((response) => this._updateStateTodo(response)));
   }
 
   public updateStateSubTodo(
@@ -78,32 +75,15 @@ export class TaskService {
       .delete(`${this._urlApi}/${taskId}`)
       .pipe(tap(() => this._deleteTask(taskId)));
   }
-  // Local State Getters
-
-  // Private
-  private _addTask(data: TaskInfo) {
-    this.tasks.update((prev) => [...prev, data]);
-  }
-
-  private _updateStateTask(taskId: string, state: TaskStateConstantsValues) {
-    this.tasks.update((prev) => {
-      return prev.map((task) => {
-        if (task._id === taskId) {
-          return {
-            ...task,
-            state: state,
-          };
-        }
-
-        return task;
-      });
-    });
-  }
 
   private _deleteTask(taskId: string) {
-    this.tasks.update((prev) => {
-      return prev.filter((todo) => todo._id !== taskId);
-    });
+    this.tasksData.value.set(
+      this.tasksData.value().filter((task) => task._id !== taskId)
+    );
+  }
+
+  private _createTask(data: TaskInfo) {
+    this.tasksData.value.update((prev) => [...prev, data]);
   }
 
   private _toggleIsDoneSubTask(
@@ -111,12 +91,12 @@ export class TaskService {
     subTaskId: string,
     checked: boolean
   ) {
-    this.tasks.update((prev) => {
+    this.tasksData.update((prev) => {
       return prev.map((task) => {
         if (task._id === taskId) {
           return {
             ...task,
-            subTasks: task.subTasks.map((subTask) => {
+            subTodos: task.subTodos.map((subTask) => {
               if (subTask._id === subTaskId) {
                 return {
                   ...subTask,
@@ -130,5 +110,20 @@ export class TaskService {
         return task;
       });
     });
+  }
+
+  private _updateStateTodo(taskUpdated: TaskInfo) {
+    this.tasksData.value.set(
+      this.tasksData.value().map((task) => {
+        if (task._id === taskUpdated._id) {
+          return {
+            ...task,
+            state: taskUpdated.state,
+          };
+        }
+
+        return task;
+      })
+    );
   }
 }

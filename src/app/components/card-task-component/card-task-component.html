@@ -1,8 +1,3 @@
-<!-- [cdkDropListData]="taskDataInProgress()"
-  (cdkDropListDropped)="handleDrop($event)"
-  id="todo-in-process"
-  [cdkDropListConnectedTo]="['todo-pending', 'todo-done']" -->
-
 <app-card-component cdkDropList>
   <h3 card-header-title>{{ taskState().name }}</h3>
   <mat-icon action fontIcon="restart_alt"></mat-icon>
@@ -10,13 +5,13 @@
   <div
     cdkDropList
     card-body
-    [cdkDropListData]="data()"
+    [cdkDropListData]="data()!"
     (cdkDropListDropped)="onDropListDropped($event)"
     [id]="taskState()._id"
     class="drop__list"
     [cdkDropListConnectedTo]="dropListConnectTo()"
   >
-    @if(!isLoading()) { @for(task of data(); track task._id) {
+    @if(!isLoading()) { @for(task of data(); track $index) {
     <div class="drop__item" task cdkDrag>
       <app-task-item-component [taskData]="task"></app-task-item-component>
     </div>

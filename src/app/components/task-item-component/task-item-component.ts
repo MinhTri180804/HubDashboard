@@ -5,6 +5,7 @@ import {
   input,
   OnDestroy,
   OnInit,
+  output,
   signal,
 } from '@angular/core';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
@@ -32,21 +33,23 @@ export class TaskItemComponent implements OnInit {
   private _taskService = inject(TaskService);
 
   taskData = input.required<TaskInfo>();
-  hasSubTask = computed(() => this.taskData()?.subTasks?.length > 0);
+  hasSubTask = computed(() => this.taskData()?.subTodos?.length > 0);
   hasBugTag = computed(() => {
     const tags = this.taskData()?.tagIds || [];
     return tags.some((tag) => tag.name === 'Bug');
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.taskData());
+  }
 
   completedSubTodo = computed(() =>
-    this.taskData().subTasks.filter((todo) => todo.isDone)
+    this.taskData().subTodos.filter((todo) => todo.isDone)
   );
 
   progressSubTodo = computed(() => {
     const completed = this.completedSubTodo().length;
-    const total = this.taskData().subTasks.length;
+    const total = this.taskData().subTodos.length;
     return Math.floor((completed / total) * 100);
   });
 
@@ -68,6 +71,6 @@ export class TaskItemComponent implements OnInit {
   }
 
   handleDelete() {
-    this._taskService.deleteTask(this.taskData()._id).subscribe();
+    this._taskService.deleteTask(this.taskData()._id);
   }
 }
