@@ -40,8 +40,9 @@
     grid-template-columns: repeat(12, 1fr);
     gap: 24px;
 
-    & > app-card-component {
+    [analytics__charts-item] {
       grid-column: span 6;
+      height: fit-content;
 
       ::ng-deep h3 {
         width: 100%;

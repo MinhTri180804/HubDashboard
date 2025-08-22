@@ -20,11 +20,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class MultiSelectTagComponent implements ControlValueAccessor {
   private _onChange: (tags: TagInfo[]) => void = () => {};
   private _onTouched: () => void = () => {};
+  private _tagsService = inject(TagsTodoService);
 
   isOpen = signal(false);
   selectedTags = signal<TagInfo[]>([]);
 
-  tagsService = inject(TagsTodoService);
+  tagsData = this._tagsService.tags.value;
 
   constructor() {}
 

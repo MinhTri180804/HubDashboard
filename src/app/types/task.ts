@@ -3,15 +3,16 @@ import { UpdatedAtCreatedAt } from './commons/commons';
 import { EmployeeInfo } from './employee';
 import { SubTaskInfo } from './subTask';
 import { TagInfo } from './tag';
+import { TaskStateInfo } from './taskState';
 
 export type TaskInfo = UpdatedAtCreatedAt & {
   _id: string;
   name: string;
   deadline: number;
-  state: TaskStateConstantsValues;
+  state: TaskStateInfo;
   tagIds: TagInfo[];
   doneAt: number;
-  subTasks: SubTaskInfo[];
+  subTodos: SubTaskInfo[];
   assignedTo: EmployeeInfo;
   createdBy: EmployeeInfo;
 };

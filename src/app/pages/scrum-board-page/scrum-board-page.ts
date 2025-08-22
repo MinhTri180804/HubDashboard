@@ -1,16 +1,16 @@
-import { Component, OnInit, viewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../components/breadcrumb-component/breadcrumb-component';
 import { ButtonComponent } from '../../components/button-component/button-component';
 import { DialogCreateTodoComponent } from '../../components/dialog-create-todo-component/dialog-create-todo-component';
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
-import { FormCreateTodoComponent } from '../../components/form-create-todo-component/form-create-todo-component';
 import { TodoManagerComponent } from '../../components/task-manager-component/task-manager-component';
 import { DialogCreateTodoService } from '../../services/dialog-create-todo-service';
-import { TaskService } from '../../services/task-service';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
+import { TaskService } from '../../services/task-service';
+import { TaskStateService } from '../../services/task-state-service';
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -30,6 +30,7 @@ import { TagsTodoService } from '../../services/tags-todo-service';
     TaskService,
     EmployeesService,
     TagsTodoService,
+    TaskStateService,
   ],
 })
 export class ScrumBoardPage implements OnInit {

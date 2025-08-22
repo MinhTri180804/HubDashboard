@@ -1,4 +1,11 @@
-import { Component, computed, effect, OnInit, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  viewChild,
+} from '@angular/core';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
 import { TaskService } from '../../services/task-service';
@@ -17,22 +24,18 @@ import { DialogCreateTodoService } from './../../services/dialog-create-todo-ser
   styleUrl: './dialog-create-todo-component.scss',
 })
 export class DialogCreateTodoComponent implements OnInit {
+  private _employeesService = inject(EmployeesService);
+  private _tagsTodoService = inject(TagsTodoService);
+  private _dialogCreateTodoService = inject(DialogCreateTodoService);
+  private _todosService = inject(TaskService);
+
   isOpen = computed(() => this._dialogCreateTodoService.isOpen());
   form = viewChild<FormCreateTodoComponent>('formAddTodo');
 
-  constructor(
-    private _dialogCreateTodoService: DialogCreateTodoService,
-    private _employeesService: EmployeesService,
-    private _tagsTodoService: TagsTodoService,
-    private _todosService: TaskService
-  ) {
-    effect(() => {
-      if (this.isOpen()) {
-        this._employeesService.fetchAllEmployees().subscribe();
-        this._tagsTodoService.fetchAllTags().subscribe();
-      }
-    });
-  }
+  employees = this._employeesService.employees.value;
+  tags = this._tagsTodoService.tags.value;
+
+  constructor() {}
 
   ngOnInit(): void {}
 

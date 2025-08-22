@@ -22,6 +22,7 @@ import { MultiSelectTagComponent } from '../multi-select-tag-component/multi-sel
 import { EmployeeInfo } from '../../types/employee';
 import { EmployeesService } from '../../services/employees-service';
 import { InputAddSubTodoComponent } from '../input-add-sub-todo-component/input-add-sub-todo-component';
+import { TaskStateService } from '../../services/task-state-service';
 
 interface CreateTodoForm {
   name: FormControl<string>;
@@ -71,6 +72,10 @@ export class FormCreateTodoComponent {
   tagsService = inject(TagsTodoService);
   todosService = inject(TaskService);
   employeesService = inject(EmployeesService);
+  taskStateService = inject(TaskStateService);
+
+  employeesData = this.employeesService.employees.value;
+  taskStateData = this.taskStateService.taskState.value;
 
   today = new Date();
   onCreateTodo = output<CreateTodoFormData>();
@@ -102,21 +107,6 @@ export class FormCreateTodoComponent {
     }),
   });
 
-  status: StatusTodo = [
-    {
-      name: 'To do',
-      value: TaskStateConstants.TODO,
-    },
-    {
-      name: 'In progress',
-      value: TaskStateConstants.IN_PROGRESS,
-    },
-    {
-      name: 'Done',
-      value: TaskStateConstants.COMPLETED,
-    },
-  ];
-
   onSubmit() {
     if (!this.addTodoForm.valid) {
       // TODO: Implement logic handle form invalid
@@ -125,7 +115,8 @@ export class FormCreateTodoComponent {
 
     this.onCreateTodo.emit({
       name: this.addTodoForm.value.name || '',
-      state: this.addTodoForm.value.state || TaskStateConstants.TODO,
+      state:
+        this.addTodoForm.value.state || this.taskStateService.taskStateIds()[0],
       tagIds: this.addTodoForm.value.tagIds!.map((tag) => tag._id),
       assignedTo: this.addTodoForm.value.assignedTo as string,
       createdBy: this.addTodoForm.value.createdBy as string,

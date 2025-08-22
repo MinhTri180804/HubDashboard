@@ -1,82 +1,16 @@
 import {
-  AfterViewChecked,
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
-  DoCheck,
-  OnDestroy,
+  inject,
   OnInit,
-  signal,
-  viewChild,
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { ChartComponent, ChartType } from 'ng-apexcharts';
-import {
-  TaskAnalyticsReportsData,
-  TaskAnalyticsService,
-} from '../../services/task-analytics-service';
+import { ChartComponent } from 'ng-apexcharts';
+import { TaskAnalyticsService } from '../../services/task-analytics-service';
 import { ChartOptions } from '../../types/chartOptions';
 import { ButtonComponent } from '../button-component/button-component';
-
-const chartOptionsDefault: ChartOptions = {
-  series: [],
-  legend: {
-    labels: {
-      colors: 'white',
-    },
-    itemMargin: {
-      horizontal: 16,
-      vertical: 8,
-    },
-  },
-
-  chart: {
-    type: 'bar',
-    toolbar: {
-      show: false,
-    },
-  },
-
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // endingShape: 'rounded',
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    show: true,
-    width: 2,
-    colors: ['transparent'],
-  },
-  xaxis: {
-    labels: {
-      style: {
-        colors: 'white',
-      },
-    },
-  },
-  yaxis: {
-    labels: {
-      style: {
-        colors: 'white',
-      },
-    },
-  },
-  fill: {
-    opacity: 1,
-  },
-  tooltip: {
-    y: {
-      formatter: function (val: number) {
-        return `${val} Task`;
-      },
-    },
-  },
-};
+import { CardComponent } from '../card-component/card-component';
+import { chartOptionsDefault } from './task-status-column-chart-options';
 
 type SeriesData = {
   name: string;
@@ -85,117 +19,55 @@ type SeriesData = {
 
 @Component({
   selector: 'app-task-status-column-chart-component',
-  imports: [ChartComponent, ButtonComponent],
+  imports: [ChartComponent, ButtonComponent, CardComponent],
   templateUrl: './task-status-column-chart-component.html',
   styleUrl: './task-status-column-chart-component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskStatusColumnChartComponent
-  implements OnInit, DoCheck, OnDestroy
-{
-  private destroy$ = new Subject<void>();
-  currentPage = signal<number>(1);
-  totalPage = signal<number>(0);
-  hasNextPage = signal<boolean>(false);
-  hasPreviousPage = signal<boolean>(false);
+export class TaskStatusColumnChartComponent implements OnInit {
+  private _taskAnalyticsService = inject(TaskAnalyticsService);
 
-  isLoading = signal<boolean>(true);
-  chartOptions = signal<Partial<ChartOptions>>(chartOptionsDefault);
-
-  constructor(private _taskAnalyticsService: TaskAnalyticsService) {}
-
-  ngOnInit(): void {
-    this._taskAnalyticsService
-      .fetchReport(this.currentPage())
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.isLoading.set(false);
-          this._updatePagination(response);
+  data = this._taskAnalyticsService.report.value;
+  isLoading = this._taskAnalyticsService.report.isLoading;
+  chartOptions = computed<Partial<ChartOptions>>(() => {
+    if (!this.isLoading()) {
+      const seriesData = this.data()?.seriesData;
+      const xaxisCategories = this.data()?.xaxisCategories;
+      return {
+        ...chartOptionsDefault,
+        series: [
+          {
+            name: 'Created',
+            data: seriesData?.created || [],
+          },
+          {
+            name: 'In Progress',
+            data: seriesData?.inProgress || [],
+          },
+          {
+            name: 'Done',
+            data: seriesData?.completed || [],
+          },
+        ],
+        xaxis: {
+          ...chartOptionsDefault.xaxis,
+          categories: xaxisCategories,
         },
-        error: (error) => {
-          console.log('Error: ', error);
-          this.isLoading.set(false);
-        },
-      });
-  }
+      };
+    }
 
-  ngDoCheck(): void {
-    console.log('DO CHECK');
-  }
+    return chartOptionsDefault;
+  });
+
+  constructor() {}
+
+  ngOnInit(): void {}
 
   onNextPage() {
-    this.currentPage.update((prev) => prev + 1);
-    this._taskAnalyticsService
-      .fetchReport(this.currentPage())
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => this._updatePagination(response),
-      });
+    this._taskAnalyticsService.pageReport.update((prev) => prev + 1);
   }
 
   onPreviousPage() {
-    if (this.currentPage() >= 1) {
-      this.currentPage.update((prev) => prev - 1);
-      this._taskAnalyticsService
-        .fetchReport(this.currentPage())
-        .pipe(takeUntil(this.destroy$))
-        .subscribe({
-          next: (response) => this._updatePagination(response),
-        });
-    }
-  }
-
-  private _updatePagination(response: TaskAnalyticsReportsData) {
-    const { pagination, seriesData, xaxisCategories } = response;
-    const { hasNextPage, hasPreviousPage, totalItem } = pagination;
-
-    this._updateSeries(seriesData);
-    this._updateXaxis(xaxisCategories);
-
-    this.totalPage.set(totalItem);
-    this.hasNextPage.set(hasNextPage);
-    this.hasPreviousPage.set(hasPreviousPage);
-
-    console.log('HasPreviousPage: ', this.hasPreviousPage());
-    console.log('HasNextPage: ', this.hasNextPage());
-  }
-
-  private _updateSeries(data: TaskAnalyticsReportsData['seriesData']) {
-    if (!data) return;
-
-    this.chartOptions.update((previous) => ({
-      ...previous,
-      series: [
-        {
-          name: 'Created',
-          data: data.created || [],
-        },
-        {
-          name: 'In Progress',
-          data: data.inProgress || [],
-        },
-        {
-          name: 'Done',
-          data: data.completed || [],
-        },
-      ],
-    }));
-  }
-
-  private _updateXaxis(data: TaskAnalyticsReportsData['xaxisCategories']) {
-    if (!data) return;
-    this.chartOptions.update((previous) => ({
-      ...previous,
-      xaxis: {
-        ...previous.xaxis,
-        categories: data || [],
-      },
-    }));
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this._taskAnalyticsService.pageReport.update((prev) => prev - 1);
   }
 }

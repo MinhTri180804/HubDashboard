@@ -1,37 +1,43 @@
-<div id="chart">
-  <div class="pagination__actions">
-    <app-button-component
-      (clicked)="onPreviousPage()"
-      buttonSize="small"
-      icon="chevron_left"
-      [isDisabled]="!hasPreviousPage()"
-    >
-    </app-button-component>
-    <app-button-component
-      (clicked)="onNextPage()"
-      buttonSize="small"
-      icon="chevron_right"
-      [isDisabled]="!hasNextPage()"
-    >
-    </app-button-component>
+<app-card-component>
+  <h3 card-header-title>Biểu đồ thống kê task</h3>
+  <div card-body>
+    <div id="chart">
+      <div class="pagination__actions">
+        <app-button-component
+          (clicked)="onPreviousPage()"
+          buttonSize="small"
+          icon="chevron_left"
+          [isDisabled]="!data()?.pagination?.hasPreviousPage"
+        >
+        </app-button-component>
+        <app-button-component
+          (clicked)="onNextPage()"
+          buttonSize="small"
+          icon="chevron_right"
+          [isDisabled]="!data()?.pagination?.hasNextPage"
+        >
+        </app-button-component>
+      </div>
+      @if(!isLoading()) {
+
+      <apx-chart
+        #chart
+        [series]="chartOptions().series!"
+        [chart]="chartOptions().chart!"
+        [dataLabels]="chartOptions().dataLabels!"
+        [plotOptions]="chartOptions().plotOptions!"
+        [yaxis]="chartOptions().yaxis!"
+        [legend]="chartOptions().legend!"
+        [fill]="chartOptions().fill!"
+        [stroke]="chartOptions().stroke!"
+        [tooltip]="chartOptions().tooltip!"
+        [xaxis]="chartOptions().xaxis!"
+      ></apx-chart>
+
+      } @else {
+      <!-- TODO: Implement loading skeleton -->
+      <div class="loading">loading...</div>
+      }
+    </div>
   </div>
-  @if(!isLoading()) {
-
-  <apx-chart
-    #chart
-    [series]="chartOptions().series!"
-    [chart]="chartOptions().chart!"
-    [dataLabels]="chartOptions().dataLabels!"
-    [plotOptions]="chartOptions().plotOptions!"
-    [yaxis]="chartOptions().yaxis!"
-    [legend]="chartOptions().legend!"
-    [fill]="chartOptions().fill!"
-    [stroke]="chartOptions().stroke!"
-    [tooltip]="chartOptions().tooltip!"
-    [xaxis]="chartOptions().xaxis!"
-  ></apx-chart>
-
-  } @else {
-  <div class="loading">loading...</div>
-  }
-</div>
+</app-card-component>

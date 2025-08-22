@@ -8,7 +8,16 @@ import {
   AnalyticsTaskSummaryResponse,
 } from '../types/response/analytics/task';
 import { Observable, map, tap } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
+// Method params
+type GetReportParams = {
+  page: number;
+};
+type GetSummaryParams = {};
+type GetPerformanceParams = {};
+
+// Types data returns component after pipe transform
 export type TaskAnalyticsReportsData = Omit<
   AnalyticsTaskReportResponse,
   'data'
@@ -23,35 +32,77 @@ export type TaskAnalyticsPerformanceData = AnalyticsTaskPerformanceResponse & {
   percentRotation: number;
 };
 
+const SUMMARY_DEFAULT_VALUE = {
+  period: {
+    startDate: 0,
+    endDate: 0,
+  },
+  statistics: {
+    total: 0,
+    created: 0,
+    inProgress: 0,
+    completed: 0,
+    notCompleted: 0,
+  },
+};
+
+const PERFORMANCE_DEFAULT_VALUE = null;
+
 @Injectable()
 export class TaskAnalyticsService {
   private _urlApi = 'localhost:5001/api/analytics/todos';
 
+  pageReport = signal<number>(1);
+  report = rxResource<TaskAnalyticsReportsData, GetReportParams>({
+    params: () => ({
+      page: this.pageReport(),
+    }),
+    stream: ({ params }) => this._getReport(params),
+  });
+
+  summary = rxResource<
+    ResponseSuccess<AnalyticsTaskSummaryResponse>,
+    GetSummaryParams
+  >({
+    params: () => ({}),
+    stream: () => this._getSummary(),
+    defaultValue: SUMMARY_DEFAULT_VALUE,
+  });
+
+  performance = rxResource<
+    TaskAnalyticsPerformanceData | null,
+    GetPerformanceParams
+  >({
+    params: () => ({}),
+    stream: () => this._getPerformance(),
+    defaultValue: PERFORMANCE_DEFAULT_VALUE,
+  });
+
   constructor(private _httpClient: HttpClient) {}
 
-  public fetchReport(page: number): Observable<TaskAnalyticsReportsData> {
-    const urlApi = `${this._urlApi}/reports?page=${page}`;
+  // @ Private methods related fetching data
+  private _getReport(
+    params: GetReportParams
+  ): Observable<TaskAnalyticsReportsData> {
+    const urlApi = `${this._urlApi}/reports?page=${params.page}`;
     return this._httpClient
       .get<ResponseSuccess<AnalyticsTaskReportResponse>>(urlApi)
       .pipe(
-        map((response: ResponseSuccess<AnalyticsTaskReportResponse>) => {
-          const { xaxisCategoriesData, seriesData } = this._parseReportData(
-            response.data
+        map((responseData) => {
+          const { xaxisCategories, seriesData } = this._parseReportData(
+            responseData.data
           );
 
           return {
-            ...response,
-            period: response.period,
-            startDate: response.startDate,
-            endDate: response.endDate,
-            xaxisCategories: xaxisCategoriesData,
+            ...responseData,
+            xaxisCategories,
             seriesData,
           };
         })
       );
   }
 
-  public fetchSummary(): Observable<
+  private _getSummary(): Observable<
     ResponseSuccess<AnalyticsTaskSummaryResponse>
   > {
     const urlApi = `${this._urlApi}/summary`;
@@ -60,7 +111,7 @@ export class TaskAnalyticsService {
     );
   }
 
-  public fetchPerformance(): Observable<TaskAnalyticsPerformanceData> {
+  public _getPerformance(): Observable<TaskAnalyticsPerformanceData> {
     const urlApi = `${this._urlApi}/performance`;
     return this._httpClient
       .get<ResponseSuccess<TaskAnalyticsPerformanceData>>(urlApi)
@@ -86,13 +137,13 @@ export class TaskAnalyticsService {
       [key in keyof Partial<AnalyticsTaskPeriod>]: number[];
     } = {};
 
-    const xaxisCategoriesData: string[] = [];
+    const xaxisCategories: string[] = [];
 
     for (let item of data) {
       const keys = Object.keys(item) as (keyof AnalyticsTaskPeriod)[];
       for (let key of keys) {
         if (XAXIS_CATEGORIES_DATA_KEYS.includes(key)) {
-          xaxisCategoriesData.push(this._handleParseXaxisCategories(item[key]));
+          xaxisCategories.push(this._handleParseXaxisCategories(item[key]));
           continue;
         }
 
@@ -105,7 +156,7 @@ export class TaskAnalyticsService {
 
     return {
       seriesData,
-      xaxisCategoriesData,
+      xaxisCategories,
     };
   }
 
@@ -129,14 +180,12 @@ export class TaskAnalyticsService {
 
     for (let i = 1; i < statisticsData.length; i++) {
       if (
-        Number(statisticsData[maxIndex].percentage) <
-        Number(statisticsData[i].percentage)
+        Number(statisticsData[maxIndex].data.percentage) <
+        Number(statisticsData[i].data.percentage)
       ) {
         maxIndex = i;
       }
     }
-
-    console.log(maxIndex);
 
     const keyOfStatisticMaxPercent = Object.keys(data.statistics)[
       maxIndex
@@ -150,7 +199,7 @@ export class TaskAnalyticsService {
 
     const PERCENT_OF_STATISTIC =
       (RANGE / 100) *
-      Number(data.statistics[keyOfStatisticMaxPercent].percentage);
+      Number(data.statistics[keyOfStatisticMaxPercent].data.percentage);
 
     let result;
 

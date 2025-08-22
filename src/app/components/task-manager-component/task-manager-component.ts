@@ -1,44 +1,40 @@
 import {
-  CdkDrag,
   CdkDragDrop,
-  CdkDropList,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { StateTodoEnum } from '../../enums/stateTodoEnum';
+import {
+  AfterViewChecked,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { TaskService } from '../../services/task-service';
+import { TaskStateService } from '../../services/task-state-service';
 import { TaskInfo } from '../../types/task';
 import { CardTaskComponent } from '../card-task-component/card-task-component';
-import { TaskItemComponent } from '../task-item-component/task-item-component';
-import {
-  TaskStateConstants,
-  TaskStateConstantsValues,
-} from '../../constants/todoStateConstants';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-task-manager-component',
-  imports: [
-    CardTaskComponent,
-    MatIcon,
-    TaskItemComponent,
-    CdkDrag,
-    CdkDropList,
-  ],
+  imports: [CardTaskComponent],
   templateUrl: './task-manager-component.html',
   styleUrl: './task-manager-component.scss',
 })
-export class TodoManagerComponent implements OnInit, OnDestroy {
-  taskService = inject(TaskService);
+export class TodoManagerComponent
+  implements OnInit, OnDestroy, AfterViewChecked
+{
   private destroy$ = new Subject<void>();
+  private _taskService = inject(TaskService);
+  private _taskStateService = inject(TaskStateService);
+
+  isLoading = this._taskStateService.taskState.isLoading;
+  taskStateData = this._taskStateService.taskState.value;
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.taskService.fetchAllTasks().subscribe();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -55,11 +51,11 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
       );
     } else {
       setTimeout(() => {
-        this.taskService
+        this._taskService
 
           .updateState({
             taskId: event.container.data[event.currentIndex]._id,
-            state: this.getStateFromContainerId(event.container.id),
+            state: event.container.id,
           })
           .pipe(takeUntil(this.destroy$))
           .subscribe();
@@ -75,18 +71,5 @@ export class TodoManagerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getStateFromContainerId(
-    containerId: string
-  ): TaskStateConstantsValues {
-    switch (containerId) {
-      case 'todo-pending':
-        return TaskStateConstants.TODO;
-      case 'todo-in-process':
-        return TaskStateConstants.IN_PROGRESS;
-      case 'todo-done':
-        return TaskStateConstants.COMPLETED;
-      default:
-        throw new Error(`Unknown container ID: ${containerId}`);
-    }
-  }
+  ngAfterViewChecked(): void {}
 }

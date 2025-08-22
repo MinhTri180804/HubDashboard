@@ -50,6 +50,7 @@
     ::ng-deep [card-header-title] {
       font-weight: var(--header-text-weight);
       letter-spacing: var(--header-letter-spacing);
+      text-transform: capitalize;
     }
 
     // Using for use case don't have actions
@@ -86,6 +87,11 @@
   ::ng-deep [card-body] {
     background-color: var(--body-background-color);
     flex-grow: 1;
+    height: 100%;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .custom--border {

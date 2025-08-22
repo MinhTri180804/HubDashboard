@@ -1,0 +1,32 @@
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+// Remove border bottom for last todo item
+::ng-deep app-todo-item-component:last-child {
+  .todo__item {
+    border-bottom: none;
+  }
+}
+
+::ng-deep app-card-component .card {
+  height: 100% !important;
+}
+
+// animation when drop and drag
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drop__list.cdk-drop-list-dragging .drop__item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

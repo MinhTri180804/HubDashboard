@@ -1,9 +1,31 @@
-<app-card-component>
-  <h3 card-header-title>{{ cardTitle() }}</h3>
-  <ng-content select="[action-icon]" action> </ng-content>
+<app-card-component cdkDropList>
+  <h3 card-header-title>{{ taskState().name }}</h3>
+  @if(!taskState().isDefault) {
 
-  <div card-body>
-    <ng-content select="[task]"> </ng-content>
-    <ng-content select="[empty]"></ng-content>
+  <div action>
+    <mat-icon fontIcon="delete"></mat-icon>
+  </div>
+
+  }
+  <div action>
+    <mat-icon fontIcon="restart_alt"></mat-icon>
+  </div>
+
+  <div
+    cdkDropList
+    card-body
+    [cdkDropListData]="data()!"
+    (cdkDropListDropped)="onDropListDropped($event)"
+    [id]="taskState()._id"
+    class="drop__list"
+    [cdkDropListConnectedTo]="dropListConnectTo()"
+  >
+    @if(!isLoading()) { @for(task of data(); track $index) {
+    <div class="drop__item" task cdkDrag>
+      <app-task-item-component [taskData]="task"></app-task-item-component>
+    </div>
+    }@empty {
+    <!-- Implement empty component in here -->
+    } }
   </div>
 </app-card-component>

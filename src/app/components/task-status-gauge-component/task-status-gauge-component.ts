@@ -1,6 +1,8 @@
 import {
+  AfterViewChecked,
   Component,
   computed,
+  inject,
   input,
   Input,
   OnDestroy,
@@ -12,35 +14,34 @@ import {
   TaskAnalyticsService,
 } from '../../services/task-analytics-service';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+import { CardComponent } from '../card-component/card-component';
 
 type Segment = { color: string; portion: number };
 
 @Component({
   selector: 'app-task-status-gauge-component',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './task-status-gauge-component.html',
   styleUrl: './task-status-gauge-component.scss',
 })
-export class TaskStatusGaugeComponent implements OnInit, OnDestroy {
-  data = signal<TaskAnalyticsPerformanceData | null>(null);
-  private destroy$ = new Subject<void>();
+export class TaskStatusGaugeComponent {
+  private _taskAnalyticsService = inject(TaskAnalyticsService);
+
+  data = this._taskAnalyticsService.performance.value;
+  isLoading = this._taskAnalyticsService.performance.isLoading;
+
+  statisticData = computed(() => {
+    if (!this.data()) {
+      return [];
+    }
+    return Object.entries(this.data()!.statistics).map(([name, value]) => ({
+      name,
+      value,
+    }));
+  });
 
   percentRotation = computed(() => this.data()?.percentRotation);
 
-  constructor(private _taskAnalyticsService: TaskAnalyticsService) {}
-
-  ngOnInit(): void {
-    this._taskAnalyticsService
-      .fetchPerformance()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((response) => {
-        this.data.set(response);
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  constructor() {}
 }
