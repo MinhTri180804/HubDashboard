@@ -39,9 +39,7 @@ export class TaskItemComponent implements OnInit {
     return tags.some((tag) => tag.name === 'Bug');
   });
 
-  ngOnInit(): void {
-    console.log(this.taskData());
-  }
+  ngOnInit(): void {}
 
   completedSubTodo = computed(() =>
     this.taskData().subTodos.filter((todo) => todo.isDone)
@@ -71,6 +69,6 @@ export class TaskItemComponent implements OnInit {
   }
 
   handleDelete() {
-    this._taskService.deleteTask(this.taskData()._id);
+    this._taskService.deleteTask(this.taskData()._id).subscribe();
   }
 }

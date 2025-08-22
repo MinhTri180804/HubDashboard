@@ -7,9 +7,9 @@ import { DropdownComponent } from '../../components/dropdown-component/dropdown-
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
 import { TodoManagerComponent } from '../../components/task-manager-component/task-manager-component';
 import { DialogCreateTodoService } from '../../services/dialog-create-todo-service';
-import { TaskService } from '../../services/task-service';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
+import { TaskService } from '../../services/task-service';
 import { TaskStateService } from '../../services/task-state-service';
 
 @Component({

@@ -1,6 +1,15 @@
 <app-card-component cdkDropList>
   <h3 card-header-title>{{ taskState().name }}</h3>
-  <mat-icon action fontIcon="restart_alt"></mat-icon>
+  @if(!taskState().isDefault) {
+
+  <div action>
+    <mat-icon fontIcon="delete"></mat-icon>
+  </div>
+
+  }
+  <div action>
+    <mat-icon fontIcon="restart_alt"></mat-icon>
+  </div>
 
   <div
     cdkDropList

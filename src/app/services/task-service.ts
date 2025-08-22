@@ -10,10 +10,6 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 type GetAllTasksParams = {};
 
-type GetTasksByTaskStateIdParams = {
-  stateId: string;
-};
-
 const TASKS_DEFAULT_VALUE = [] as TaskInfo[];
 
 @Injectable()
@@ -48,13 +44,11 @@ export class TaskService {
     taskId: string;
     state: TaskStateConstantsValues;
   }) {
+    const apiUrl = `${this._urlApi}/${taskId}/status`;
     return this._httpClient
-      .put<ResponseSuccess<CreateTaskResponse>>(
-        `${this._urlApi}/${taskId}/status`,
-        {
-          state,
-        }
-      )
+      .put<ResponseSuccess<CreateTaskResponse>>(apiUrl, {
+        state,
+      })
       .pipe(tap((response) => this._updateStateTodo(response)));
   }
 
@@ -63,16 +57,18 @@ export class TaskService {
     subTaskId: string,
     checked: boolean
   ) {
+    const apiUrl = `${this._urlApiSubTask}/${subTaskId}/toggle-status`;
     return this._httpClient
-      .put(`${this._urlApiSubTask}/${subTaskId}/toggle-status`, {
+      .put(apiUrl, {
         isDone: checked,
       })
       .pipe(tap(() => this._toggleIsDoneSubTask(taskId, subTaskId, checked)));
   }
 
   public deleteTask(taskId: string) {
+    const apiUrl = `${this._urlApi}/${taskId}`;
     return this._httpClient
-      .delete(`${this._urlApi}/${taskId}`)
+      .delete(apiUrl)
       .pipe(tap(() => this._deleteTask(taskId)));
   }
 

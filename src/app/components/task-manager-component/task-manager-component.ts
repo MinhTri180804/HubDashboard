@@ -9,14 +9,8 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  viewChild,
-  viewChildren,
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import {
-  TaskStateConstants,
-  TaskStateConstantsValues,
-} from '../../constants/todoStateConstants';
 import { TaskService } from '../../services/task-service';
 import { TaskStateService } from '../../services/task-state-service';
 import { TaskInfo } from '../../types/task';
