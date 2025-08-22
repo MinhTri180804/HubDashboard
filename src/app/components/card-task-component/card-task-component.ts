@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
 import {
   Component,
@@ -15,6 +16,7 @@ import { TaskInfo } from '../../types/task';
 import { TaskStateInfo } from '../../types/taskState';
 import { CardComponent } from '../card-component/card-component';
 import { TaskItemComponent } from '../task-item-component/task-item-component';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-card-task-component',
@@ -55,5 +57,10 @@ export class CardTaskComponent implements OnInit, DoCheck {
 
   onDropListDropped(event: CdkDragDrop<TaskInfo[], any, any>) {
     this.dropListDropped.emit(event);
+  }
+
+  onDeleteTaskState() {
+    console.log(1);
+    this._taskStateService.delete(this.taskState()._id).subscribe();
   }
 }

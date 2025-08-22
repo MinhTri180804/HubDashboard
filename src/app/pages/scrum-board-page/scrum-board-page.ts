@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../components/breadcrumb-component/breadcrumb-component';
 import { ButtonComponent } from '../../components/button-component/button-component';
@@ -6,11 +6,13 @@ import { DialogCreateTodoComponent } from '../../components/dialog-create-todo-c
 import { DropdownComponent } from '../../components/dropdown-component/dropdown-component';
 import { DropdownItemComponent } from '../../components/dropdown-item-component/dropdown-item-component';
 import { TodoManagerComponent } from '../../components/task-manager-component/task-manager-component';
-import { DialogCreateTodoService } from '../../services/dialog-create-todo-service';
+import { DialogCreateTaskService } from '../../services/dialog-create-task-service';
 import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
 import { TaskService } from '../../services/task-service';
 import { TaskStateService } from '../../services/task-state-service';
+import { DialogCreateTaskState } from '../../services/dialog-create-task-state';
+import { DialogCreateTaskStateComponent } from "../../components/dialog-create-task-state-component/dialog-create-task-state-component";
 
 @Component({
   selector: 'app-scrum-board-page',
@@ -22,11 +24,13 @@ import { TaskStateService } from '../../services/task-state-service';
     DropdownItemComponent,
     TodoManagerComponent,
     DialogCreateTodoComponent,
-  ],
+    DialogCreateTaskStateComponent
+],
   templateUrl: './scrum-board-page.html',
   styleUrl: './scrum-board-page.scss',
   providers: [
-    DialogCreateTodoService,
+    DialogCreateTaskService,
+    DialogCreateTaskState,
     TaskService,
     EmployeesService,
     TagsTodoService,
@@ -34,26 +38,35 @@ import { TaskStateService } from '../../services/task-state-service';
   ],
 })
 export class ScrumBoardPage implements OnInit {
-  projectsMockData = [
-    {
-      name: 'project/mobile-app-dev',
-    },
-    {
-      name: 'project/bootstrap-5',
-    },
-    {
-      name: 'project/mvc-version',
-    },
-    {
-      name: 'project/ruby-version',
-    },
-  ];
+  private dialogCreateTodoService = inject(DialogCreateTaskService);
+  private dialogCreateTaskStateService = inject(DialogCreateTaskState);
 
-  constructor(private dialogCreateTodoService: DialogCreateTodoService) {}
+  projects = signal(projectsMockData);
+
+  constructor() {}
 
   ngOnInit(): void {}
 
-  openDialogAddTodo() {
+  openDialogCreateTask() {
     this.dialogCreateTodoService.open();
   }
+
+  openDialogCreateTaskState() {
+    this.dialogCreateTaskStateService.open();
+  }
 }
+
+const projectsMockData = [
+  {
+    name: 'project/mobile-app-dev',
+  },
+  {
+    name: 'project/bootstrap-5',
+  },
+  {
+    name: 'project/mvc-version',
+  },
+  {
+    name: 'project/ruby-version',
+  },
+];

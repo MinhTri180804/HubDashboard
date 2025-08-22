@@ -1,8 +1,9 @@
 <app-card-component cdkDropList>
   <h3 card-header-title>{{ taskState().name }}</h3>
+
   @if(!taskState().isDefault) {
 
-  <div action>
+  <div action (click)="onDeleteTaskState()">
     <mat-icon fontIcon="delete"></mat-icon>
   </div>
 

@@ -15,7 +15,7 @@ import {
   CreateTodoFormData,
   FormCreateTodoComponent,
 } from '../form-create-todo-component/form-create-todo-component';
-import { DialogCreateTodoService } from './../../services/dialog-create-todo-service';
+import { DialogCreateTaskService } from '../../services/dialog-create-task-service';
 
 @Component({
   selector: 'app-dialog-create-todo-component',
@@ -26,7 +26,7 @@ import { DialogCreateTodoService } from './../../services/dialog-create-todo-ser
 export class DialogCreateTodoComponent implements OnInit {
   private _employeesService = inject(EmployeesService);
   private _tagsTodoService = inject(TagsTodoService);
-  private _dialogCreateTodoService = inject(DialogCreateTodoService);
+  private _dialogCreateTodoService = inject(DialogCreateTaskService);
   private _todosService = inject(TaskService);
 
   isOpen = computed(() => this._dialogCreateTodoService.isOpen());

@@ -1,0 +1,17 @@
+<form
+  class="form__container"
+  [formGroup]="createTaskStateForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="form__field">
+    <label class="form__field-label" for="name">Name</label>
+    <input
+      placeholder="e.g Bug, Fix,..."
+      class="form__field-input"
+      type="text"
+      name="name"
+      id="name"
+      formControlName="name"
+    />
+  </div>
+</form>

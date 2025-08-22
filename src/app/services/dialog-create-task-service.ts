@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 
 @Injectable()
-export class DialogCreateTodoService {
+export class DialogCreateTaskService {
   private _isOpen = signal<boolean>(false);
 
   readonly isOpen = computed(() => this._isOpen());

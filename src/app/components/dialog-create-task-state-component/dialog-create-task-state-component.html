@@ -1,0 +1,32 @@
+<app-dialog-component
+  (isOpenChange)="onChangeDialog($event)"
+  [isOpen]="isOpen()"
+>
+  <h3 dialog-title>Add Task State</h3>
+  <app-form-create-task-state-component
+    #formAddTodo
+    dialog-content
+    (onCreateTaskState)="formSubmit($event)"
+  ></app-form-create-task-state-component>
+  <div dialog-footer>
+    <div class="actions__container">
+      <app-button-component
+        buttonVariant="outline"
+        class="actions__cancel"
+        buttonSize="medium"
+        (clicked)="onCancel()"
+      >
+        Cancel
+      </app-button-component>
+
+      <app-button-component
+        buttonVariant="outline"
+        class="actions__create"
+        buttonSize="medium"
+        (clicked)="onCreateAction()"
+      >
+        Create
+      </app-button-component>
+    </div>
+  </div>
+</app-dialog-component>

@@ -8,7 +8,16 @@
       <app-button-component
         buttonSize="small"
         buttonVariant="outline"
-        (clicked)="openDialogAddTodo()"
+        (clicked)="openDialogCreateTaskState()"
+      >
+        <mat-icon fontIcon="add_circle"></mat-icon>
+        Add Task State
+      </app-button-component>
+
+      <app-button-component
+        buttonSize="small"
+        buttonVariant="outline"
+        (clicked)="openDialogCreateTask()"
       >
         <mat-icon fontIcon="add_circle"></mat-icon>
         Add Task
@@ -21,7 +30,7 @@
       <mat-icon icon fontIcon="folder"></mat-icon>
       <p name>project/hub</p>
       <ul options #options>
-        @for(project of projectsMockData; track $index) {
+        @for(project of projects(); track $index) {
         <app-dropdown-item-component>
           <mat-icon icon fontIcon="folder"> </mat-icon>
           <p name>{{ project.name }}</p>
@@ -51,3 +60,4 @@
   </section>
 </div>
 <app-dialog-create-todo-component></app-dialog-create-todo-component>
+<app-dialog-create-task-state-component></app-dialog-create-task-state-component>

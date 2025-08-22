@@ -1,28 +1,23 @@
-import { Component, computed, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, output } from '@angular/core';
 import {
-  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import {
-  TaskStateConstants,
-  TaskStateConstantsValues,
-} from '../../constants/todoStateConstants';
+import { TaskStateConstantsValues } from '../../constants/todoStateConstants';
+import { EmployeesService } from '../../services/employees-service';
 import { TagsTodoService } from '../../services/tags-todo-service';
 import { TaskService } from '../../services/task-service';
-import { TagInfo } from '../../types/tag';
-import { MultiSelectTagComponent } from '../multi-select-tag-component/multi-select-tag-component';
-import { EmployeeInfo } from '../../types/employee';
-import { EmployeesService } from '../../services/employees-service';
-import { InputAddSubTodoComponent } from '../input-add-sub-todo-component/input-add-sub-todo-component';
 import { TaskStateService } from '../../services/task-state-service';
+import { TagInfo } from '../../types/tag';
+import { InputAddSubTodoComponent } from '../input-add-sub-todo-component/input-add-sub-todo-component';
+import { MultiSelectTagComponent } from '../multi-select-tag-component/multi-select-tag-component';
 
 interface CreateTodoForm {
   name: FormControl<string>;
@@ -47,11 +42,6 @@ export type CreateTodoFormData = {
     order: number;
   }[];
 };
-
-type StatusTodo = {
-  name: string;
-  value: TaskStateConstantsValues;
-}[];
 
 @Component({
   selector: 'app-form-create-todo-component',
@@ -79,7 +69,7 @@ export class FormCreateTodoComponent {
 
   today = new Date();
   onCreateTodo = output<CreateTodoFormData>();
-  addTodoForm = new FormGroup<CreateTodoForm>({
+  addTaskForm = new FormGroup<CreateTodoForm>({
     name: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3)],
       nonNullable: true,
@@ -108,21 +98,21 @@ export class FormCreateTodoComponent {
   });
 
   onSubmit() {
-    if (!this.addTodoForm.valid) {
+    if (!this.addTaskForm.valid) {
       // TODO: Implement logic handle form invalid
       return;
     }
 
     this.onCreateTodo.emit({
-      name: this.addTodoForm.value.name || '',
+      name: this.addTaskForm.value.name || '',
       state:
-        this.addTodoForm.value.state || this.taskStateService.taskStateIds()[0],
-      tagIds: this.addTodoForm.value.tagIds!.map((tag) => tag._id),
-      assignedTo: this.addTodoForm.value.assignedTo as string,
-      createdBy: this.addTodoForm.value.createdBy as string,
-      deadline: new Date(Number(this.addTodoForm.value.deadline)).getTime(),
-      subTodos: this.addTodoForm.value.subTodos
-        ? this.addTodoForm.value.subTodos.map((sub, idx) => ({
+        this.addTaskForm.value.state || this.taskStateService.taskStateIds()[0],
+      tagIds: this.addTaskForm.value.tagIds!.map((tag) => tag._id),
+      assignedTo: this.addTaskForm.value.assignedTo as string,
+      createdBy: this.addTaskForm.value.createdBy as string,
+      deadline: new Date(Number(this.addTaskForm.value.deadline)).getTime(),
+      subTodos: this.addTaskForm.value.subTodos
+        ? this.addTaskForm.value.subTodos.map((sub, idx) => ({
             name: sub,
             isDone: false,
             order: idx,
@@ -130,7 +120,7 @@ export class FormCreateTodoComponent {
         : [],
     });
 
-    this.addTodoForm.reset({
+    this.addTaskForm.reset({
       name: '',
       state: 'todo',
       tagIds: [],
