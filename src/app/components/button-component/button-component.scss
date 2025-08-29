@@ -1,0 +1,163 @@
+:host {
+  // Common style
+  --border-radius: 4px;
+  --gap: 4px;
+  --transition-duration: 0.4s;
+
+  // Style variant of primary
+  --primary-background-color: var(--color-primary);
+  --primary-text-color: var(--color-white);
+  --primary-border-color: var(--color-primary);
+
+  // Style variant of second
+  --second-background-color: var(--color-white);
+  --second-text-color: var(--color-primary);
+  --second-border-color: var(--color-white);
+
+  // Style variant of danger
+  --danger-background-color: var(--color-red);
+  --danger-text-color: var(--color-white);
+  --danger-border-color: var(--color-red);
+
+  // Style variant of success
+  --success-background-color: var(--color-primary);
+  --success-text-color: var(--color-white);
+  --success-border-color: var(--color-primary);
+
+  // Style variant of outline
+  --outline-background-color: transparent;
+  --outline-text-color: var(--color-primary);
+  --outline-border-color: var(--color-primary);
+
+  --outline-background-color--hover: var(--color-primary);
+  --outline-text-color--hover: var(--color-white);
+
+  // Style variant of size small
+  --small-icon-size: 14px;
+  --small-text-size: 14px;
+  --small-padding: 6px 12px;
+
+  // Style variant of size medium
+  --medium-icon-size: 18px;
+  --medium-text-size: 16px;
+  --medium-padding: 8px 14px;
+
+  // Style variant of size large
+  --large-icon-size: 24px;
+  --large-text-size: 24px;
+  --large-padding: 10px 16px;
+}
+
+button {
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed !important;
+  }
+  // Global style
+  &.button__common {
+    width: 100%;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+    transition: background-color var(--transition-duration) ease;
+    box-sizing: border-box;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  & > mat-icon {
+    order: 1;
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  &.button {
+    // Style of variant
+    &__variant--primary {
+      background-color: var(--primary-background-color);
+      color: var(--primary-text-color);
+      border-color: var(--primary-border-color);
+    }
+
+    &__variant--secondary {
+      background-color: var(--second-background-color);
+      color: var(--second-text-color);
+      border-color: var(--second-border-color);
+    }
+
+    &__variant--danger {
+      background-color: var(--danger-background-color);
+      color: var(--danger-text-color);
+      border-color: var(--danger-border-color);
+    }
+
+    &__variant--success {
+      background-color: var(--success-background-color);
+      color: var(--success-text-color);
+      border-color: var(--success-border-color);
+    }
+
+    &__variant--primary:hover,
+    &__variant--secondary:hover,
+    &__variant--danger:hover,
+    &__variant--success:hover {
+      opacity: 0.7;
+    }
+
+    &__variant--outline {
+      background-color: var(--outline-background-color);
+      color: var(--outline-text-color);
+      border-color: var(--outline-border-color);
+
+      &:hover {
+        background-color: var(--outline-background-color--hover);
+        color: var(--outline-text-color--hover);
+      }
+    }
+
+    // Style of size
+    &__size--small {
+      padding: var(--small-padding);
+      font-size: var(--small-text-size);
+
+      & > mat-icon {
+        width: var(--small-icon-size);
+        height: var(--small-icon-size);
+        font-size: var(--small-icon-size);
+      }
+    }
+
+    &__size--medium {
+      padding: var(--medium-padding);
+      font-size: var(--medium-text-size);
+
+      & > mat-icon {
+        width: var(--medium-icon-size);
+        height: var(--medium-icon-size);
+        font-size: var(--medium-icon-size);
+      }
+    }
+
+    &__size--large {
+      padding: var(--large-padding);
+      font-size: var(--large-text-size);
+
+      & > mat-icon {
+        width: var(--large-icon-size);
+        height: var(--large-icon-size);
+        font-size: var(--large-icon-size);
+      }
+    }
+
+    // Style of state
+
+    &.icon__position--right {
+      & > mat-icon {
+        order: 2;
+      }
+    }
+  }
+}

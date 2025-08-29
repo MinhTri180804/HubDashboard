@@ -1,0 +1,31 @@
+:host {
+  // Container style variables
+  --container-padding: 8px 16px;
+  --container-gap: 8px;
+
+  // Title of group style variables
+  --title-size: 12px;
+  --title-color: rgba(255, 255, 255, 0.3);
+  --title-weight: 600;
+  --title-letter-spacing: 0.046875rem;
+}
+
+.sidenav__group {
+  &.container {
+    padding: var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--container-gap);
+  }
+
+  & > &-title {
+    font-size: var(--title-size);
+    color: var(--title-color);
+    font-weight: var(--title-weight);
+    letter-spacing: var(--title-letter-spacing);
+  }
+
+  & > &-items {
+    width: 100%;
+  }
+}

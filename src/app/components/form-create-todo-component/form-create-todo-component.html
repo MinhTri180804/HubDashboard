@@ -1,0 +1,92 @@
+<form class="form__container" [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+  <div class="form__field">
+    <label class="form__field-label" for="title">Title</label>
+    <input
+      placeholder="e.g Feature development"
+      class="form__field-input"
+      type="text"
+      name="title"
+      id="title"
+      formControlName="name"
+    />
+  </div>
+  <div class="form__field">
+    <label class="form__field-label" for="status">Status</label>
+    <!-- TODO: custom select element -->
+    <select
+      name="status"
+      id="status"
+      class="form__field-input"
+      formControlName="state"
+    >
+      @for(status of taskStateData(); track $index) {
+      <option value="{{ status._id }}">
+        {{ status.name }}
+      </option>
+      }
+    </select>
+  </div>
+
+  <div class="form__field">
+    <label class="form__field-label" for="tags">Tags</label>
+    <app-multi-select-tag-component
+      formControlName="tagIds"
+    ></app-multi-select-tag-component>
+  </div>
+
+  <div class="form__field">
+    <label class="form__field-label" for="assigned">Assigned</label>
+    <select
+      name="assigned"
+      id="assigned"
+      class="form__field-input"
+      formControlName="assignedTo"
+    >
+      @for(employee of employeesData(); track employee._id) {
+      <option [value]="employee._id">
+        {{ employee.fullName }}
+      </option>
+      }
+    </select>
+  </div>
+
+  <div class="form__field">
+    <label class="form__field-label" for="assigned">Created By</label>
+    <select
+      name="createdBy"
+      id="createdBy"
+      class="form__field-input"
+      formControlName="createdBy"
+    >
+      @for(employee of employeesData(); track employee._id) {
+      <option [value]="employee._id">
+        {{ employee.fullName }}
+      </option>
+      }
+    </select>
+  </div>
+
+  <div class="form__field">
+    <label class="form__field-label">Deadline</label>
+    <div class="date-picker">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="deadline"
+        [min]="today"
+        class="form__field-input"
+        placeholder="Choose a date"
+        formControlName="deadline"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+  </div>
+
+  <div class="form__field">
+    <label class="form__field-label">Sub Todo</label>
+    <app-input-add-sub-todo-component
+      formControlName="subTodos"
+    ></app-input-add-sub-todo-component>
+  </div>
+</form>

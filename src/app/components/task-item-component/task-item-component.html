@@ -1,0 +1,91 @@
+<div class="todo__item" [attr.todoId]="taskData()._id">
+  <div class="todo__item-icon">
+    @if(taskData().state.name === 'completed') {
+    <mat-icon fontIcon="check_circle" class="done"></mat-icon>
+    } @else if (hasBugTag()) {
+    <mat-icon fontIcon="bug_report" class="bug"></mat-icon>
+    } @else {
+    <mat-icon fontIcon="help_outline" class="normal"></mat-icon>
+    }
+  </div>
+  <div class="todo__item-content">
+    <div class="name">{{ taskData().name }}</div>
+    <div class="short-information">
+      Created {{ this.taskData().createdAt | todoCreatedPipe }} by
+      {{ taskData().createdBy.fullName }}
+    </div>
+
+    <ul class="tags__list">
+      @for(tag of taskData().tagIds; track $index) {
+      <li
+        class="tag__item"
+        [style.border-color]="tag.color"
+        [style.color]="tag.color"
+      >
+        {{ tag.name }}
+      </li>
+      } @empty {
+      <li class="tag__item">No tags</li>
+      }
+    </ul>
+
+    @if(hasSubTask()) {
+    <hr />
+
+    <div class="sub__todo">
+      <div class="sub__todo-heading">
+        <div class="title" (click)="handleToggle()">
+          <div class="value">
+            Task {{ completedSubTodo().length }}/{{
+              taskData().subTodos.length
+            }}
+          </div>
+          <div class="action">
+            <mat-icon fontIcon="add_circle"></mat-icon>
+          </div>
+        </div>
+        <div class="process">
+          <mat-progress-bar
+            appPercentColor
+            [percent]="progressSubTodo() === 0 ? 5 : progressSubTodo()"
+            [value]="progressSubTodo() === 0 ? 5 : progressSubTodo()"
+          ></mat-progress-bar>
+          <div class="value">{{ progressSubTodo() }}%</div>
+        </div>
+      </div>
+
+      <ul class="sub__todo-list" [class.open]="isOpenSubTodo()">
+        @for(subTodo of taskData().subTodos; track $index) {
+        <li class="sub__todo-item">
+          <mat-checkbox
+            (change)="handleToggleSubTask($event)"
+            [value]="subTodo._id"
+            [checked]="subTodo.isDone"
+          >
+            {{ subTodo.name }}
+          </mat-checkbox>
+        </li>
+        }
+      </ul>
+    </div>
+
+    @if(this.taskData().assignedTo) {
+    <div class="assigned__to">
+      <div class="title">Assigned to</div>
+      <div class="content">
+        <img
+          [src]="this.taskData().assignedTo.avatar"
+          width="24"
+          height="24"
+          alt=""
+          class="avatar"
+        />
+        <p class="name">{{ this.taskData().assignedTo.fullName }}</p>
+      </div>
+    </div>
+    } }
+  </div>
+  <div class="todo__item-icon delete" (click)="handleDelete()">
+    <mat-icon fontIcon="delete"></mat-icon>
+  </div>
+</div>

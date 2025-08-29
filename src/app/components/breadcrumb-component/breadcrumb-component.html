@@ -1,0 +1,12 @@
+<div class="breadcrumb">
+  <ul class="breadcrumb__list">
+    @for(breadcrumb of mockBreadcrumb; track $index; let isLast = $last) {
+    <li class="breadcrumb__list-item" [class.active]="isLast">
+      {{ breadcrumb }}
+    </li>
+
+    @if(!isLast) {
+    <li class="breadcrumb__list-item--spacing">/</li>
+    } }
+  </ul>
+</div>

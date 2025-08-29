@@ -1,0 +1,69 @@
+:host {
+  // Style variables of header
+  --title-size: 28px;
+  --title-weight: 600;
+  --title-color: var(--color-white);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 18px;
+
+  & > &__content {
+    width: 100%;
+    flex-grow: 1;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    & > h1.header__content-title {
+      font-size: var(--title-size);
+      font-weight: var(--title-weight);
+      color: var(--title-color);
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+
+  & > .analytics__charts {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+
+    [analytics__charts-item] {
+      grid-column: span 6;
+      height: fit-content;
+
+      ::ng-deep h3 {
+        width: 100%;
+        text-align: center;
+      }
+
+      ::ng-deep .card {
+        height: 100%;
+      }
+
+      [card-body] {
+        padding: 16px;
+
+        app-task-status-gauge-component {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+:host {
+  --actions-gap: 8px;
+
+  --action-button-cancel-border-color: #798e98;
+  --action-button-cancel-background-hover: #798e98;
+  --action-button-cancel-text-color: #798e98;
+  --action-button-cancel-text-color-hover: var(--color-white);
+}
+
+app-dialog-component {
+  ::ng-deep .dialog__container {
+    width: var(--dialog-width);
+  }
+
+  .actions__container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--actions-gap);
+
+    ::ng-deep app-button-component.actions__cancel {
+      button {
+        border-color: var(--action-button-cancel-border-color);
+        color: var(--action-button-cancel-text-color);
+
+        &:hover {
+          background-color: var(--action-button-cancel-background-hover);
+          color: var(--action-button-cancel-text-color-hover);
+        }
+      }
+    }
+  }
+}

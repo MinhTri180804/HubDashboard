@@ -1,0 +1,63 @@
+<div class="container">
+  <header class="header">
+    <div class="header__content">
+      <app-breadcrumb-component></app-breadcrumb-component>
+      <h1 class="header__content-title">Scrum Board</h1>
+    </div>
+    <div class="header__actions">
+      <app-button-component
+        buttonSize="small"
+        buttonVariant="outline"
+        (clicked)="openDialogCreateTaskState()"
+      >
+        <mat-icon fontIcon="add_circle"></mat-icon>
+        Add Task State
+      </app-button-component>
+
+      <app-button-component
+        buttonSize="small"
+        buttonVariant="outline"
+        (clicked)="openDialogCreateTask()"
+      >
+        <mat-icon fontIcon="add_circle"></mat-icon>
+        Add Task
+      </app-button-component>
+    </div>
+  </header>
+
+  <div class="scrum__information">
+    <app-dropdown-component>
+      <mat-icon icon fontIcon="folder"></mat-icon>
+      <p name>project/hub</p>
+      <ul options #options>
+        @for(project of projects(); track $index) {
+        <app-dropdown-item-component>
+          <mat-icon icon fontIcon="folder"> </mat-icon>
+          <p name>{{ project.name }}</p>
+        </app-dropdown-item-component>
+        }
+      </ul>
+    </app-dropdown-component>
+
+    <app-dropdown-component>
+      <mat-icon icon fontIcon="polyline"></mat-icon>
+      <p name>1,392 pull request</p>
+    </app-dropdown-component>
+
+    <app-dropdown-component>
+      <mat-icon icon fontIcon="groups"></mat-icon>
+      <p name>52 participant</p>
+    </app-dropdown-component>
+
+    <app-dropdown-component>
+      <mat-icon icon fontIcon="access_time"></mat-icon>
+      <p name>14 day(s)</p>
+    </app-dropdown-component>
+  </div>
+
+  <section class="scrum__content">
+    <app-task-manager-component></app-task-manager-component>
+  </section>
+</div>
+<app-dialog-create-todo-component></app-dialog-create-todo-component>
+<app-dialog-create-task-state-component></app-dialog-create-task-state-component>

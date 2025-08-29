@@ -1,0 +1,110 @@
+:host {
+  // Style variables of provider
+  --provider-background-color: rgba(29, 40, 53, 0.75);
+  --provider-z-index: 10;
+
+  // Style variables of container
+  --container-min-width: 400px;
+  --container-padding: 16px;
+  --container-background-color: rgba(29, 40, 53, 0.95);
+  --container-position-top: 30px;
+  --container-border-width: 1px;
+  --container-border-color: rgba(255, 255, 255, 0.25);
+  --container-border-radius: 0px;
+  --container-z-index: 11;
+
+  // Style variables of header
+  --header-padding: var(--container-padding);
+
+  --header-title-size: 17.5px;
+  --header-title-color: var(--color-white);
+  --header-title-weight: 600;
+
+  --header-icon-size: 24px;
+  --header-icon-color-default: #989ca0;
+  --header-icon-color-hover: var(--color-white);
+  --header-icon-transition-duration: 0.3s;
+
+  // Style variables of body
+  --body-padding: var(--container-padding);
+  --body-border-width: var(--container-border-width);
+  --body-border-color: var(--container-border-color);
+
+  // Style variables of footer
+  --footer-padding: var(--container-padding);
+}
+
+.provider {
+  background-color: var(--provider-background-color);
+  position: fixed;
+  inset: 0;
+  z-index: var(--provider-z-index);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease;
+  overflow: scroll;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+
+    & > .dialog__container {
+      top: 30px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  & > .dialog__container {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--container-background-color);
+    border: var(--container-border-width) solid var(--container-border-color);
+    border-radius: var(--container-border-radius);
+    min-width: var(--container-min-width);
+    z-index: var(--container-z-index);
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s, top 0.5s ease;
+
+    > .dialog__container-header {
+      padding: var(--header-padding);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      ::ng-deep [dialog-title] {
+        font-size: var(--header-title-size);
+        color: var(--header-title-color);
+        font-weight: var(--header-title-weight);
+      }
+
+      > div {
+        cursor: pointer;
+        width: var(--header-icon-size);
+        height: var(--header-icon-size);
+        > mat-icon {
+          font-size: var(--header-icon-size);
+          color: var(--header-icon-color-default);
+          transition: color var(--header-icon-transition-duration) ease;
+
+          &:hover {
+            color: var(--header-icon-color-hover);
+          }
+        }
+      }
+    }
+
+    > .dialog__container-body {
+      padding: var(--body-padding);
+      border-top: var(--body-border-width) solid var(--body-border-color);
+      border-bottom: var(--body-border-width) solid var(--body-border-color);
+    }
+
+    > .dialog__container-footer {
+      padding: var(--footer-padding);
+    }
+  }
+}

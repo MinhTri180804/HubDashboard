@@ -1,0 +1,8 @@
+<div
+  class="dropdown__item"
+  [attr.disabled]="isDisabled()"
+  (click)="handleClick()"
+>
+  <ng-content select="[icon]"></ng-content>
+  <ng-content select="[name]"></ng-content>
+</div>

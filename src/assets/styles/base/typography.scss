@@ -1,0 +1,101 @@
+/* Chakra Petch - Light */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Chakra Petch - Regular */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Chakra Petch - Medium */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-MediumItalic.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Chakra Petch - SemiBold */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-SemiBoldItalic.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Chakra Petch - Bold */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("../../fonts/Chakra_Petch/ChakraPetch-BoldItalic.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Font Family Variables */
+$font-family-base: "Chakra Petch", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif;
+
+/* Font Weights */
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;

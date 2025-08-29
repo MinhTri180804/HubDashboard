@@ -1,0 +1,14 @@
+#chart {
+  & > .pagination__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    gap: 8px;
+  }
+}
+
+[card-body] {
+  .pagination__actions {
+    padding: 16px;
+  }
+}

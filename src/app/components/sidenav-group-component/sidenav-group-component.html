@@ -1,0 +1,10 @@
+<div class="sidenav__group container">
+  <h3 class="sidenav__group-title">{{ data().groupTitle }}</h3>
+  <ul class="sidenav__group-items">
+    @for(item of data().items; track $index) {
+    <app-sidenav-item-component
+      [sidenav-item-data]="item"
+    ></app-sidenav-item-component>
+    }
+  </ul>
+</div>

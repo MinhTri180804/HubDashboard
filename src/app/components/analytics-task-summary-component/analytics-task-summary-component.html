@@ -1,0 +1,30 @@
+<div class="analytics__task-summary">
+  <app-card-component>
+    <h3 card-header-title>Số lượng task đã tạo</h3>
+
+    <div card-body>
+      <div class="value">{{ createdCount() }}</div>
+    </div>
+  </app-card-component>
+  <app-card-component>
+    <h3 card-header-title>Số lượng task đang thực hiện</h3>
+
+    <div card-body>
+      <div class="value">{{ inProgressCount() }}</div>
+    </div>
+  </app-card-component>
+  <app-card-component>
+    <h3 card-header-title>Số lượng task đã hoàn thành</h3>
+
+    <div card-body>
+      <div class="value">{{ completedCount() }}</div>
+    </div>
+  </app-card-component>
+  <app-card-component>
+    <h3 card-header-title>Số lượng task chưa hoàn thành</h3>
+
+    <div card-body>
+      <div class="value">{{ notCompletedCount() }}</div>
+    </div>
+  </app-card-component>
+</div>

@@ -1,0 +1,151 @@
+:host {
+  --container-padding: 3px 12px;
+  --container-border-color: rgba(255, 255, 255, 0.25);
+  --container-border-width: 1px;
+  --container-border-radius: 4px;
+  --container-background-color: transparent;
+  --container-focus-border-color: rgba(255, 255, 255, 0.5);
+  --container-focus-box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+
+  --option-selected-border-radius: 20px;
+  --option-selected-padding: 2px 10px;
+  --option-selected-background-color: rgba(255, 255, 255, 0.15);
+  --option-selected-text-size: 13px;
+  --option-selected-text-color: rgba(255, 255, 255, 0.75);
+  --option-selected-close-color: rgba(255, 255, 255, 0.5);
+  --option-selected-close-size: 12px;
+  --option-selected-close-color-hover: var(--color-white);
+
+  --options-container-padding: 0px 0;
+  --options-container-background-color: #1c2835;
+  --options-container-border-color: rgba(255, 255, 255, 0.25);
+  --options-container-border-width: 1px;
+
+  --option-item-padding: 6px 12px;
+  --option-item-background-color-hover: rgba(255, 255, 255, 0.15);
+  --option-item-background-color-default: transparent;
+  --option-item-background-color-active: rgba(255, 255, 255, 0.15);
+  --option-item-text-size: 13px;
+  --option-item-text-color: rgba(255, 255, 255, 0.75);
+
+  --option-item-color-tag-size: 12px;
+  --option-item-color-border-width: 1px;
+  --option-item-color-border-color: rgba(255, 255, 255, 0.25);
+  --option-item-color-border-radius: 2px;
+}
+
+.multi__select-tag {
+  width: 100%;
+  background-color: var(--container-background-color);
+  border: var(--container-border-width) solid var(--container-border-color);
+  border-radius: var(--container-border-radius);
+  padding: var(--container-padding);
+  position: relative;
+  cursor: pointer;
+  min-height: 35.5px;
+  transition: border-color 0.3s, box-shadow 0.3s, outline 0.3s ease;
+
+  & > .option__selected-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+
+    & > .option__selected {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: var(--option-selected-padding);
+      background-color: var(--option-selected-background-color);
+      border-radius: var(--option-selected-border-radius);
+      margin: 2px 0;
+
+      & > .value {
+        font-size: var(--option-selected-text-size);
+        color: var(--option-selected-text-color);
+        line-height: 1.5;
+      }
+
+      mat-icon {
+        color: var(--option-selected-close-color);
+        font-size: var(--option-selected-close-size);
+        width: var(--option-selected-close-size);
+        height: var(--option-selected-close-size);
+        font-weight: 700;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        &:hover {
+          color: var(--option-selected-close-color-hover);
+        }
+      }
+    }
+  }
+
+  & > .options {
+    position: absolute;
+    top: 90%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    padding: var(--options-container-padding);
+    background-color: var(--options-container-background-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 120px;
+    overflow-y: auto;
+    border: var(--options-container-border-width) solid
+      var(--options-container-border-color);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s, top 0.5s ease;
+
+    & > .option__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+      padding: var(--option-item-padding);
+      background-color: var(--option-item-background-color);
+      margin: 2px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--option-item-background-color-hover);
+      }
+
+      &.active {
+        background-color: var(--option-item-background-color-active);
+      }
+
+      & > .value {
+        font-size: var(--option-item-text-size);
+        color: var(--option-item-text-color);
+        line-height: 1.5;
+      }
+
+      & > .color-tag {
+        width: var(--option-item-color-tag-size);
+        height: var(--option-item-color-tag-size);
+        border: var(--option-item-color-border-width) solid
+          var(--option-item-color-border-color);
+        border-radius: var(--option-item-color-border-radius);
+      }
+    }
+  }
+
+  &.open {
+    border-color: var(--container-focus-border-color);
+    box-shadow: var(--container-focus-box-shadow);
+    outline: 0;
+    & > .options {
+      visibility: visible;
+      opacity: 1;
+      top: 120%;
+    }
+  }
+}

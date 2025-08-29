@@ -1,0 +1,95 @@
+:host {
+  --gap: 8px;
+
+  // Style variables of content
+  --content-icon-size: 24px;
+  --content-icon-color: var(--color-primary);
+  --content-name-size: 13px;
+  --content-name-letter-spacing: 1.5px;
+  --content-name-color: var(--color-white);
+  --content-name-weight: 300;
+
+  // Style variables of icon show dropdown
+  --show-icon-size: 24px;
+  --show-icon-color: var(--color-white);
+
+  // Style variables of dropdown options
+  --options-wrapper-transition-duration: 0.2s;
+  --options-wrapper-init-opacity: 0;
+  --options-wrapper-init-visibility: hidden;
+  --options-wrapper-init-top: 95%;
+
+  --options-wrapper-open-opacity: 1;
+  --options-wrapper-open-visibility: visibility;
+  --options-wrapper-open-top: 100%;
+
+  --options-background-color: #1c2835;
+  --options-border-color: rgba(255, 255, 255, 0.25);
+  --options-border-radius: 2px;
+  --options-z-index: 10;
+}
+
+.dropdown {
+  position: relative;
+  width: fit-content;
+
+  .dropdown__trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap);
+    .dropdown__content {
+      display: flex;
+      justify-content: flex-start;
+      gap: 6px;
+      align-items: center;
+
+      ::ng-deep [icon] {
+        width: var(--content-icon-size);
+        height: var(--content-icon-size);
+        color: var(--content-icon-color);
+        font-size: var(--content-icon-size);
+      }
+
+      ::ng-deep [name] {
+        font-size: var(--content-name-size);
+        color: var(--content-name-color);
+        opacity: 0.75;
+        font-weight: var(--content-name-weight);
+        letter-spacing: var(--content-name-letter-spacing);
+      }
+    }
+
+    .dropdown__icon--show {
+      width: var(--show-icon-size);
+      height: var(--show-icon-size);
+      color: var(--show-icon-color);
+      opacity: 0.75;
+
+      & > mat-icon {
+        font-size: var(--show-icon-size);
+      }
+    }
+  }
+
+  ::ng-deep [options] {
+    transition: all var(--options-wrapper-transition-duration) ease;
+    position: absolute;
+    left: 0;
+    padding: 6px 0;
+    width: max-content;
+    background-color: var(--options-background-color);
+    border: 1px solid var(--options-border-color);
+    border-radius: var(--options-border-radius);
+    z-index: var(--options-z-index);
+    visibility: hidden;
+    opacity: 0;
+    top: var(--options-wrapper-init-top);
+
+    &.open {
+      visibility: var(--options-wrapper-open-visibility);
+      opacity: var(--options-wrapper-open-opacity);
+      top: var(--options-wrapper-open-top);
+    }
+  }
+}

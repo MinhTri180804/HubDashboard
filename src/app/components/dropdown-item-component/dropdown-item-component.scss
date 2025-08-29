@@ -1,0 +1,59 @@
+:host {
+  --background-color-default: transparent;
+  --background-color-hover: rgba(255, 255, 255, 0.5);
+  --background-color-active: #249d79;
+  --transition-duration: 0.3s;
+  --gap: 6px;
+  --padding: 6px 16px;
+
+  --icon-color: var(--color-primary);
+  --icon-size: 24px;
+
+  --name-color: var(--color-white);
+  --name-size: 13px;
+  --name-weight: 300;
+}
+
+.dropdown__item {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--gap);
+  transition: all var(--transition-duration) ease;
+  background-color: var(--background-color-default);
+  cursor: pointer;
+  padding: var(--padding);
+
+  ::ng-deep [icon] {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    font-size: var(--icon-size);
+    color: var(--icon-color);
+  }
+
+  ::ng-deep [name] {
+    font-size: var(--name-size);
+    color: var(--name-color);
+    opacity: 0.75;
+    font-weight: var(--name-weight);
+    word-break: keep-all;
+  }
+
+  // Style for state
+  &:hover {
+    background-color: var(--background-color-hover);
+  }
+
+  &[disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  &:active {
+    background-color: var(--background-color-active);
+  }
+}
